@@ -1,0 +1,102 @@
+@font-face {
+    font-family: "Mialgor";
+    src: url("../../assets/fonts/Mialgor.otf");
+}
+
+body {
+    background-image: linear-gradient(0deg, #ffffff6c, #ffffff6c), url("../../assets/images/background.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+@keyframes headingAnim_1 {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+
+    to {
+        top: .4em;
+        opacity: 1;
+    }
+}
+
+@keyframes headingAnim_2 {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+
+    to {
+        top: .8em;
+        opacity: 1;
+    }
+}
+
+@keyframes headingAnim_3 {
+    from {
+        top: .4em;
+    }
+
+    to {
+        top: 0em;
+    }
+}
+
+div.heading,
+div.heading h1 {
+    font-size: 18vw;
+    font-weight: 100;
+    text-align: center;
+    margin: 0;
+    color: var(--primary-color);
+    letter-spacing: -0.04em;
+}
+
+div.heading {
+    position: relative;
+    font-family: "Mialgor";
+    display: block;
+    height: 33vw;
+    /* cinsky kod */
+}
+
+div.heading div {
+    animation: backwards 1s headingAnim_3;
+    animation-delay: .7s;
+    top: 0em;
+    position: relative;
+}
+
+div.heading h1 {
+    position: absolute;
+    clip-path: polygon(0 44%, 100% 44%, 100% 100%, 0 100%);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+div.heading h1:nth-child(2) {
+    animation: backwards 1s headingAnim_1;
+    animation-delay: .7s;
+    top: .4em;
+}
+
+div.heading h1:nth-child(3) {
+    animation: backwards 1s headingAnim_2;
+    animation-delay: .7s;
+    top: .8em;
+}
+
+.heading_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

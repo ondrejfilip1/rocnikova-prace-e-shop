@@ -1,0 +1,28 @@
+div.header_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backdrop-filter: blur(16px);
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    z-index: 9;
+    box-shadow: rgba(17, 12, 46, 0.071) 0px 48px 100px 0px;
+}
+
+div.header_container img.header_icon {
+    height: 40px;
+}
+
+.custom_input::placeholder, .custom_input {
+    font-family: "Manrope";
+    outline: none!important;
+    border: none!important;
+    box-shadow: none!important;
+    font-weight: 500;
+}
+
+.custom_input::placeholder {
+    color: rgb(127 29 29 / 0.6);
+}
