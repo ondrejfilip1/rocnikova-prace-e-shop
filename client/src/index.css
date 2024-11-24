@@ -43,6 +43,10 @@ div#root {
   background-color: rgba(219, 112, 112, 0.238)!important;
 }
 
+::selection {
+  background: hsla(0, 60%, 65%, 0.25);
+}
+
 @layer base {
   :root {
     --radius: 0.5rem;

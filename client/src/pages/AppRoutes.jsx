@@ -5,6 +5,7 @@ import CarCreateForm from "./CarCreateForm";
 import CarList from "./CarList";
 import CarView from "./CarView";
 import CarUpdateForm from "./CarUpdateForm";
+import Search from "./Search";
 
 export default function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export default function AppRoutes() {
           <Route path="/view-cars" element={<CarList />} />
           <Route path="/car/:id" element={<CarView />} />
           <Route path="/update-car/:id" element={<CarUpdateForm />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </BrowserRouter>
     </>

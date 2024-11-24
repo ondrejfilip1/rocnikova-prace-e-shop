@@ -8,18 +8,20 @@ div.header_container {
     display: flex;
     justify-content: space-between;
     z-index: 9;
-    box-shadow: rgba(17, 12, 46, 0.071) 0px 48px 100px 0px;
+    box-shadow: rgba(17, 12, 46, 0.071) 0px 48px 80px 0px;
 }
 
 div.header_container img.header_icon {
     height: 40px;
+    aspect-ratio: 1192 / 757;
 }
 
-.custom_input::placeholder, .custom_input {
+.custom_input::placeholder,
+.custom_input {
     font-family: "Manrope";
-    outline: none!important;
-    border: none!important;
-    box-shadow: none!important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
     font-weight: 500;
 }
 
@@ -29,4 +31,33 @@ div.header_container img.header_icon {
 
 .button_fix:hover {
     color: rgb(127 29 29);
+}
+
+@media only screen and (max-width: 650px) {
+    .dissapear_650px {
+        display: none;
+    }
+
+    .icon_responsivity {
+        height: 1rem;
+        width: 1rem;
+        padding: 1rem;
+    }
+
+    .custom_input {
+        width: 7.5em;
+    }
+
+    div.header_container {
+        padding: .5em 1em;
+    }
+
+    .search_icon {
+        left: 1.5rem;
+        top: 1.75rem;
+    }
+}
+
+.custom_shadow {
+    box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
 }

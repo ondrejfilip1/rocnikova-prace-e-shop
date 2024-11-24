@@ -30,7 +30,12 @@ export default function Header() {
     <>
       <div className={s.header_container}>
         <div className="flex items-center text-sm">
-          <SearchIcon className="text-red-900 relative left-7 top-3 transform -translate-y-1/2" />
+          <Link
+            to="/search"
+            className={classnames("text-red-900 absolute left-10 top-9 transform -translate-y-1/2", s.search_icon)}
+          >
+            <SearchIcon />
+          </Link>
           <Input
             placeholder="Vyhledat"
             className={classnames(
@@ -50,13 +55,23 @@ export default function Header() {
         <div className="flex items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button className="bg-transparent background-button-hover text-red-900">
+              <Button
+                className={classnames(
+                  "bg-transparent background-button-hover text-red-900",
+                  s.icon_responsivity
+                )}
+              >
                 <ShoppingCartIcon />
-                Nákupní košík
+                <span className={s.dissapear_650px}>Nákupní košík</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-transparent text-red-900 border-none backdrop-blur-lg flex align-center justify-center flex-col place-items-center">
-              <ShoppingBasket size={30} strokeWidth={1} className="my-3"/>
+            <DropdownMenuContent
+              className={classnames(
+                "w-56 bg-transparent text-red-900 border-none backdrop-blur-lg flex align-center justify-center flex-col place-items-center",
+                s.custom_shadow
+              )}
+            >
+              <ShoppingBasket size={30} strokeWidth={1} className="my-3" />
               <span className="font-medium text-sm text-center mb-1">
                 V košíku nic nemáte
               </span>
@@ -64,12 +79,22 @@ export default function Header() {
           </DropdownMenu>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button className="bg-transparent background-button-hover font-medium text-red-900 font-manrope">
+              <Button
+                className={classnames(
+                  "bg-transparent background-button-hover text-red-900",
+                  s.icon_responsivity
+                )}
+              >
                 <User />
-                Účet
+                <span className={s.dissapear_650px}>Účet</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-transparent text-red-900 border-none backdrop-blur-lg">
+            <DropdownMenuContent
+              className={classnames(
+                "w-56 bg-transparent text-red-900 border-none backdrop-blur-lg",
+                s.custom_shadow
+              )}
+            >
               <DropdownMenuLabel className="font-medium">
                 Můj účet
               </DropdownMenuLabel>
