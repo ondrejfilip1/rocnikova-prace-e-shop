@@ -26,3 +26,7 @@ div.header_container img.header_icon {
 .custom_input::placeholder {
     color: rgb(127 29 29 / 0.6);
 }
+
+.button_fix:hover {
+    color: rgb(127 29 29);
+}

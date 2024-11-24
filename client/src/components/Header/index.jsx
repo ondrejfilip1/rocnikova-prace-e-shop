@@ -11,6 +11,8 @@ import {
   ShoppingCartIcon,
   Heart,
   Star,
+  SearchIcon,
+  ShoppingBasket,
 } from "lucide-react";
 
 import {
@@ -21,7 +23,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SearchIcon } from "lucide-react";
 import classnames from "classnames";
 
 export default function Header() {
@@ -47,43 +48,85 @@ export default function Header() {
           />
         </Link>
         <div className="flex items-center">
-          <Button className="bg-transparent background-button-hover text-red-900">
-            <ShoppingCartIcon />
-            Nákupní košík
-          </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button className="bg-transparent background-button-hover text-red-900 font-manrope">
+              <Button className="bg-transparent background-button-hover text-red-900">
+                <ShoppingCartIcon />
+                Nákupní košík
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-transparent text-red-900 border-none backdrop-blur-lg flex align-center justify-center flex-col place-items-center">
+              <ShoppingBasket size={30} strokeWidth={1} className="my-3"/>
+              <span className="font-medium text-sm text-center mb-1">
+                V košíku nic nemáte
+              </span>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="bg-transparent background-button-hover font-medium text-red-900 font-manrope">
                 <User />
                 Účet
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 bg-transparent text-red-900 border-none backdrop-blur-lg">
-              <DropdownMenuLabel>Můj účet</DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-red-900/25" />
-                <DropdownMenuItem className="background-button-hover">
-                  <User />
-                  <span>Profil</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="background-button-hover">
-                  <CreditCard />
-                  <span>Platby</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="background-button-hover">
-                  <Settings />
-                  <span>Nastavení</span>
-                </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-red-900/25" />
-              <DropdownMenuItem className="background-button-hover">
+              <DropdownMenuLabel className="font-medium">
+                Můj účet
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
+              <DropdownMenuItem
+                className={classnames(
+                  "background-button-hover font-medium",
+                  s.button_fix
+                )}
+              >
+                <User />
+                <span>Profil</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className={classnames(
+                  "background-button-hover font-medium",
+                  s.button_fix
+                )}
+              >
+                <CreditCard />
+                <span>Platby</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className={classnames(
+                  "background-button-hover font-medium",
+                  s.button_fix
+                )}
+              >
+                <Settings />
+                <span>Nastavení</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
+              <DropdownMenuItem
+                className={classnames(
+                  "background-button-hover font-medium",
+                  s.button_fix
+                )}
+              >
                 <Heart />
                 <span>Oblíbené</span>
               </DropdownMenuItem>
-              <DropdownMenuItem className="background-button-hover">
+              <DropdownMenuItem
+                className={classnames(
+                  "background-button-hover font-medium",
+                  s.button_fix
+                )}
+              >
                 <Star />
                 <span>Trendy</span>
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-red-900/25" />
-              <DropdownMenuItem className="background-button-hover">
+              <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
+              <DropdownMenuItem
+                className={classnames(
+                  "background-button-hover font-medium",
+                  s.button_fix
+                )}
+              >
                 <LogOut />
                 <span>Odhlásit se</span>
               </DropdownMenuItem>
