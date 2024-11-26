@@ -6,7 +6,7 @@ div.header_container {
     backdrop-filter: blur(16px);
     padding: 1em 2em;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     z-index: 9;
     box-shadow: rgba(17, 12, 46, 0.071) 0px 48px 80px 0px;
 }
@@ -29,8 +29,16 @@ div.header_container img.header_icon {
     color: rgb(127 29 29 / 0.6);
 }
 
+.button_fix {
+    background-color: transparent!important;
+}
+
 .button_fix:hover {
     color: rgb(127 29 29);
+}
+
+.custom_input {
+    width: 14.25rem;
 }
 
 @media only screen and (max-width: 650px) {
@@ -45,7 +53,7 @@ div.header_container img.header_icon {
     }
 
     .custom_input {
-        width: 7.5em;
+        width: 8em;
     }
 
     div.header_container {
@@ -53,11 +61,35 @@ div.header_container img.header_icon {
     }
 
     .search_icon {
-        left: 1.5rem;
-        top: 1.75rem;
+        left: 0.75rem;
+        top: 1.25rem;
     }
 }
 
 .custom_shadow {
     box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
+}
+
+div[data-orientation="horizontal"] {
+    background-color: var(--primary-color-light);
+    border-color: transparent;
+    color: rgb(127 29 29);
+    box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
+}
+
+div[data-orientation="horizontal"] .link_custom a {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 100%;
+    display: flex;
+}
+
+.custom_radio_group button, .custom_radio_group button svg {
+    border-color: rgb(127 29 29);
+    color: rgb(127 29 29);
+}
+
+.brand_icons {
+    height: 30px;
+    width: 30px;
 }

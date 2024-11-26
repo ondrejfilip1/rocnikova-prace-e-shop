@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 mongoose
 .connect(`mongodb+srv://admin:adminadmin@cluster0.nrqdm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
 .then(() => console.log("Database connected"))
-.catch(() => console.log("chzba"))
+.catch(() => console.log("chyba"))
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');

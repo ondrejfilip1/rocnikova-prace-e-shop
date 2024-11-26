@@ -21,6 +21,7 @@ div#root {
 :root {
   --primary-color: hsl(0, 60%, 65%);
   --primary-color-dark: hsl(0, 60%, 60%);
+  --primary-color-light: hsl(0, 47%, 93%);
 }
 
 .font-manrope {
@@ -39,7 +40,15 @@ div#root {
   background-color: var(--primary-color-dark)!important;
 }
 
+.background-primary-light {
+  background-color: var(--primary-color-light)!important;
+}
+
 .background-button-hover:hover {
+  background-color: rgba(219, 112, 112, 0.238)!important;
+}
+
+.background-button-focus:focus {
   background-color: rgba(219, 112, 112, 0.238)!important;
 }
 
