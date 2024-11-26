@@ -344,9 +344,9 @@ export default function Header() {
                       <Link>Svetry</Link>
                       <Link>Prádlo</Link>
                       <Link>Obleky</Link>
+                      <Link>Smokingy</Link>
                       <Link>Košile</Link>
                       <Link>Kabáty</Link>
-                      <Link>Smokingy</Link>
                     </li>
                   </ul>
                 </NavigationMenuContent>
