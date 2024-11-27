@@ -9,9 +9,7 @@ Vytvořen v Reactu + Vite
 - MongoDB
 - Express
 
-<div align="center">
-  [![Technologie](https://skillicons.dev/icons?i=js,html,css,react,express,nodejs)](https://skillicons.dev)
-  
-[![My Skills](https://skillicons.dev/icons?i=js,html,css,wasm)](https://skillicons.dev)
+<div align="center"> 
+[![My Skills](https://skillicons.dev/icons?i=js,html,css,react)](https://skillicons.dev)
 
 </div>
