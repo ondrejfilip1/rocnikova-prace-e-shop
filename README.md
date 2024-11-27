@@ -11,6 +11,6 @@ Vytvořen v Reactu + Vite
 
 <div align="center"> 
   
-  [![Technologie](https://skillicons.dev/icons?i=react,js,html,css,express,nodejs,mongodb)](https://skillicons.dev)
+  [![Technologie](https://skillicons.dev/icons?i=react,js,html,css,express,nodejs,mongodb,tailwind&perline=4)](https://skillicons.dev)
   
 </div>
