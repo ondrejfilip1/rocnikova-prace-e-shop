@@ -10,6 +10,9 @@ Vytvořen v Reactu + Vite
 - Express
 
 <div align="center"> 
-[![My Skills](https://skillicons.dev/icons?i=js,html,css,react)](https://skillicons.dev)
+
+[![My Skills](https://skillicons.dev/icons?i=js,gcp,azure,react,vue,flutter&perline=3)](https://skillicons.dev)
+
+
 
 </div>
