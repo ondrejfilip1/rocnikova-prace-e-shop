@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getAllProducts } from "../../models/Product";
 import ProductLink from "./ProductLink";
 import s from "./ProductList.module.css";
 import Header from "@/components/Header";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Home() {
   const [products, setProducts] = useState();
@@ -33,7 +33,7 @@ export default function Home() {
   if (!isLoaded) {
     return (
       <>
-        <p>Loading...</p>
+        <LoadingScreen />
       </>
     );
   }

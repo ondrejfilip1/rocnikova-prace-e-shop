@@ -3,6 +3,7 @@ import { deleteProduct, getProductById } from "../../models/Product";
 import { useState, useEffect } from "react";
 import s from "./ProductView.module.css";
 import Header from "@/components/Header";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function CarView() {
   const { id } = useParams();
@@ -55,7 +56,7 @@ export default function CarView() {
   if (!isLoaded) {
     return (
       <>
-        <p>Product is loading...</p>
+        <LoadingScreen />
       </>
     )
   }
