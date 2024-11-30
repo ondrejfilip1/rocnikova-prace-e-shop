@@ -1,20 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { createCar } from "../../models/Car";
+import { createProduct } from "../../models/Product";
 
-import React from 'react'
-
-export default function CarCreateForm() {
+export default function ProductCreateForm() {
   const [formData, setFormData] = useState();
   const [info, setInfo] = useState();
   const navigate = useNavigate();
 
   const postForm = async () => {
-    const car = await createCar(formData);
-    if (car.status === 201) {
+    const product = await createProduct(formData);
+    if (product.status === 201) {
       return navigate();
     }
-    setInfo(car.message)
+    setInfo(product.message)
   }
 
   const handleChange = (e) => {
@@ -28,14 +26,14 @@ export default function CarCreateForm() {
 
   return (
     <>
-      <h1>Create car</h1>
+      <h1>Create product</h1>
       <form>
         <input type="text" name="name" required placeholder="Enter name" onChange={handleChange}/>
         <input type="text" name="brand" required placeholder="Enter brand" onChange={handleChange}/>
         <input type="text" name="color" required placeholder="Enter color" onChange={handleChange}/>
         <input type="number" name="price" required placeholder="Enter price" onChange={handleChange}/>
         <button onClick={handlePost}>
-          Add Car
+          Add product
         </button>
       </form>
       <p>{info}</p>

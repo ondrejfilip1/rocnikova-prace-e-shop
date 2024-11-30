@@ -52,6 +52,20 @@ div#root {
   background-color: rgba(219, 112, 112, 0.238)!important;
 }
 
+div.header-placeholder {
+  height: 120px;
+  width: 100%;
+}
+
+.background {
+  background-image: linear-gradient(0deg, #ffffff6c, #ffffff6c), url("../../assets/images/background.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
 ::selection {
   background: hsla(0, 60%, 65%, 0.25);
 }

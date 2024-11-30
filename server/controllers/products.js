@@ -1,92 +1,96 @@
-const Car = require("../models/cars");
+const Product = require("../models/products");
 
-exports.getAllCars = async (req, res, next) => {
+exports.getAllProducts = async (req, res, next) => {
   try {
-    const data = await Car.find();
+    const data = await Product.find();
     if (data && data.length !== 0) {
       return res.status(200).send({
-        message: "cars found",
+        message: "Products found",
         payload: data,
       });
     }
     res.status(404).send({
-      message: "cars not found",
+      message: "Products not found",
     });
   } catch (err) {
     res.status(500).send(err);
   }
 };
-exports.getCarById = async (req, res, next) => {
+exports.getProductById = async (req, res, next) => {
   try {
-    const data = await Car.findById(req.params.id);
+    const data = await Product.findById(req.params.id);
     if (data) {
       return res.status(200).send({
-        message: "car found",
+        message: "Product found",
         payload: data,
       });
     }
     res.status(404).send({
-      message: "car not found",
+      message: "Product not found",
     });
   } catch (err) {
     res.status(500).send(err);
   }
 };
-exports.createCar = async (req, res, next) => {  
+exports.createProduct = async (req, res, next) => {  
     try {
-        const data = new Car({
+        const data = new Product({
             name: req.body.name,
             brand: req.body.brand,
             color: req.body.color,
             price: req.body.price,
+            category: req.body.category,
+            imagePath: req.body.imagePath
         })
         const result = await data.save();
         if (result) {
             return res.status(201).send({
-                message: "car created",
+                message: "Product created",
                 payload: result
             })
         }
         res.status(500).send({
-            message: "not found",
+            message: "Product not found",
         })
   } catch (err) {
     res.status(500).send(err);
   }
 };
-exports.updateCar = async (req, res, next) => {
+exports.updateProduct = async (req, res, next) => {
   try {
     const data = {
       name: req.body.name,
       brand: req.body.brand,
       color: req.body.color,
       price: req.body.price,
+      category: req.body.category,
+      imagePath: req.body.imagePath
     };
-    const result = await Car.findByIdAndUpdate(req.params.id, data);
+    const result = await Product.findByIdAndUpdate(req.params.id, data);
     if (result) {
       return res.status(200).send({
-        message: "Car updated",
+        message: "Product updated",
         payload: result,
       });
     }
     res.status(500).send({
-        message: "Car not updated",
+        message: "Product not updated",
     })
   } catch (err) {
     res.status(500).send(err);
   }
 };
-exports.deleteCar = async (req, res, next) => {
+exports.deleteProduct = async (req, res, next) => {
     try {
-        const result = await Car.findByIdAndDelete(req.params.id);
+        const result = await Product.findByIdAndDelete(req.params.id);
         if (result) {
             return res.status(200).send({
-                message: "car deleted",
+                message: "Product deleted",
                 payload: result
             })
         }
         res.status(500).send({
-            message: "cat not deleted",
+            message: "Product not deleted",
         })
   } catch (err) {
     res.status(500).send(err);

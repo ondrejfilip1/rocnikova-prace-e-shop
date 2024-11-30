@@ -7,15 +7,16 @@ import React from "react";
 export default function Home() {
   return (
     <>
-    <Header />
-      <div className={s.heading_container}>
-        <div className={s.heading}>
-          <div>PIGRESS</div>
-          <h1>PIGRESS</h1>
-          <h1>PIGRESS</h1>
+      <div className={s.background}>
+        <Header />
+        <div className={s.heading_container}>
+          <div className={s.heading}>
+            <div>PIGRESS</div>
+            <h1>PIGRESS</h1>
+            <h1>PIGRESS</h1>
+          </div>
         </div>
-      </div>
-      {/*
+        {/*
         <Link to={"/add-car"}>
             <p>Add car</p>
         </Link>
@@ -24,6 +25,7 @@ export default function Home() {
             <p>View car</p>
         </Link>
         */}
+      </div>
     </>
   );
 }

@@ -395,7 +395,7 @@ export default function Header() {
           </NavigationMenu>
           <div className="flex items-center text-sm relative">
             <Link
-              to="/search"
+              to="/view-products"
               className={classnames(
                 "text-red-900 absolute left-3 top-5 transform -translate-y-1/2",
                 s.search_icon
