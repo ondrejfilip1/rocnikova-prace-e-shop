@@ -51,7 +51,7 @@ export default function ProductLink(props) {
           <CardFooter className="flex justify-center text-center">
             <Button
               className={classNames(
-                "text-red-900 bg-transparent background-button-hover",
+                "text-red-900 bg-transparent background-button-hover font-semibold",
                 s.cart_button_hover
               )}
             >
