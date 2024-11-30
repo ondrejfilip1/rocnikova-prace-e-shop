@@ -30,7 +30,7 @@ div.header_container img.header_icon {
 }
 
 .button_fix {
-    background-color: transparent!important;
+    background-color: transparent !important;
 }
 
 .button_fix:hover {
@@ -84,7 +84,8 @@ div[data-orientation="horizontal"] .link_custom a {
     display: flex;
 }
 
-.custom_radio_group button, .custom_radio_group button svg {
+.custom_radio_group button,
+.custom_radio_group button svg {
     border-color: rgb(127 29 29);
     color: rgb(127 29 29);
 }

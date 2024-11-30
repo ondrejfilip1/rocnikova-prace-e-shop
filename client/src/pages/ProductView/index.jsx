@@ -1,6 +1,8 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { deleteProduct, getProductById } from "../../models/Product";
 import { useState, useEffect } from "react";
+import s from "./ProductView.module.css";
+import Header from "@/components/Header";
 
 export default function CarView() {
   const { id } = useParams();
@@ -60,6 +62,9 @@ export default function CarView() {
 
   return (
     <>
+            <div className={s.background}>
+          <Header />
+          <div className="header-placeholder" />
         <h1>Product view</h1>
         <p>{id}</p>
         <p>Název produktu {product.name}</p>
@@ -78,6 +83,7 @@ export default function CarView() {
         <Link to={"/"}>
           <p>Go home</p>
         </Link>
+        </div>
     </>
   )
 }

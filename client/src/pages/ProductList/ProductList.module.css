@@ -8,6 +8,36 @@
 }
 
 .card_background {
-    background-color: var(--primary-color-light);
+    background-color: transparent;
+    box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
+    backdrop-filter: blur(16px);
     border-color: transparent;
+}
+
+.radio_svg_fix svg {
+    width: 100%;
+    height: 100%;
+}
+
+.color_white_svg svg {
+    fill: white;
+    color: white;
+}
+
+.color_black_svg svg {
+    fill: black;
+    color: black;
+}
+
+.color_gray_svg svg {
+    fill: gray;
+    color: gray;
+}
+
+.cart_button_hover {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, scale;
+}
+
+.cart_button_hover:hover {
+    scale: 1.05;
 }

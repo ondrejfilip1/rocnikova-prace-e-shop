@@ -37,24 +37,30 @@ div#root {
 }
 
 .background-primary-hover:hover {
-  background-color: var(--primary-color-dark)!important;
+  background-color: var(--primary-color-dark) !important;
 }
 
 .background-primary-light {
-  background-color: var(--primary-color-light)!important;
+  background-color: var(--primary-color-light) !important;
 }
 
 .background-button-hover:hover {
-  background-color: rgba(219, 112, 112, 0.238)!important;
+  background-color: rgba(219, 112, 112, 0.238) !important;
 }
 
 .background-button-focus:focus {
-  background-color: rgba(219, 112, 112, 0.238)!important;
+  background-color: rgba(219, 112, 112, 0.238) !important;
 }
 
 div.header-placeholder {
   height: 120px;
   width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  div.header-placeholder {
+    height: 136px;
+  }
 }
 
 .background {
