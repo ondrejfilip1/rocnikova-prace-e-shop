@@ -192,7 +192,7 @@ export default function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className={classnames(
-                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-lg flex align-center justify-center flex-col place-items-center",
+                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color flex align-center justify-center flex-col place-items-center",
                   s.custom_shadow
                 )}
               >
@@ -216,7 +216,7 @@ export default function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className={classnames(
-                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-lg",
+                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
                   s.custom_shadow
                 )}
               >
