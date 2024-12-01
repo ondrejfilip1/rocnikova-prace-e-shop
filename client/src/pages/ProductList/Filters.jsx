@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormProvider, useForm, Controller } from "react-hook-form";
 import { Separator } from "@/components/ui/separator";
+import { Filter } from "lucide-react";
 
 const checkboxBrands = [
   {
@@ -101,7 +102,7 @@ export default function Filters() {
               )}
             />
           ))}
-          <Button type="submit" className="bg-red-900 hover:bg-red-950">Filtrovat</Button>
+          <Button type="submit" className="bg-red-900 hover:bg-red-950"><Filter />Filtrovat</Button>
         </SidebarMenuItem>
         <Separator />
       </form>

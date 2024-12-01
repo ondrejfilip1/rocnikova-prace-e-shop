@@ -159,9 +159,9 @@ export default function Header() {
             s.custom_radio_group
           )}
         >
-          <RadioGroup defaultValue="comfortable" className="flex">
+          <RadioGroup defaultValue="muzi" className="flex">
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="muzi" id="r1" />
+              <RadioGroupItem value="muzi" id="r1" defaultChecked />
               <Label htmlFor="r1">Muži</Label>
             </div>
             <div className="flex items-center space-x-2">
