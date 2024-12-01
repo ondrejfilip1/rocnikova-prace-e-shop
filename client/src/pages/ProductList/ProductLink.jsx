@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { toast } from "sonner";
+import { X } from "lucide-react";
 import s from "./ProductList.module.css";
 import classNames from "classnames";
-import { ShoppingCart } from "lucide-react";
+import { OmegaIcon, ShoppingCart } from "lucide-react";
 
 export default function ProductLink(props) {
   return (
@@ -56,6 +57,14 @@ export default function ProductLink(props) {
                 "text-red-900 bg-transparent background-button-hover font-semibold",
                 s.cart_button_hover
               )}
+              onClick={() =>
+                toast("Položka byla přidána do košíku", {
+                  description: props.name,
+                  action: {
+                    label: <X />,
+                  },
+                })
+              }
             >
               <ShoppingCart />
               Přidat do košíku

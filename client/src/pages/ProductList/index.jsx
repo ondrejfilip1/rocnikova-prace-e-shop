@@ -7,6 +7,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Filters from "./Filters";
 import { X } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
 
 import {
   Sidebar,
@@ -69,7 +70,7 @@ export default function ProductList() {
                     Filtry
                   </SidebarGroupLabel>
                   <X
-                    className="background-button-hover transition-colors rounded-md"
+                    className="background-button-hover transition-colors rounded-md !p-1 !h-7 !w-7"
                     onClick={() => setSidebarOpened(false)}
                   />
                 </div>
@@ -84,7 +85,7 @@ export default function ProductList() {
           <SidebarTrigger content="Zobrazit filtry" />
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-6">
-            {products.map((product, index) => (
+              {products.map((product, index) => (
                 <div
                   key={index}
                   className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 flex-shrink-0"
@@ -95,6 +96,24 @@ export default function ProductList() {
             </div>
           </div>
         </SidebarProvider>
+        <Toaster
+          position="bottom-right"
+          className="font-manrope"
+          toastOptions={{
+            unstyled: false,
+            classNames: {
+              toast: "background-primary-light border-red-900/20",
+              title: "text-red-900",
+              description: "text-red-900",
+              actionButton:
+                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7",
+              cancelButton:
+                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7",
+              closeButton:
+                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7",
+            },
+          }}
+        />
       </div>
     </>
   );

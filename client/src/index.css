@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -64,7 +64,8 @@ div.header-placeholder {
 }
 
 .background {
-  background-image: linear-gradient(0deg, #ffffff6c, #ffffff6c), url("../../assets/images/background.png");
+  background-image: linear-gradient(0deg, #ffffff6c, #ffffff6c),
+    url("../../assets/images/background.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -101,5 +102,9 @@ div.header-placeholder {
 
   .z-1 {
     z-index: 1;
+  }
+
+  .custom_shadow {
+    box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
   }
 }
