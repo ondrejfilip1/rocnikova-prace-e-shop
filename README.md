@@ -3,8 +3,9 @@
 ### Klient
 Vytvořen v Reactu + Vite
 - shadcn/ui (komponenty)
-- Tailwind CSS (stylování)
 - Lucide react (ikony)
+- Tailwind CSS (stylování)
+- Vlastní CSS
 ### Server
 - MongoDB
 - Express
