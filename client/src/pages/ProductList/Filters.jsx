@@ -43,7 +43,7 @@ const checkboxBrands = [
 ];
 
 export default function Filters() {
-  const [sliderValue, setSliderValue] = useState([1000, 10000]);
+  const [sliderValue, setSliderValue] = useState([1000, 5000]);
 
   const methods = useForm({
     defaultValues: {
@@ -65,9 +65,9 @@ export default function Filters() {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <SidebarMenuItem className="flex flex-col gap-2 mx-2">
-          <span>Cena</span>
+          <span className="font-medium">Cena</span>
           <Slider
-            defaultValue={[1000, 10000]}
+            defaultValue={[1000, 5000]}
             max={10000}
             step={1}
             onValueChange={handleSliderChange}
@@ -79,7 +79,7 @@ export default function Filters() {
         </SidebarMenuItem>
         <Separator className="!bg-red-900/20 my-2" />
         <SidebarMenuItem className="flex flex-col gap-2 mx-2">
-          <span>Značky</span>
+          <span className="font-medium">Značky</span>
           {checkboxBrands.map((item) => (
             <Controller
               key={item.id}
@@ -104,7 +104,6 @@ export default function Filters() {
           ))}
           <Button type="submit" className="bg-red-900 hover:bg-red-950"><Filter />Filtrovat</Button>
         </SidebarMenuItem>
-        <Separator />
       </form>
     </FormProvider>
   );

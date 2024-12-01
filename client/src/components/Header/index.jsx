@@ -374,6 +374,9 @@ export default function Header() {
                         {component.description}
                       </ListItem>
                     ))}
+                    <Link to="/view-products" className="text-sm font-medium ml-3">
+                      Zobrazit vše
+                    </Link>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>

@@ -16,6 +16,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
 } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 
 export default function ProductList() {
   const [products, setProducts] = useState();
