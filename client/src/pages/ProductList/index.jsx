@@ -45,9 +45,14 @@ export default function Home() {
           <Header />
           <div className="header-placeholder" />
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="flex flex-wrap justify-center gap-6">
               {products.map((product, index) => (
-                <ProductLink key={index} {...product} />
+                <div
+                  key={index}
+                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex-shrink-0"
+                >
+                  <ProductLink {...product} />
+                </div>
               ))}
             </div>
           </div>

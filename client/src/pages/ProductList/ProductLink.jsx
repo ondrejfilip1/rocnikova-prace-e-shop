@@ -12,7 +12,7 @@ export default function ProductLink(props) {
     <>
       <Card
         className={classNames(
-          "w-full border-transparent shadow-none flex flex-col justify-between",
+          "w-full h-full border-transparent shadow-none flex flex-col justify-between",
           s.card_background
         )}
       >
