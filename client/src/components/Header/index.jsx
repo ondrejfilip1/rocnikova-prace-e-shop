@@ -173,7 +173,7 @@ export default function Header() {
             <img
               src={logo}
               alt="icon"
-              className={classnames("select-none", s.header_icon)}
+              className={classnames("select-none absolute top-3 left-1/2 transform -translate-x-1/2", s.header_icon)}
               draggable="false"
             />
           </Link>

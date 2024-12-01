@@ -58,18 +58,20 @@ export default function ProductList() {
         <Header />
         <div className="header-placeholder" />
         <SidebarProvider
-        open={isSidebarOpened}
+          open={isSidebarOpened}
           onOpenChange={() => setSidebarOpened(!isSidebarOpened)}
         >
           <Sidebar className={s.card_background}>
             <SidebarContent className="text-red-900">
               <SidebarGroup>
                 <div className="flex items-center justify-between">
-                <SidebarGroupLabel className="text-red-900">
-                  Filtry
-                </SidebarGroupLabel>
-                <X className="background-button-hover transition-colors rounded-md"
-                onClick={() => setSidebarOpened(false)} />
+                  <SidebarGroupLabel className="text-red-900">
+                    Filtry
+                  </SidebarGroupLabel>
+                  <X
+                    className="background-button-hover transition-colors rounded-md"
+                    onClick={() => setSidebarOpened(false)}
+                  />
                 </div>
                 <SidebarGroupContent>
                   <SidebarMenu>
@@ -82,10 +84,10 @@ export default function ProductList() {
           <SidebarTrigger content="Zobrazit filtry" />
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-6">
-              {products.map((product, index) => (
+            {products.map((product, index) => (
                 <div
                   key={index}
-                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex-shrink-0"
+                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 flex-shrink-0"
                 >
                   <ProductLink {...product} />
                 </div>

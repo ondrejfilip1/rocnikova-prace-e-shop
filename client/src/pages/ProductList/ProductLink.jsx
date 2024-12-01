@@ -41,6 +41,8 @@ export default function ProductLink(props) {
                       color === "white" && s.color_white_svg,
                       color === "black" && s.color_black_svg,
                       color === "gray" && s.color_gray_svg,
+                      color === "brown" && s.color_brown_svg,
+                      color === "beige" && s.color_beige_svg,
                       s.radio_svg_fix
                     )}
                   />

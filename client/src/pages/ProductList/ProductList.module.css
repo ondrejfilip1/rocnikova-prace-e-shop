@@ -34,6 +34,16 @@
     color: gray;
 }
 
+.color_brown_svg svg {
+    fill: #513f3f;
+    color: #513f3f;
+}
+
+.color_beige_svg svg {
+    fill: #cab58c;
+    color: #cab58c;
+}
+
 .cart_button_hover {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, scale;
 }

@@ -64,6 +64,10 @@ div.header_container img.header_icon {
         left: 0.75rem;
         top: 1.25rem;
     }
+
+    div.header_container img.header_icon {
+        height: 32px;
+    }
 }
 
 .custom_shadow {
