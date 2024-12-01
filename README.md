@@ -9,6 +9,7 @@ Vytvořen v Reactu + Vite
 ### Server
 - MongoDB
 - Express
+- Mongoose
 
 <div align="center"> 
   
