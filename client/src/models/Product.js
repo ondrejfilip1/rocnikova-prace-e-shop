@@ -1,5 +1,6 @@
-export const getAllProducts = async () => {
-  const req = await fetch("http://localhost:3000/products", {
+export const getAllProducts = async (searchQuery) => {
+  // encodeURIComponent prevede searchQuery na string s + misto mezery a tak
+  const req = await fetch(`http://localhost:3000/products?search=${encodeURIComponent(searchQuery)}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -67,6 +68,21 @@ export const deleteProduct = async (id) => {
       "Content-Type": "application/json",
     },
     method: "DELETE",
+  });
+  const data = await req.json();
+  return {
+    status: req.status,
+    payload: data.payload,
+    message: data.message,
+  };
+};
+export const getProductByBrand = async (brand) => {
+  const req = await fetch(`http://localhost:3000/products/search?brand=${brand}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "GET",
   });
   const data = await req.json();
   return {

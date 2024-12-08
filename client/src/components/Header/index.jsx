@@ -62,6 +62,8 @@ import Skechers from "../../assets/icons/skechers.svg";
 
 import classnames from "classnames";
 
+import { useState } from "react";
+
 const components = [
   {
     title: "Nike",
@@ -149,7 +151,12 @@ const ListItem = React.forwardRef(
 );
 ListItem.displayName = "ListItem";
 
-export default function Header() {
+export default function Header({ onSearch }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    onSearch(e.target.value); // Předání hodnoty do rodiče
+  };
   return (
     <>
       <div className={s.header_container}>
@@ -173,7 +180,10 @@ export default function Header() {
             <img
               src={logo}
               alt="icon"
-              className={classnames("select-none absolute top-3 left-1/2 transform -translate-x-1/2", s.header_icon)}
+              className={classnames(
+                "select-none absolute top-3 left-1/2 transform -translate-x-1/2",
+                s.header_icon
+              )}
               draggable="false"
             />
           </Link>
@@ -374,7 +384,10 @@ export default function Header() {
                         {component.description}
                       </ListItem>
                     ))}
-                    <Link to="/view-products" className="text-sm font-medium ml-3">
+                    <Link
+                      to="/view-products"
+                      className="text-sm font-medium ml-3"
+                    >
                       Zobrazit vše
                     </Link>
                   </ul>
@@ -412,6 +425,8 @@ export default function Header() {
                 "max-w-sm pl-10 bg-transparent background-button-hover text-red-900 transition-colors font-medium text-sm",
                 s.custom_input
               )}
+              onChange={handleSearch}
+              value={searchQuery}
             />
           </div>
         </div>

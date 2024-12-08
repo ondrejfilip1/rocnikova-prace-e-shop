@@ -17,15 +17,15 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
 } from "@/components/ui/sidebar";
-import { cn } from "@/lib/utils";
 
 export default function ProductList() {
   const [products, setProducts] = useState();
   const [isLoaded, setLoaded] = useState(false);
   const [isSidebarOpened, setSidebarOpened] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const load = async () => {
-    const data = await getAllProducts();
+  const load = async (query = "") => {
+    const data = await getAllProducts(query);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
       setProducts(data.payload);
@@ -34,18 +34,10 @@ export default function ProductList() {
   };
 
   useEffect(() => {
-    load();
-  }, []);
+    load(searchQuery);
+  }, [searchQuery]);
 
-  if (isLoaded === null) {
-    return (
-      <>
-        <p>Products not found</p>
-      </>
-    );
-  }
-
-  if (!isLoaded) {
+  if (!isLoaded && isLoaded !== null) {
     return (
       <>
         <LoadingScreen />
@@ -56,7 +48,7 @@ export default function ProductList() {
   return (
     <>
       <div className={s.background}>
-        <Header />
+        <Header onSearch={(query) => setSearchQuery(query)} />
         <div className="header-placeholder" />
         <SidebarProvider
           open={isSidebarOpened}
@@ -85,14 +77,16 @@ export default function ProductList() {
           <SidebarTrigger content="Zobrazit filtry" />
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-6">
-              {products.map((product, index) => (
-                <div
-                  key={index}
-                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 flex-shrink-0"
-                >
-                  <ProductLink {...product} />
-                </div>
-              ))}
+              {isLoaded === null && <h2 className="">Produkty nenalezeny</h2>}
+              {isLoaded !== null &&
+                products.map((product, index) => (
+                  <div
+                    key={index}
+                    className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 flex-shrink-0"
+                  >
+                    <ProductLink {...product} />
+                  </div>
+                ))}
             </div>
           </div>
         </SidebarProvider>
