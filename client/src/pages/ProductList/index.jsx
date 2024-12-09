@@ -38,17 +38,18 @@ export default function ProductList() {
       setLoaded(true);
     }
   };
-  
-  const query = new URLSearchParams(location.search);
+
   useEffect(() => {
+    const query = new URLSearchParams(location.search);
     const queryParam = query.get("search");
     if (queryParam) {
       setSearchQuery(query.get("search"));
       load(query.get("search"));
     } else {
+      setSearchQuery("");
       load("");
     }
-  }, [query.get("search")]);
+  }, [location.search]);
 
   useEffect(() => {
     load(searchQuery);
