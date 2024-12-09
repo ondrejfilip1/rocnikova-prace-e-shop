@@ -18,11 +18,15 @@ import {
   SidebarMenu,
 } from "@/components/ui/sidebar";
 
+import { useLocation } from "react-router-dom";
+
 export default function ProductList() {
   const [products, setProducts] = useState();
   const [isLoaded, setLoaded] = useState(false);
   const [isSidebarOpened, setSidebarOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const location = useLocation();
 
   const load = async (query = "") => {
     const data = await getAllProducts(query);
@@ -32,6 +36,17 @@ export default function ProductList() {
       setLoaded(true);
     }
   };
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const queryParam = query.get("search");
+    if (queryParam) {
+      setSearchQuery(query.get("search"));
+      load(query.get("search"));
+    } else {
+      load("");
+    }
+  }, []);
 
   useEffect(() => {
     load(searchQuery);
@@ -77,7 +92,14 @@ export default function ProductList() {
           <SidebarTrigger content="Zobrazit filtry" />
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-6">
-              {isLoaded === null && <h2 className="">Produkty nenalezeny</h2>}
+              {isLoaded === null && (
+                <>
+                  <div className="flex flex-col justify-center items-center text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <h1 className="text-red-900 text-2xl mb-1.5">Chyba 404</h1>
+                    <h1 className="text-red-900">Produkty nebyly nalezeny</h1>
+                  </div>
+                </>
+              )}
               {isLoaded !== null &&
                 products.map((product, index) => (
                   <div

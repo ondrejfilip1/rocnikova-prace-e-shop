@@ -67,56 +67,56 @@ import { useState } from "react";
 const components = [
   {
     title: "Nike",
-    href: "",
+    href: "/view-products?search=Nike",
     description:
       "Světově proslulá značka sportovního oblečení a obuvi, která kombinuje inovaci, styl a výkonnost.",
     iconPath: Nike,
   },
   {
     title: "Adidas",
-    href: "",
+    href: "/view-products?search=Adidas",
     description:
       "Přední značka sportovní módy známá svými ikonickými třemi pruhy a prvotřídní kvalitou.",
     iconPath: Adidas,
   },
   {
     title: "Tommy Hilfiger",
-    href: "",
+    href: "/view-products?search=Tommy+Hilfiger",
     description:
       "Luxusní značka známá svým nadčasovým designem a americkým stylem.",
     iconPath: TommyHilfiger,
   },
   {
     title: "Vans",
-    href: "",
+    href: "/view-products?search=Vans",
     description:
       "Legendární značka pro milovníky streetwearu a skateboardingu, která přináší stylové a pohodlné kousky.",
     iconPath: Vans,
   },
   {
     title: "Jordan",
-    href: "",
+    href: "/view-products?search=Jordan",
     description:
       "Prémiová sportovní značka inspirovaná legendárním Michaelem Jordanem, zaměřená na basketbalovou obuv a módu.",
     iconPath: Jordan,
   },
   {
     title: "Puma",
-    href: "",
+    href: "/view-products?search=Puma",
     description:
       "Dynamická značka spojující sportovní výkon a trendy design, ideální pro aktivní životní styl.",
     iconPath: Puma,
   },
   {
     title: "Reebok",
-    href: "",
+    href: "/view-products?search=Reebok",
     description:
       "Ikonická značka s důrazem na fitness, sportovní oblečení a inovativní technologie.",
     iconPath: Reebok,
   },
   {
     title: "Skechers",
-    href: "",
+    href: "/view-products?search=Skechers",
     description:
       "Populární značka obuvi zaměřená na pohodlí, funkčnost a moderní design.",
     iconPath: Skechers,
@@ -155,7 +155,7 @@ export default function Header({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-    onSearch(e.target.value); // Předání hodnoty do rodiče
+    onSearch(e.target.value);
   };
   return (
     <>
