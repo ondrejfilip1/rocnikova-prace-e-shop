@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { X } from "lucide-react";
 import s from "./ProductList.module.css";
 import classNames from "classnames";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Heart } from "lucide-react";
 
 export default function ProductLink(props) {
   return (
@@ -17,6 +17,19 @@ export default function ProductLink(props) {
           s.card_background
         )}
       >
+        <Heart
+          className="bg-transparent background-button-hover inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer"
+          onClick={() =>
+            toast("Položka byla přidána do oblíbených", {
+              description: props.name,
+              action: {
+                label: <X />,
+              },
+            })
+          }
+          size={28}
+          strokeWidth={1.75}
+        />
         <Link to={`/product/${props._id}`} className={s.image_fix}>
           <img
             src={props.imagePath}
