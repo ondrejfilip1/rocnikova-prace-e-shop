@@ -63,6 +63,8 @@ import Skechers from "../../assets/icons/skechers.svg";
 import classnames from "classnames";
 
 import { useState } from "react";
+import { getAllItems } from "@/models/Cart";
+import CartItem from "./CartItem";
 
 const components = [
   {
@@ -153,6 +155,20 @@ ListItem.displayName = "ListItem";
 
 export default function Header({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [cartItems, setCartItems] = useState([]);
+  const [isLoaded, setLoaded] = useState(false);
+
+  // logika pro nacteni kosiku
+  const load = async () => {
+    //console.log("aaa");
+    const data = await getAllItems();
+    if (data.status === 404 || data.status === 500) return setLoaded(null);
+    if (data.status === 200) {
+      setCartItems(data.payload);
+      setLoaded(true);
+    }
+  };
+
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
     onSearch(e.target.value);
@@ -188,7 +204,7 @@ export default function Header({ onSearch }) {
             />
           </Link>
           <div className="flex items-center">
-            <DropdownMenu>
+            <DropdownMenu onOpenChange={load}>
               <DropdownMenuTrigger asChild>
                 <Button
                   className={classnames(
@@ -202,14 +218,34 @@ export default function Header({ onSearch }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className={classnames(
-                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color flex align-center justify-center flex-col place-items-center",
+                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
                   s.custom_shadow
                 )}
               >
-                <ShoppingBasket size={30} strokeWidth={1} className="my-3" />
-                <span className="font-medium text-sm text-center mb-1">
-                  V košíku nic nemáte
-                </span>
+                {isLoaded !== null && cartItems ? (
+                  cartItems.map((item, index) => {
+                    return (
+                      <div key={index} className="w-full text-sm font-medium">
+                        <CartItem
+                          productId={item.items[0].productId}
+                          quantity={item.items[0].quantity}
+                          itemId={item._id}
+                        />
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="flex align-center justify-center flex-col place-items-center">
+                    <ShoppingBasket
+                      size={30}
+                      strokeWidth={1}
+                      className="my-3"
+                    />
+                    <span className="font-medium text-sm text-center mb-1">
+                      V košíku nic nemáte
+                    </span>
+                  </div>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu>
@@ -385,6 +421,9 @@ export default function Header({ onSearch }) {
                       </ListItem>
                     ))}
                     <Link
+                      onClick={() =>
+                        useNavigate("/view-products", { replace: true })
+                      }
                       to="/view-products"
                       className="text-sm font-medium ml-3"
                     >

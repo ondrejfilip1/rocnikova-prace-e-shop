@@ -7,8 +7,30 @@ import { X } from "lucide-react";
 import s from "./ProductList.module.css";
 import classNames from "classnames";
 import { ShoppingCart, Heart } from "lucide-react";
+import { addItem } from "@/models/Cart";
 
 export default function ProductLink(props) {
+  const handleAddItemsToCart = async (productId) => {
+    // TODO: kvantita
+    const quantity = 1;
+    const data = await addItem({ productId, quantity });
+    if (data.status === 201) {
+      toast("Položka byla přidána do košíku", {
+        description: props.name,
+        action: {
+          label: <X />,
+        },
+      });
+    } else {
+      toast("Chyba při přidávání položky", {
+        description: data.message,
+        action: {
+          label: <X />,
+        },
+      });
+    }
+  };
+
   return (
     <>
       <Card
@@ -70,14 +92,7 @@ export default function ProductLink(props) {
                 "text-red-900 bg-transparent background-button-hover font-semibold",
                 s.cart_button_hover
               )}
-              onClick={() =>
-                toast("Položka byla přidána do košíku", {
-                  description: props.name,
-                  action: {
-                    label: <X />,
-                  },
-                })
-              }
+              onClick={() => handleAddItemsToCart(props._id)}
             >
               <ShoppingCart />
               Přidat do košíku
