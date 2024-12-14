@@ -45,6 +45,10 @@ div#root {
   background-color: var(--primary-color-light) !important;
 }
 
+.text-primary-light {
+  color: var(--primary-color-light) !important;
+}
+
 .background-button-hover:hover {
   background-color: rgba(219, 112, 112, 0.238) !important;
 }

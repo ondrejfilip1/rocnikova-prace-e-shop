@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { X } from "lucide-react";
 import s from "./ProductList.module.css";
 import classNames from "classnames";
-import { OmegaIcon, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
 export default function ProductLink(props) {
   return (

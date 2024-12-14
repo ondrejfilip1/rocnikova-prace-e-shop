@@ -27,6 +27,7 @@ export default function ProductList() {
   const [isLoaded, setLoaded] = useState(false);
   const [isSidebarOpened, setSidebarOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [totalProducts, setTotalProducts] = useState(0);
 
   const location = useLocation();
 
@@ -34,6 +35,8 @@ export default function ProductList() {
     const data = await getAllProducts(query);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
+      setTotalProducts(data.payload.length);
+      // console.log(data.payload.length);
       setProducts(data.payload);
       setLoaded(true);
     }
@@ -42,18 +45,16 @@ export default function ProductList() {
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const queryParam = query.get("search");
-    if (queryParam) {
+    if (searchQuery) {
+      load(searchQuery);
+    } else if (queryParam) {
       setSearchQuery(query.get("search"));
       load(query.get("search"));
     } else {
       setSearchQuery("");
       load("");
     }
-  }, [location.search]);
-
-  useEffect(() => {
-    load(searchQuery);
-  }, [searchQuery]);
+  }, [location.search, searchQuery]);
 
   if (!isLoaded && isLoaded !== null) {
     return (
@@ -94,6 +95,14 @@ export default function ProductList() {
           </Sidebar>
           <SidebarTrigger content="Zobrazit filtry" />
           <div className="container mx-auto px-4">
+            {isLoaded !== null && (
+              <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
+                <span>Boty</span>
+                <span className="rounded-full background-primary min-w-5 px-1.5 text-center text-sm text-primary-light">
+                  {totalProducts}
+                </span>
+              </div>
+            )}
             <div className="flex flex-wrap justify-center gap-6">
               {isLoaded === null && (
                 <>

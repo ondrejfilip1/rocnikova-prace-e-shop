@@ -76,7 +76,7 @@ export const deleteProduct = async (id) => {
     message: data.message,
   };
 };
-export const getProductByBrand = async (brand) => {
+/* export const getProductByBrand = async (brand) => {
   const req = await fetch(`http://localhost:3000/products/search?brand=${brand}`, {
     headers: {
       Accept: "application/json",
@@ -91,3 +91,4 @@ export const getProductByBrand = async (brand) => {
     message: data.message,
   };
 };
+ */
