@@ -1,6 +1,7 @@
 ✅TODO:
 
- - Stránka pro objednávky (basically košík ale lepší)
+ - Stránka pro objednávky (basically košík ale lepší) - skoro hotovo
  - Fixnout errory ve filtru při mobilní šířce stránky
  - Podrobná stránka pro jednotlivé produkty (když je rozkliknu)
  - Hledání pomocí filtru (cena, značka atd.)
+ - Přejmenovat URL cesty v AppRoutes na české názvy

@@ -247,7 +247,7 @@ export default function Header({ onSearch }) {
                         </Fragment>
                       );
                     })}
-                    <Link to="/">
+                    <Link to="/objednavky">
                       <Button
                         className={classnames(
                           "bg-transparent background-button-hover text-red-900 mx-2 my-2 w-full",
