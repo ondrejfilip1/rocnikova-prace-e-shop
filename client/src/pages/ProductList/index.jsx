@@ -131,11 +131,11 @@ export default function ProductList() {
               title: "text-red-900",
               description: "text-red-900",
               actionButton:
-                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7",
+                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7 !transition-colors",
               cancelButton:
-                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7",
+                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7 !transition-colors",
               closeButton:
-                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7",
+                "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7 !transition-colors",
             },
           }}
         />

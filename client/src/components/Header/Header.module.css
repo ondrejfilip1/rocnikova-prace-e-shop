@@ -1,101 +1,105 @@
 div.header_container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    backdrop-filter: blur(40px);
-    background-color: var(--backdrop-background-color);
-    padding: 1em 2em;
-    display: flex;
-    flex-direction: column;
-    z-index: 9;
-    box-shadow: rgba(17, 12, 46, 0.071) 0px 48px 80px 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  backdrop-filter: blur(40px);
+  background-color: var(--backdrop-background-color);
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: column;
+  z-index: 9;
+  box-shadow: rgba(17, 12, 46, 0.071) 0px 48px 80px 0px;
 }
 
 div.header_container img.header_icon {
-    height: 40px;
-    aspect-ratio: 1192 / 757;
+  height: 40px;
+  aspect-ratio: 1192 / 757;
 }
 
 .custom_input::placeholder,
 .custom_input {
-    font-family: "Manrope";
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    font-weight: 500;
+  font-family: "Manrope";
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-weight: 500;
 }
 
 .custom_input::placeholder {
-    color: rgb(127 29 29 / 0.6);
+  color: rgb(127 29 29 / 0.6);
 }
 
 .button_fix {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 .button_fix:hover {
-    color: rgb(127 29 29);
+  color: rgb(127 29 29);
 }
 
 .custom_input {
-    width: 14.25rem;
+  width: 14.25rem;
 }
 
 @media only screen and (max-width: 650px) {
-    .dissapear_650px {
-        display: none;
-    }
+  .dissapear_650px {
+    display: none;
+  }
 
-    .icon_responsivity {
-        height: 1rem;
-        width: 1rem;
-        padding: 1rem;
-    }
+  .icon_responsivity {
+    height: 1rem;
+    width: 1rem;
+    padding: 1rem;
+  }
 
-    .custom_input {
-        width: 8em;
-    }
+  .custom_input {
+    width: 8em;
+  }
 
-    div.header_container {
-        padding: .5em 1em;
-    }
+  div.header_container {
+    padding: 0.5em 1em;
+  }
 
-    .search_icon {
-        left: 0.75rem;
-        top: 1.25rem;
-    }
+  .search_icon {
+    left: 0.75rem;
+    top: 1.25rem;
+  }
 
-    div.header_container img.header_icon {
-        height: 32px;
-    }
+  div.header_container img.header_icon {
+    height: 32px;
+  }
 }
 
 .custom_shadow {
-    box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
+  box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
 }
 
 div[data-orientation="horizontal"] {
-    background-color: var(--primary-color-light);
-    border-color: transparent;
-    color: rgb(127 29 29);
-    box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
+  background-color: var(--primary-color-light);
+  border-color: transparent;
+  color: rgb(127 29 29);
+  box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
 }
 
 div[data-orientation="horizontal"] .link_custom a {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    width: 100%;
-    display: flex;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  display: flex;
 }
 
 .custom_radio_group button,
 .custom_radio_group button svg {
-    border-color: rgb(127 29 29);
-    color: rgb(127 29 29);
+  border-color: rgb(127 29 29);
+  color: rgb(127 29 29);
 }
 
 .brand_icons {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
+}
+
+.width_fix_button {
+  width: calc(100% - 1rem);
 }

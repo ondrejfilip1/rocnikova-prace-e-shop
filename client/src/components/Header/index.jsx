@@ -18,6 +18,7 @@ import {
   BadgePercent,
   Shirt,
   Footprints,
+  PackageOpen,
 } from "lucide-react";
 
 import {
@@ -224,25 +225,40 @@ export default function Header({ onSearch }) {
                 )}
               >
                 {isLoaded !== null && cartItems ? (
-                  cartItems.map((item, index) => {
-                    return (
-                      <Fragment key={item._id}>
-                        {/* key musi byt na prvnim elementu asi */}
-                        <div className="w-full text-sm font-medium my-2 mx-1">
-                          <CartItem
-                            productId={item.items[0].productId}
-                            quantity={item.items[0].quantity}
-                            itemId={item._id}
-                            reloadCart={loadCart}
-                          />
-                        </div>
-                        {/* posledni divider nebude */}
+                  <>
+                    {cartItems.map((item) => {
+                      return (
+                        <Fragment key={item._id}>
+                          {/* key musi byt na prvnim elementu asi */}
+                          <div className="w-full text-sm font-medium my-2 mx-1">
+                            <CartItem
+                              productId={item.items[0].productId}
+                              quantity={item.items[0].quantity}
+                              itemId={item._id}
+                              reloadCart={loadCart}
+                            />
+                          </div>
+                          {/* posledni divider nebude
                         {index < cartItems.length - 1 && (
                           <div className="border-b border-red-900/25 my-1 mx-2" />
                         )}
-                      </Fragment>
-                    );
-                  })
+                         */}
+                          <div className="border-b border-red-900/25 my-1 mx-2" />
+                        </Fragment>
+                      );
+                    })}
+                    <Link to="/">
+                      <Button
+                        className={classnames(
+                          "bg-transparent background-button-hover text-red-900 mx-2 my-2 w-full",
+                          s.width_fix_button
+                        )}
+                      >
+                        <PackageOpen />
+                        <span>Objednávky a zboží</span>
+                      </Button>
+                    </Link>
+                  </>
                 ) : (
                   <div className="flex align-center justify-center flex-col place-items-center">
                     <ShoppingBasket
