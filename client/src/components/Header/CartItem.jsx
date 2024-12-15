@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { deleteItem } from "@/models/Cart";
 
-export default function CartItem({ productId, quantity, itemId }) {
+export default function CartItem({ productId, quantity, itemId, reloadCart }) {
   const [product, setProducts] = useState();
   const [isLoaded, setLoaded] = useState();
 
-  const load = async () => {
+  const loadItem = async () => {
     const data = await getProductById(productId);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
@@ -18,16 +18,21 @@ export default function CartItem({ productId, quantity, itemId }) {
   };
 
   useEffect(() => {
-    load();
+    loadItem();
   }, []);
 
   const handleDelete = async () => {
     const data = await deleteItem(itemId);
+    if (data.status === 200) {
+      reloadCart();
+    }
+    // TODO: tady by neco melo bejt (if status 404 nebo 500)
   };
 
   if (!isLoaded) {
     return (
       <>
+        {/* nevim co sem dam tak tu je jen prazdny div lol */}
         <div></div>
       </>
     );
@@ -46,7 +51,10 @@ export default function CartItem({ productId, quantity, itemId }) {
             : "kusů"}
         </div>
       </div>
-      <Trash2 className="cursor-pointer p-1 background-button-hover inline-block m-1 rounded-md" onClick={handleDelete} />
+      <Trash2
+        className="cursor-pointer p-1 background-button-hover inline-block m-1 rounded-md transition-colors"
+        onClick={handleDelete}
+      />
     </div>
   );
 }

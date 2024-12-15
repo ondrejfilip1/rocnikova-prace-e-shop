@@ -159,7 +159,7 @@ export default function Header({ onSearch }) {
   const [isLoaded, setLoaded] = useState(false);
 
   // logika pro nacteni kosiku
-  const load = async () => {
+  const loadCart = async () => {
     //console.log("aaa");
     const data = await getAllItems();
     if (data.status === 404 || data.status === 500) return setLoaded(null);
@@ -204,7 +204,7 @@ export default function Header({ onSearch }) {
             />
           </Link>
           <div className="flex items-center">
-            <DropdownMenu onOpenChange={(isOpen) => isOpen && load()}>
+            <DropdownMenu onOpenChange={(isOpen) => isOpen && loadCart()}>
               <DropdownMenuTrigger asChild>
                 <Button
                   className={classnames(
@@ -225,11 +225,12 @@ export default function Header({ onSearch }) {
                 {isLoaded !== null && cartItems ? (
                   cartItems.map((item, index) => {
                     return (
-                      <div key={index} className="w-full text-sm font-medium">
+                      <div key={item._id} className="w-full text-sm font-medium">
                         <CartItem
                           productId={item.items[0].productId}
                           quantity={item.items[0].quantity}
                           itemId={item._id}
+                          reloadCart={loadCart}
                         />
                       </div>
                     );

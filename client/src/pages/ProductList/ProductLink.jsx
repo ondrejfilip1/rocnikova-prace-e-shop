@@ -40,7 +40,7 @@ export default function ProductLink(props) {
         )}
       >
         <Heart
-          className="bg-transparent background-button-hover inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer"
+          className="bg-transparent background-button-hover transition-colors inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer"
           onClick={() =>
             toast("Položka byla přidána do oblíbených", {
               description: props.name,
