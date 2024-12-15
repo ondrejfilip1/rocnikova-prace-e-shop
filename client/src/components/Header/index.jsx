@@ -204,7 +204,7 @@ export default function Header({ onSearch }) {
             />
           </Link>
           <div className="flex items-center">
-            <DropdownMenu onOpenChange={load}>
+            <DropdownMenu onOpenChange={(isOpen) => isOpen && load()}>
               <DropdownMenuTrigger asChild>
                 <Button
                   className={classnames(
