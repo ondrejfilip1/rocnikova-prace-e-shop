@@ -1,0 +1,6 @@
+✅TODO:
+
+ - Stránka pro objednávky (basically košík ale lepší)
+ - Fixnout errory ve filtru při mobilní šířce stránky
+ - Podrobná stránka pro jednotlivé produkty (když je rozkliknu)
+ - Hledání pomocí filtru (cena, značka atd.)
