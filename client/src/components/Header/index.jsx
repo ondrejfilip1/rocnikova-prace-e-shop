@@ -1,4 +1,5 @@
 import React from "react";
+import { Fragment } from "react";
 import s from "./Header.module.css";
 import { Button } from "@/components/ui/button";
 import logo from "../../assets/images/logo_transparent.png";
@@ -225,14 +226,21 @@ export default function Header({ onSearch }) {
                 {isLoaded !== null && cartItems ? (
                   cartItems.map((item, index) => {
                     return (
-                      <div key={item._id} className="w-full text-sm font-medium">
-                        <CartItem
-                          productId={item.items[0].productId}
-                          quantity={item.items[0].quantity}
-                          itemId={item._id}
-                          reloadCart={loadCart}
-                        />
-                      </div>
+                      <Fragment key={item._id}>
+                        {/* key musi byt na prvnim elementu asi */}
+                        <div className="w-full text-sm font-medium my-2 mx-1">
+                          <CartItem
+                            productId={item.items[0].productId}
+                            quantity={item.items[0].quantity}
+                            itemId={item._id}
+                            reloadCart={loadCart}
+                          />
+                        </div>
+                        {/* posledni divider nebude */}
+                        {index < cartItems.length - 1 && (
+                          <div className="border-b border-red-900/25 my-1 mx-2" />
+                        )}
+                      </Fragment>
                     );
                   })
                 ) : (

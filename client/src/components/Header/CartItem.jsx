@@ -41,7 +41,7 @@ export default function CartItem({ productId, quantity, itemId, reloadCart }) {
   return (
     <div className="flex justify-between items-center">
       <div className="mx-1">
-        <div>{product.name}</div>
+        <div className="font-semibold">{product.name}</div>
         <div>
           {quantity}{" "}
           {quantity == 1
@@ -52,7 +52,8 @@ export default function CartItem({ productId, quantity, itemId, reloadCart }) {
         </div>
       </div>
       <Trash2
-        className="cursor-pointer p-1 background-button-hover inline-block m-1 rounded-md transition-colors"
+        className="cursor-pointer p-1 background-button-hover min-h-6 min-w-6 inline-block mx-3 rounded-md transition-colors"
+        size={24}
         onClick={handleDelete}
       />
     </div>
