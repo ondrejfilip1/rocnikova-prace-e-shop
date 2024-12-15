@@ -10,6 +10,7 @@ Vytvořen v Reactu + Vite
 - MongoDB
 - Express
 - Mongoose
+<br>[TODO](https://github.com/ondrejfilip1/rocnikova-prace-e-shop/blob/main/TODO.txt)
 
 <div align="center"> 
   
