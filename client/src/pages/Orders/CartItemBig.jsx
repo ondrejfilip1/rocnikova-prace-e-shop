@@ -1,16 +1,26 @@
 import { getProductById } from "@/models/Product";
 import { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, Plus, Minus } from "lucide-react";
 import { deleteItem } from "@/models/Cart";
+import { Input } from "@/components/ui/input";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import classNames from "classnames";
+import s from "./Orders.module.css";
 
 export default function CartItemBig({
   productId,
-  quantity,
+  quantity: origQuantity,
   itemId,
   reloadCart,
 }) {
   const [product, setProducts] = useState();
   const [isLoaded, setLoaded] = useState();
+  const [quantity, setQuantity] = useState(origQuantity);
 
   const loadItem = async () => {
     const data = await getProductById(productId);
@@ -34,42 +44,94 @@ export default function CartItemBig({
     // TODO: tady by neco melo bejt (if status 404 nebo 500)
   };
 
+  const plusQuantity = async () => {
+    if (quantity < 30) setQuantity(quantity + 1);
+  };
+
+  const minusQuantity = async () => {
+    if (quantity > 1) setQuantity(quantity - 1);
+  };
+
   if (!isLoaded) {
     return (
       <>
-        {/* nevim co sem dam tak tu je jen prazdny div lol */}
-        <div></div>
+        <div className="flex items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={30}
+            height={30}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="animate-spin my-10"
+          >
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
+        </div>
       </>
     );
   }
 
   return (
     <>
-        <div className="flex justify-between items-center">
-          <div>
-            <div className="h-20 flex items-center">
+      <div className="flex justify-between items-center background-light-hover transition-colors rounded-md py-3 px-4">
+        <div className="flex items-center">
+          <div className="h-20 flex items-center">
             <img
               src={product.imagePath}
               alt={product.name}
               className="w-20 my-2"
               draggable="false"
-            /></div>
-            <div>
-              <div className="font-semibold">{product.name}</div>
-              <div className="text-base">
-                {product.price} Kč
-              </div>
-              <div className="text-base">
-                {quantity}x
-              </div>
-            </div>
+            />
           </div>
-          <Trash2
-            className="cursor-pointer p-3 background-button-hover min-h-12 min-w-12 inline-block rounded-md transition-colors"
-            size={24}
-            onClick={handleDelete}
-          />
+          <div className="ml-4">
+            <div className="font-semibold">{product.name}</div>
+            <div className="text-sm">{product.price} Kč</div>
+            <div className="text-sm">{quantity}x</div>
+          </div>
         </div>
+        <div className="flex flex-col items-end">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Trash2
+                  className="cursor-pointer background-button-hover p-1 min-h-6 min-w-6 inline-block rounded-md transition-colors"
+                  size={24}
+                  onClick={handleDelete}
+                />
+              </TooltipTrigger>
+              <TooltipContent className="text-sm background-primary-light text-red-900 outline-none border-none">
+                <p>Odebrat z košíku</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <div className="flex items-center">
+            <Plus
+              className="bg-transparent background-button-hover transition-colors text-red-900 p-1 min-h-6 min-w-6 cursor-pointer rounded-md"
+              onClick={plusQuantity}
+            />
+            <Input
+              type="number"
+              value={quantity}
+              className={classNames(
+                "bg-transparent border-none !text-sm text-center p-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0",
+                s.remove_arrows
+              )}
+              min="1"
+              max="30"
+              readOnly
+            />
+            <Minus
+              className="bg-transparent background-button-hover transition-colors text-red-900 p-1 min-h-6 min-w-6 cursor-pointer rounded-md"
+              onClick={minusQuantity}
+            />
+          </div>
+          <div>{product.price * quantity} Kč</div>
+        </div>
+      </div>
     </>
   );
 }

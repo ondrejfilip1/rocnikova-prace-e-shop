@@ -1,8 +1,19 @@
 .background {
-    background-image: linear-gradient(0deg, #ffffff6c, #ffffff6c), url("../../assets/images/background.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    min-height: 100vh;
+  background-image: linear-gradient(0deg, #ffffff6c, #ffffff6c),
+    url("../../assets/images/background.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+input.remove_arrows::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input.remove_arrows[type="number"] {
+  -moz-appearance: textfield;
 }

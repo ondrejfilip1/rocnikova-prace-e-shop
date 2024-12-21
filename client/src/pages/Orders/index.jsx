@@ -28,10 +28,13 @@ export default function Orders() {
       <div className={s.background}>
         <Header />
         <div className="header-placeholder" />
-        <div className="text-red-900 text-lg">
+        <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
+          <span>Nákupní košík</span>
+        </div>
+        <div className="text-red-900 text-sm">
           {isLoaded !== null && cartItems ? (
             <>
-              {cartItems.map((item) => {
+              {cartItems.map((item, index) => {
                 return (
                   <Fragment key={item._id}>
                     <div className="container mx-auto px-4 lg:max-w-screen-lg font-medium my-2">
@@ -41,8 +44,10 @@ export default function Orders() {
                         itemId={item._id}
                         reloadCart={loadCart}
                       />
-                    
-                    <div className="border-b border-red-900/25 my-2" />
+
+                      {index < cartItems.length - 1 && (
+                        <div className="border-b border-red-900/25 my-2" />
+                      )}
                     </div>
                   </Fragment>
                 );

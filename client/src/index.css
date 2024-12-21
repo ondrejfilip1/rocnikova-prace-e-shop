@@ -57,6 +57,10 @@ div#root {
   background-color: rgba(219, 112, 112, 0.238) !important;
 }
 
+.background-light-hover:hover {
+  background-color: hsla(0, 50%, 83%, 0.4) !important;
+}
+
 .backdrop-background-color {
   background-color: var(--backdrop-background-color);
 }

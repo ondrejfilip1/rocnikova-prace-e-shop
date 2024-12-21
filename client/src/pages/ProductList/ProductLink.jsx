@@ -12,7 +12,7 @@ import { addItem } from "@/models/Cart";
 export default function ProductLink(props) {
   const handleAddItemsToCart = async (productId) => {
     // TODO: kvantita
-    const quantity = 1;
+    const quantity = 3;
     const data = await addItem({ productId, quantity });
     if (data.status === 201) {
       toast("Položka byla přidána do košíku", {
