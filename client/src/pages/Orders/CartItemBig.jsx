@@ -19,6 +19,7 @@ export default function CartItemBig({
   itemOrigId,
   reloadCart,
   itemPrice,
+  removeItemPrice,
 }) {
   const [product, setProducts] = useState();
   const [isLoaded, setLoaded] = useState();
@@ -48,6 +49,9 @@ export default function CartItemBig({
   const handleDelete = async () => {
     const data = await deleteItem(itemId);
     if (data.status === 200) {
+      if (product) {
+        removeItemPrice(itemId);
+      }
       reloadCart();
     }
     // TODO: tady by neco melo bejt (if status 404 nebo 500)

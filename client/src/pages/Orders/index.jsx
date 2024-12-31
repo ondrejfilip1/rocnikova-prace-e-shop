@@ -34,7 +34,22 @@ export default function Orders() {
       return prices2;
     });
   };
+
+  // v podstate to samy, ale odecte hodnotu itemu z celkove castky
+  const removePrice = (itemId) => {
+    setItemPrices((prevPrices) => {
+      const prices2 = { ...prevPrices };
+      delete prices2[itemId];
+      let newTotalPrice = 0;
   
+      for (let id in prices2) {
+        newTotalPrice += prices2[id];
+      }
+  
+      setTotalPrice(newTotalPrice);
+      return prices2;
+    });
+  };
 
   useEffect(() => {
     loadCart();
@@ -61,6 +76,7 @@ export default function Orders() {
                       itemOrigId={item.items[0]._id}
                       reloadCart={loadCart}
                       itemPrice={calcPrice}
+                      removeItemPrice={removePrice}
                     />
                     <div className="border-b border-red-900/25 my-2" />
                   </Fragment>

@@ -5,4 +5,6 @@
  - Podrobná stránka pro jednotlivé produkty (když je rozkliknu)
  - Hledání pomocí filtru (cena, značka atd.)
  - Přejmenovat URL cesty v AppRoutes na české názvy
+
+Hotovo:
  - Fixnout, když vymažu item v košíku, aby se změnila celková cena
