@@ -29,7 +29,7 @@ export const addItem = async (formData) => {
     message: data.message,
   };
 };
-export const updateItem = async (id, formData) => {
+export const updateQuantity = async (id, formData) => {
   const req = await fetch(`http://localhost:3000/cart/${id}`, {
     headers: {
       Accept: "application/json",

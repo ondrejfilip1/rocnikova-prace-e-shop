@@ -3,12 +3,12 @@ import s from "./Orders.module.css";
 import CartItemBig from "./CartItemBig";
 import { useState, Fragment, useEffect } from "react";
 import { getAllItems } from "@/models/Cart";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 
 export default function Orders() {
   const [cartItems, setCartItems] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [itemPrices, setItemPrices] = useState({}); 
 
   const loadCart = async () => {
     //console.log("aaa");
@@ -20,9 +20,26 @@ export default function Orders() {
     }
   };
 
+  // podle ID itemu pocita celkovou castku
+  const calcPrice = (itemId, price) => {
+    setItemPrices((prevPrices) => {
+      const prices2 = { ...prevPrices, [itemId]: price };
+      let newTotalPrice = 0;
+  
+      for (let id in prices2) {
+        newTotalPrice += prices2[id];
+      }
+  
+      setTotalPrice(newTotalPrice);
+      return prices2;
+    });
+  };
+  
+
   useEffect(() => {
     loadCart();
   }, []);
+
   return (
     <>
       <div className={s.background}>
@@ -31,27 +48,28 @@ export default function Orders() {
         <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
           <span>Nákupní košík</span>
         </div>
-        <div className="text-red-900 text-sm">
+        <div className="text-red-900 text-sm container mx-auto px-4 lg:max-w-screen-lg font-medium my-2">
           {isLoaded !== null && cartItems ? (
             <>
               {cartItems.map((item, index) => {
                 return (
                   <Fragment key={item._id}>
-                    <div className="container mx-auto px-4 lg:max-w-screen-lg font-medium my-2">
-                      <CartItemBig
-                        productId={item.items[0].productId}
-                        quantity={item.items[0].quantity}
-                        itemId={item._id}
-                        reloadCart={loadCart}
-                      />
-
-                      {index < cartItems.length - 1 && (
-                        <div className="border-b border-red-900/25 my-2" />
-                      )}
-                    </div>
+                    <CartItemBig
+                      productId={item.items[0].productId}
+                      quantity={item.items[0].quantity}
+                      itemId={item._id}
+                      itemOrigId={item.items[0]._id}
+                      reloadCart={loadCart}
+                      itemPrice={calcPrice}
+                    />
+                    <div className="border-b border-red-900/25 my-2" />
                   </Fragment>
                 );
               })}
+              <div className="flex justify-between items-center mx-4 text-lg">
+                <div>Celkem</div>
+                <div>{totalPrice} Kč</div>
+              </div>
             </>
           ) : (
             <p className="text-center font-medium">V košíku nic nemáte</p>

@@ -17,6 +17,58 @@ exports.getAllItems = async (req, res, next) => {
   }
 };
 
+exports.getItemById = async (req, res, next) => {
+  try {
+    const data = await Cart.findById(req.params.id);
+    if (data) {
+      return res.status(200).send({
+        message: "Cart found",
+        payload: data,
+      });
+    }
+    res.status(404).send({
+      message: "Cart not found",
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.updateQuantity = async (req, res, next) => {
+  try {
+    const { itemId, newQuantity } = req.body;
+    
+    const cart = await Cart.findById(req.params.id);
+    if (!cart) {
+      return res.status(404).send({
+        message: "Cart not found",
+      });
+    }
+
+    const item = cart.items.find(item => item._id == itemId);
+    if (!item) {
+      return res.status(404).send({
+        message: "Item not found",
+      });
+    }
+
+    // prepisu kvantitu
+    item.quantity = newQuantity;
+
+    // ulozim zmeny
+    await cart.save();
+
+    return res.status(200).send({
+      message: "Cart updated successfully",
+      payload: cart,
+      quantities: cart.items.map(item => item.quantity)
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+
 exports.addItem = async (req, res, next) => {
   try {
     const { productId, quantity } = req.body;
@@ -40,6 +92,7 @@ exports.addItem = async (req, res, next) => {
   }
 };
 
+/*
 exports.updateItem = async (req, res, next) => {
   try {
     const data = {
@@ -60,6 +113,7 @@ exports.updateItem = async (req, res, next) => {
     res.status(500).send(err);
   }
 };
+*/
 
 exports.deleteItem = async (req, res, next) => {
   try {

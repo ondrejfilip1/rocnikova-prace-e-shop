@@ -1,7 +1,7 @@
 import { getProductById } from "@/models/Product";
 import { useEffect, useState } from "react";
 import { Trash2, Plus, Minus } from "lucide-react";
-import { deleteItem } from "@/models/Cart";
+import { deleteItem, updateQuantity } from "@/models/Cart";
 import { Input } from "@/components/ui/input";
 import {
   Tooltip,
@@ -16,7 +16,9 @@ export default function CartItemBig({
   productId,
   quantity: origQuantity,
   itemId,
+  itemOrigId,
   reloadCart,
+  itemPrice,
 }) {
   const [product, setProducts] = useState();
   const [isLoaded, setLoaded] = useState();
@@ -32,6 +34,13 @@ export default function CartItemBig({
     }
   };
 
+  // timhle ziskam ceny produktu, ktery pak jdou do Orders
+  useEffect(() => {
+    if (product) {
+      itemPrice(itemId, product.price * quantity);
+    }
+  }, [quantity, product]);
+
   useEffect(() => {
     loadItem();
   }, []);
@@ -45,11 +54,29 @@ export default function CartItemBig({
   };
 
   const plusQuantity = async () => {
-    if (quantity < 30) setQuantity(quantity + 1);
+    if (quantity < 30) {
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+      const data = await updateQuantity(itemId, {
+        itemId: itemOrigId,
+        newQuantity: newQuantity,
+      });
+      itemPrice(itemId, product.price * newQuantity);
+      //console.log(data.status);
+    }
   };
 
   const minusQuantity = async () => {
-    if (quantity > 1) setQuantity(quantity - 1);
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      const data = await updateQuantity(itemId, {
+        itemId: itemOrigId,
+        newQuantity: newQuantity,
+      });
+      itemPrice(itemId, product.price * newQuantity);
+      //console.log(data.status);
+    }
   };
 
   if (!isLoaded) {
@@ -109,9 +136,9 @@ export default function CartItemBig({
             </Tooltip>
           </TooltipProvider>
           <div className="flex items-center">
-            <Plus
+            <Minus
               className="bg-transparent background-button-hover transition-colors text-red-900 p-1 min-h-6 min-w-6 cursor-pointer rounded-md"
-              onClick={plusQuantity}
+              onClick={minusQuantity}
             />
             <Input
               type="number"
@@ -124,9 +151,9 @@ export default function CartItemBig({
               max="30"
               readOnly
             />
-            <Minus
+            <Plus
               className="bg-transparent background-button-hover transition-colors text-red-900 p-1 min-h-6 min-w-6 cursor-pointer rounded-md"
-              onClick={minusQuantity}
+              onClick={plusQuantity}
             />
           </div>
           <div>{product.price * quantity} Kč</div>
