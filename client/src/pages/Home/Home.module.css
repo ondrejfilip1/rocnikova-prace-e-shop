@@ -1,103 +1,155 @@
 @font-face {
-    font-family: "Mialgor";
-    src: url("../../assets/fonts/Mialgor.otf");
+  font-family: "Mialgor";
+  src: url("../../assets/fonts/Mialgor.otf");
 }
 
 .background {
-    background-image: linear-gradient(0deg, #ffffff6c, #ffffff6c), url("../../assets/images/background.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    min-height: 100vh;
+  background-image: linear-gradient(0deg, #ffffff6c, #ffffff6c),
+    url("../../assets/images/background.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 @keyframes headingAnim_1 {
-    from {
-        top: 0;
-        opacity: 0;
-    }
+  from {
+    top: 0;
+    opacity: 0;
+  }
 
-    to {
-        top: .4em;
-        opacity: 1;
-    }
+  to {
+    top: 0.4em;
+    opacity: 1;
+  }
 }
 
 @keyframes headingAnim_2 {
-    from {
-        top: 0;
-        opacity: 0;
-    }
+  from {
+    top: 0;
+    opacity: 0;
+  }
 
-    to {
-        top: .8em;
-        opacity: 1;
-    }
+  to {
+    top: 0.8em;
+    opacity: 1;
+  }
 }
 
 @keyframes headingAnim_3 {
-    from {
-        top: .4em;
-    }
+  from {
+    top: 0.4em;
+  }
 
-    to {
-        top: 0em;
-    }
+  to {
+    top: 0em;
+  }
 }
 
 div.heading,
 div.heading h1 {
-    font-size: 18vw;
-    font-weight: 100;
-    text-align: center;
-    margin: 0;
-    color: var(--primary-color);
-    letter-spacing: -0.04em;
+  font-size: 18vw;
+  font-weight: 100;
+  text-align: center;
+  margin: 0;
+  color: var(--primary-color);
+  letter-spacing: -0.04em;
 }
 
 div.heading {
-    position: relative;
-    font-family: "Mialgor";
-    display: block;
-    height: 33vw;
-    /* cinsky kod */
+  position: relative;
+  font-family: "Mialgor";
+  display: block;
+  height: 33vw;
+  /* cinsky kod */
 }
 
 div.heading div {
-    animation: backwards 1s headingAnim_3;
-    animation-delay: .7s;
-    top: 0em;
-    position: relative;
+  animation: backwards 1s headingAnim_3;
+  animation-delay: 0.7s;
+  top: 0em;
+  position: relative;
 }
 
 div.heading h1 {
-    position: absolute;
-    clip-path: polygon(0 44%, 100% 44%, 100% 100%, 0 100%);
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  clip-path: polygon(0 44%, 100% 44%, 100% 100%, 0 100%);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 div.heading h1:nth-child(2) {
-    animation: backwards 1s headingAnim_1;
-    animation-delay: .7s;
-    top: .4em;
+  animation: backwards 1s headingAnim_1;
+  animation-delay: 0.7s;
+  top: 0.4em;
 }
 
 div.heading h1:nth-child(3) {
-    animation: backwards 1s headingAnim_2;
-    animation-delay: .7s;
-    top: .8em;
+  animation: backwards 1s headingAnim_2;
+  animation-delay: .7s;
+  top: 0.8em;
 }
 
 .heading_container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading_description {
+    position: relative;
+    font-family: "Manrope";
+    animation: backwards 1s descriptionAnim;
+    animation-delay: .7s;
+}
+
+@keyframes descriptionAnim {
+    from {
+        top: -2em;
+        opacity: 0;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.background_fashion {
+    background-position: center center;
+    background-size: cover;
+    transition: .7s transform;
+}
+
+.background_fashion_man {
+    background-image: url("../../assets/images/home/man.jpg");
+}
+
+.background_fashion_woman {
+    background-image: url("../../assets/images/home/woman.jpg");
+}
+
+.overlay_background {
+    height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    transition: .7s background-color;
+    pointer-events: none;
+    border-radius: 0.75rem;
+    z-index: 1;
+}
+
+.parent_box:hover .background_fashion {
+    transform: scale(1.05);
+}
+
+.parent_box:hover .overlay_background {
+    background-color: rgba(0, 0, 0, 0.6);
 }

@@ -125,6 +125,10 @@ div.header-placeholder {
     z-index: 1;
   }
 
+  .z-2 {
+    z-index: 2;
+  }
+
   .custom_shadow {
     box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
   }
