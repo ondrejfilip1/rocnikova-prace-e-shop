@@ -17,6 +17,14 @@ export default function Home() {
           </div>
         </div>
         {/*
+                  <div className="min-h-screen" />
+        <div className="min-h-screen flex items-center justify-between container mx-auto gap-10">
+          <div className="aspect-square rounded-lg border border-transparent w-1/2 bg-red-200" />
+          <div className="aspect-square rounded-lg border border-transparent w-1/2 bg-red-200"> </div>
+        </div>
+        */}
+
+        {/*
         <Link to={"/add-car"}>
             <p>Add car</p>
         </Link>
