@@ -153,3 +153,12 @@ div.heading h1:nth-child(3) {
 .parent_box:hover .overlay_background {
     background-color: rgba(0, 0, 0, 0.6);
 }
+
+.button_browse svg {
+  position: relative;
+  transition: .3s transform;
+}
+
+.button_browse:hover svg {
+  transform: translateX(2px) translateY(-2px);
+}

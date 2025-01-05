@@ -50,7 +50,12 @@ export default function Home() {
                   Objevte módu, která vám sedne.
                 </div>
                 <div className="absolute bottom-8 left-8 z-2">
-                  <Button className="backdrop-blur-md bg-black/25 hover:bg-black/50 pr-3">
+                  <Button
+                    className={classNames(
+                      "backdrop-blur-md bg-black/25 hover:bg-black/50 pr-3",
+                      s.button_browse
+                    )}
+                  >
                     Procházet
                     <ArrowUpRight />
                   </Button>
@@ -78,10 +83,15 @@ export default function Home() {
                   )}
                 />
                 <div className="text-lg text-white mix-blend-difference relative z-2">
-                Najděte svůj nový oblíbený kousek.
+                  Najděte svůj nový oblíbený kousek.
                 </div>
                 <div className="absolute bottom-8 left-8 z-2">
-                  <Button className="backdrop-blur-md bg-black/25 hover:bg-black/50 pr-3">
+                  <Button
+                    className={classNames(
+                      "backdrop-blur-md bg-black/25 hover:bg-black/50 pr-3",
+                      s.button_browse
+                    )}
+                  >
                     Procházet
                     <ArrowUpRight />
                   </Button>

@@ -6,3 +6,33 @@
     background-attachment: fixed;
     min-height: 100vh;
 }
+
+.radio_svg_fix svg {
+    width: 100%;
+    height: 100%;
+}
+
+.color_white_svg svg {
+    fill: white;
+    color: white;
+}
+
+.color_black_svg svg {
+    fill: black;
+    color: black;
+}
+
+.color_gray_svg svg {
+    fill: gray;
+    color: gray;
+}
+
+.color_brown_svg svg {
+    fill: #513f3f;
+    color: #513f3f;
+}
+
+.color_beige_svg svg {
+    fill: #cab58c;
+    color: #cab58c;
+}
