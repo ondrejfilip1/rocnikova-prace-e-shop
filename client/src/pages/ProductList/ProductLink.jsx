@@ -8,8 +8,11 @@ import s from "./ProductList.module.css";
 import classNames from "classnames";
 import { ShoppingCart, Heart } from "lucide-react";
 import { addItem } from "@/models/Cart";
+import { useState } from "react";
 
 export default function ProductLink(props) {
+  const [selectedColor, setSelectedColor] = useState(props.color[0]);
+
   const handleAddItemsToCart = async (productId) => {
     // TODO: kvantita
     const quantity = 1;
@@ -54,7 +57,10 @@ export default function ProductLink(props) {
         />
         <Link to={`/product/${props._id}`} className={s.image_fix}>
           <img
-            src={props.imagePath}
+            // ziska obrazek podle barvy
+            src={`${props.imagePath}${
+              selectedColor === "white" ? "front_w.avif" : "front_b.avif"
+            }`}
             alt={props.name}
             className="rounded-md border border-transparent my-6 px-6"
             draggable="false"
@@ -65,7 +71,8 @@ export default function ProductLink(props) {
             <p>{props.name}</p>
             <p>{props.price} Kč</p>
             <RadioGroup
-              defaultValue={props.color?.[0]}
+              value={selectedColor}
+              onValueChange={setSelectedColor}
               className="my-4 flex justify-center"
             >
               {props.color?.map((color, index) => (

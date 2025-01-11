@@ -104,7 +104,7 @@ export default function ProductView() {
       <div className={s.background}>
         <Header />
         <div className="header-placeholder" />
-        <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4">
+        <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4 max-w-screen-lg">
           <div className="w-1/2">
             <div
               draggable="false"
@@ -113,7 +113,9 @@ export default function ProductView() {
               <Dialog>
                 <DialogTrigger asChild>
                   <img
-                    src={product.imagePath}
+                    src={`${product.imagePath}${
+                      selectedColor === "bílá" ? "front_w.avif" : "front_b.avif"
+                    }`}
                     alt=""
                     sizes="100vw"
                     style={{
@@ -128,8 +130,10 @@ export default function ProductView() {
                 <DialogContent className="border-0 bg-white px-10 max-w-[90%]">
                   <div className="relative h-[calc(100vh-220px)] w-full overflow-clip rounded-md bg-white">
                     <img
-                      src={product.imagePath}
-                      alt=""
+                      src={`${product.imagePath}${
+                        selectedColor === "bílá" ? "front_w.avif" : "front_b.avif"
+                      }`}
+                      alt={product.name}
                       className="h-full w-full object-contain"
                     />
                   </div>
@@ -169,7 +173,7 @@ export default function ProductView() {
 
             <div className="flex flex-col">
               <Button
-                className="bg-red-900 hover:bg-red-950 text-white font-semibold w-full xl:w-1/2 mb-2"
+                className="bg-red-900 hover:bg-red-950 text-white font-semibold w-full mb-2"
                 onClick={() => handleAddItemsToCart(product._id)}
               >
                 Přidat do košíku

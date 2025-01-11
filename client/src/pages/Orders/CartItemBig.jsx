@@ -112,7 +112,8 @@ export default function CartItemBig({
         <div className="flex items-center">
           <div className="h-20 flex items-center">
             <img
-              src={product.imagePath}
+              // TODO: dostat obrazek podle barvy (zmenit backend)
+              src={`${product.imagePath}${"front_w.avif"}`}
               alt={product.name}
               className="w-20 my-2"
               draggable="false"
