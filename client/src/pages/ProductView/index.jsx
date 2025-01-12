@@ -209,7 +209,14 @@ export default function ProductView() {
             </Carousel>
           </div>
           <div className="w-1/2">
-          <img src="" alt="" />
+            <img
+              // TODO: dalsi znacky
+              src={`/src/assets/icons/${
+                product.brand === "adidas" ? "adidas.svg" : "nike.svg"
+              }`}
+              alt={product.brand}
+              className="w-12 h-auto mb-1"
+            />
             <h1 className="text-lg">{product.name}</h1>
             <p className="text-sm">{product.price} Kč</p>
             <p className="text-sm">Značka: {product.brand}</p>
@@ -242,7 +249,9 @@ export default function ProductView() {
             <div className="flex flex-col">
               <Button
                 className="bg-red-900 hover:bg-red-950 text-white font-semibold w-full mb-2"
-                onClick={() => handleAddItemsToCart(product._id, engSelectedColor)}
+                onClick={() =>
+                  handleAddItemsToCart(product._id, engSelectedColor)
+                }
               >
                 Přidat do košíku
               </Button>
