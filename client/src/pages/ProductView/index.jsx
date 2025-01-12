@@ -19,6 +19,14 @@ import {
   DialogTrigger,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function ProductView() {
   const { id } = useParams();
@@ -104,15 +112,13 @@ export default function ProductView() {
       <div className={s.background}>
         <Header />
         <div className="header-placeholder" />
-        <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4 max-w-screen-lg">
-          <div className="w-1/2">
-            <div
-              draggable="false"
-              className="rounded-lg backdrop-background-color backdrop-blur-xl aspect-square shadow-2xl p-5 flex items-center justify-center"
-            >
+        <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4 max-w-screen-xl">
+          <div className="w-2/3">
+            <div className="rounded-lg backdrop-background-color backdrop-blur-xl aspect-square shadow-2xl p-5 flex items-center justify-center">
               <Dialog>
                 <DialogTrigger asChild>
                   <img
+                    // TODO: ostatni barvy
                     src={`${product.imagePath}${
                       selectedColor === "bílá" ? "front_w.avif" : "front_b.avif"
                     }`}
@@ -122,8 +128,7 @@ export default function ProductView() {
                       width: "100%",
                       height: "auto",
                     }}
-                    width={500}
-                    height={100}
+                    draggable="false"
                   />
                 </DialogTrigger>
                 <DialogTitle />
@@ -131,15 +136,75 @@ export default function ProductView() {
                   <div className="relative h-[calc(100vh-220px)] w-full overflow-clip rounded-md bg-white">
                     <img
                       src={`${product.imagePath}${
-                        selectedColor === "bílá" ? "front_w.avif" : "front_b.avif"
+                        selectedColor === "bílá"
+                          ? "front_w.avif"
+                          : "front_b.avif"
                       }`}
                       alt={product.name}
                       className="h-full w-full object-contain"
+                      draggable="false"
                     />
                   </div>
                 </DialogContent>
               </Dialog>
             </div>
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              className="w-full my-4"
+            >
+              <CarouselContent>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
+                    <CardContent className="flex aspect-square items-center justify-center p-6">
+                      <img
+                        className="aspect-square object-contain"
+                        src={`${product.imagePath}${
+                          selectedColor === "bílá"
+                            ? "bottom_w.avif"
+                            : "bottom_b.avif"
+                        }`}
+                        alt={product.name}
+                        draggable="false"
+                      />
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
+                    <CardContent className="flex aspect-square items-center justify-center p-6">
+                      <img
+                        className="aspect-square object-contain"
+                        src={`${product.imagePath}${
+                          selectedColor === "bílá" ? "top_w.avif" : "top_b.avif"
+                        }`}
+                        alt={product.name}
+                        draggable="false"
+                      />
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
+                    <CardContent className="flex aspect-square items-center justify-center p-6">
+                      <img
+                        className="aspect-square object-contain"
+                        src={`${product.imagePath}${
+                          selectedColor === "bílá"
+                            ? "front_w.avif"
+                            : "front_b.avif"
+                        }`}
+                        alt={product.name}
+                        draggable="false"
+                      />
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious className="top-6 left-2 backdrop-blur-xl hover:text-red-900 border-transparent shadow-md backdrop-background-color-dark backdrop-background-color-hover" />
+              <CarouselNext className="top-6 right-2 backdrop-blur-xl hover:text-red-900 border-transparent shadow-md backdrop-background-color-dark backdrop-background-color-hover" />
+            </Carousel>
           </div>
           <div className="w-1/2">
             <h1 className="text-lg">{product.name}</h1>
