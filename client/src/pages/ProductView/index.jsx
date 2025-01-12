@@ -35,6 +35,26 @@ export default function ProductView() {
   const [selectedColor, setSelectedColor] = useState();
   const [engSelectedColor, setEngSelectedColor] = useState();
 
+  const brands = {
+    adidas: "adidas.svg",
+    nike: "nike.svg",
+    vans: "vans.svg",
+    jordan: "jordan.svg",
+    puma: "puma.svg",
+    reebok: "reebok.svg",
+    skechers: "skechers.svg",
+    tommy_hilfiger: "tommy_hilfiger.svg",
+  };
+
+  const colors = {
+    white: "w",
+    black: "b",
+    olive: "o",
+    gray: "g",
+    beige: "be",
+    brown: "br"
+  };
+
   const load = async () => {
     const data = await getProductById(id);
     if (data.status === 500 || data.status === 404) return setLoaded(null);
@@ -85,6 +105,9 @@ export default function ProductView() {
       case "brown":
         setSelectedColor("hnědá");
         return;
+      case "olive":
+        setSelectedColor("olivová");
+        return;
     }
     return;
   };
@@ -120,10 +143,7 @@ export default function ProductView() {
               <Dialog>
                 <DialogTrigger asChild>
                   <img
-                    // TODO: ostatni barvy
-                    src={`${product.imagePath}${
-                      selectedColor === "bílá" ? "front_w.avif" : "front_b.avif"
-                    }`}
+                    src={`${product.imagePath}front_${colors[engSelectedColor]}.avif`}
                     alt={product.name}
                     sizes="100vw"
                     style={{
@@ -137,11 +157,7 @@ export default function ProductView() {
                 <DialogContent className="border-0 bg-white px-10 max-w-[90%]">
                   <div className="relative h-[calc(100vh-220px)] w-full overflow-clip rounded-md bg-white">
                     <img
-                      src={`${product.imagePath}${
-                        selectedColor === "bílá"
-                          ? "front_w.avif"
-                          : "front_b.avif"
-                      }`}
+                      src={`${product.imagePath}front_${colors[engSelectedColor]}.avif`}
                       alt={product.name}
                       className="h-full w-full object-contain"
                       draggable="false"
@@ -162,11 +178,7 @@ export default function ProductView() {
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img
                         className="aspect-square object-contain"
-                        src={`${product.imagePath}${
-                          selectedColor === "bílá"
-                            ? "bottom_w.avif"
-                            : "bottom_b.avif"
-                        }`}
+                        src={`${product.imagePath}bottom_${colors[engSelectedColor]}.avif`}
                         alt={product.name}
                         draggable="false"
                       />
@@ -178,9 +190,7 @@ export default function ProductView() {
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img
                         className="aspect-square object-contain"
-                        src={`${product.imagePath}${
-                          selectedColor === "bílá" ? "top_w.avif" : "top_b.avif"
-                        }`}
+                        src={`${product.imagePath}top_${colors[engSelectedColor]}.avif`}
                         alt={product.name}
                         draggable="false"
                       />
@@ -192,11 +202,7 @@ export default function ProductView() {
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img
                         className="aspect-square object-contain"
-                        src={`${product.imagePath}${
-                          selectedColor === "bílá"
-                            ? "front_w.avif"
-                            : "front_b.avif"
-                        }`}
+                        src={`${product.imagePath}front_${colors[engSelectedColor]}.avif`}
                         alt={product.name}
                         draggable="false"
                       />
@@ -210,10 +216,7 @@ export default function ProductView() {
           </div>
           <div className="w-1/2">
             <img
-              // TODO: dalsi znacky
-              src={`/src/assets/icons/${
-                product.brand === "adidas" ? "adidas.svg" : "nike.svg"
-              }`}
+              src={`/src/assets/icons/${brands[product.brand]}`}
               alt={product.brand}
               className="w-12 h-auto mb-1"
             />
@@ -237,6 +240,7 @@ export default function ProductView() {
                         color === "gray" && s.color_gray_svg,
                         color === "brown" && s.color_brown_svg,
                         color === "beige" && s.color_beige_svg,
+                        color === "olive" && s.color_olive_svg,
                         s.radio_svg_fix
                       )}
                     />

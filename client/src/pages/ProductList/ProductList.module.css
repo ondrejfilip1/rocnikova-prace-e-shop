@@ -44,6 +44,11 @@
     color: #cab58c;
 }
 
+.color_olive_svg svg {
+    fill: #66662c;
+    color: #66662c;
+}
+
 .cart_button_hover {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, scale;
 }

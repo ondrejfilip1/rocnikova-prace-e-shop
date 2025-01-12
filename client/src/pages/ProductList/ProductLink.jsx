@@ -13,6 +13,15 @@ import { useState } from "react";
 export default function ProductLink(props) {
   const [selectedColor, setSelectedColor] = useState(props.color[0]);
 
+  const colors = {
+    white: "w",
+    black: "b",
+    olive: "o",
+    gray: "g",
+    beige: "be",
+    brown: "br",
+  };
+
   const handleAddItemsToCart = async (productId, color) => {
     // TODO: kvantita
     const quantity = 1;
@@ -57,11 +66,7 @@ export default function ProductLink(props) {
         />
         <Link to={`/product/${props._id}`} className={s.image_fix}>
           <img
-            // ziska obrazek podle barvy
-            // TODO: vice barev
-            src={`${props.imagePath}${
-              selectedColor === "white" ? "front_w.avif" : "front_b.avif"
-            }`}
+            src={`${props.imagePath}front_${colors[selectedColor]}.avif`}
             alt={props.name}
             className="rounded-md border border-transparent my-6 px-6"
             draggable="false"
@@ -87,6 +92,7 @@ export default function ProductLink(props) {
                       color === "gray" && s.color_gray_svg,
                       color === "brown" && s.color_brown_svg,
                       color === "beige" && s.color_beige_svg,
+                      color === "olive" && s.color_olive_svg,
                       s.radio_svg_fix
                     )}
                   />

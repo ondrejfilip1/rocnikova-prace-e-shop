@@ -26,6 +26,15 @@ export default function CartItemBig({
   const [isLoaded, setLoaded] = useState();
   const [quantity, setQuantity] = useState(origQuantity);
 
+  const colors = {
+    white: "w",
+    black: "b",
+    olive: "o",
+    gray: "g",
+    beige: "be",
+    brown: "br",
+  };
+
   const loadItem = async () => {
     const data = await getProductById(productId);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
@@ -113,10 +122,7 @@ export default function CartItemBig({
         <div className="flex items-center">
           <div className="h-20 flex items-center">
             <img
-              // TODO: dostat obrazek podle barvy (zmenit backend)
-              src={`${product.imagePath}${
-                color === "white" ? "front_w.avif" : "front_b.avif"
-              }`}
+              src={`${product.imagePath}front_${colors[color]}.avif`}
               alt={product.name}
               className="w-20 my-2"
               draggable="false"
