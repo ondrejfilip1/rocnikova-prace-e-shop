@@ -75,6 +75,7 @@ export default function Orders() {
                     <CartItemBig
                       productId={item.items[0].productId}
                       quantity={item.items[0].quantity}
+                      color={item.items[0].color}
                       itemId={item._id}
                       itemOrigId={item.items[0]._id}
                       reloadCart={loadCart}

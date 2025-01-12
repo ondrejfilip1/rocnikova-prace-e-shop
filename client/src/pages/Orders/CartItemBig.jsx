@@ -15,6 +15,7 @@ import s from "./Orders.module.css";
 export default function CartItemBig({
   productId,
   quantity: origQuantity,
+  color,
   itemId,
   itemOrigId,
   reloadCart,
@@ -113,7 +114,9 @@ export default function CartItemBig({
           <div className="h-20 flex items-center">
             <img
               // TODO: dostat obrazek podle barvy (zmenit backend)
-              src={`${product.imagePath}${"front_w.avif"}`}
+              src={`${product.imagePath}${
+                color === "white" ? "front_w.avif" : "front_b.avif"
+              }`}
               alt={product.name}
               className="w-20 my-2"
               draggable="false"

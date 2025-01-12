@@ -33,6 +33,7 @@ export default function ProductView() {
   const [product, setProduct] = useState();
   const [isLoaded, setLoaded] = useState(false);
   const [selectedColor, setSelectedColor] = useState();
+  const [engSelectedColor, setEngSelectedColor] = useState();
 
   const load = async () => {
     const data = await getProductById(id);
@@ -45,10 +46,10 @@ export default function ProductView() {
     }
   };
 
-  const handleAddItemsToCart = async (productId) => {
+  const handleAddItemsToCart = async (productId, color) => {
     // TODO: kvantita
     const quantity = 1;
-    const data = await addItem({ productId, quantity });
+    const data = await addItem({ productId, quantity, color });
     if (data.status === 201) {
       toast("Položka byla přidána do košíku", {
         description: product.name,
@@ -67,6 +68,7 @@ export default function ProductView() {
   };
 
   const handleColorChange = (value) => {
+    setEngSelectedColor(value);
     switch (value) {
       case "white":
         setSelectedColor("bílá");
@@ -207,6 +209,7 @@ export default function ProductView() {
             </Carousel>
           </div>
           <div className="w-1/2">
+          <img src="" alt="" />
             <h1 className="text-lg">{product.name}</h1>
             <p className="text-sm">{product.price} Kč</p>
             <p className="text-sm">Značka: {product.brand}</p>
@@ -239,7 +242,7 @@ export default function ProductView() {
             <div className="flex flex-col">
               <Button
                 className="bg-red-900 hover:bg-red-950 text-white font-semibold w-full mb-2"
-                onClick={() => handleAddItemsToCart(product._id)}
+                onClick={() => handleAddItemsToCart(product._id, engSelectedColor)}
               >
                 Přidat do košíku
               </Button>
