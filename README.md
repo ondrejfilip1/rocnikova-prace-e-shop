@@ -12,6 +12,7 @@ Vytvořen v Reactu + Vite
 - Mongoose
 
 <br>[TODO](https://github.com/ondrejfilip1/rocnikova-prace-e-shop/blob/main/TODO.txt)
+<br>Obrázky a informace z produktů jsou ze stránky [aboutyou.cz](https://www.aboutyou.cz/)
 
 <div align="center"> 
   
