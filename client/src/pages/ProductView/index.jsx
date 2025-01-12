@@ -116,7 +116,7 @@ export default function ProductView() {
                     src={`${product.imagePath}${
                       selectedColor === "bílá" ? "front_w.avif" : "front_b.avif"
                     }`}
-                    alt=""
+                    alt={product.name}
                     sizes="100vw"
                     style={{
                       width: "100%",

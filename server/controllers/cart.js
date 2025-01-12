@@ -61,7 +61,6 @@ exports.updateQuantity = async (req, res, next) => {
     return res.status(200).send({
       message: "Cart updated successfully",
       payload: cart,
-      quantities: cart.items.map(item => item.quantity)
     });
   } catch (err) {
     res.status(500).send(err);
@@ -71,12 +70,13 @@ exports.updateQuantity = async (req, res, next) => {
 
 exports.addItem = async (req, res, next) => {
   try {
-    const { productId, quantity } = req.body;
+    const { productId, quantity, color } = req.body;
     const data = new Cart({
       productId: req.body.productId,
       quantity: req.body.quantity,
+      color: req.body.color,
     });
-    data.items.push({ productId, quantity });
+    data.items.push({ productId, quantity, color });
     const result = await data.save();
     if (result) {
       return res.status(201).send({

@@ -13,10 +13,10 @@ import { useState } from "react";
 export default function ProductLink(props) {
   const [selectedColor, setSelectedColor] = useState(props.color[0]);
 
-  const handleAddItemsToCart = async (productId) => {
+  const handleAddItemsToCart = async (productId, color) => {
     // TODO: kvantita
     const quantity = 1;
-    const data = await addItem({ productId, quantity });
+    const data = await addItem({ productId, quantity, color });
     if (data.status === 201) {
       toast("Položka byla přidána do košíku", {
         description: props.name,
@@ -58,6 +58,7 @@ export default function ProductLink(props) {
         <Link to={`/product/${props._id}`} className={s.image_fix}>
           <img
             // ziska obrazek podle barvy
+            // TODO: vice barev
             src={`${props.imagePath}${
               selectedColor === "white" ? "front_w.avif" : "front_b.avif"
             }`}
@@ -99,7 +100,7 @@ export default function ProductLink(props) {
                 "text-red-900 bg-transparent background-button-hover font-semibold",
                 s.cart_button_hover
               )}
-              onClick={() => handleAddItemsToCart(props._id)}
+              onClick={() => handleAddItemsToCart(props._id, selectedColor)}
             >
               <ShoppingCart />
               Přidat do košíku
