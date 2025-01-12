@@ -156,8 +156,8 @@ export default function ProductView() {
               }}
               className="w-full my-4"
             >
-              <CarouselContent>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+              <CarouselContent className="pb-6">
+                <CarouselItem className="sm:basis-1/2 lg:basis-1/3">
                   <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img
@@ -173,7 +173,7 @@ export default function ProductView() {
                     </CardContent>
                   </Card>
                 </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <CarouselItem className="sm:basis-1/2 lg:basis-1/3">
                   <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img
@@ -187,7 +187,7 @@ export default function ProductView() {
                     </CardContent>
                   </Card>
                 </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <CarouselItem className="sm:basis-1/2 lg:basis-1/3">
                   <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img
@@ -204,8 +204,8 @@ export default function ProductView() {
                   </Card>
                 </CarouselItem>
               </CarouselContent>
-              <CarouselPrevious className="top-6 left-2 backdrop-blur-xl hover:text-red-900 border-transparent shadow-md backdrop-background-color-dark backdrop-background-color-hover" />
-              <CarouselNext className="top-6 right-2 backdrop-blur-xl hover:text-red-900 border-transparent shadow-md backdrop-background-color-dark backdrop-background-color-hover" />
+              <CarouselPrevious className="top-6 left-2 backdrop-blur-sm hover:text-red-900 border-transparent shadow-md backdrop-background-color-dark backdrop-background-color-hover" />
+              <CarouselNext className="top-6 right-2 backdrop-blur-sm hover:text-red-900 border-transparent shadow-md backdrop-background-color-dark backdrop-background-color-hover" />
             </Carousel>
           </div>
           <div className="w-1/2">
@@ -217,10 +217,9 @@ export default function ProductView() {
               alt={product.brand}
               className="w-12 h-auto mb-1"
             />
-            <h1 className="text-lg">{product.name}</h1>
-            <p className="text-sm">{product.price} Kč</p>
-            <p className="text-sm">Značka: {product.brand}</p>
-            <div className="text-sm">
+            <h1 className="text-lg font-medium">{product.name}</h1>
+            <p className="text-sm font-medium">{product.price} Kč</p>
+            <div className="text-sm font-medium">
               Barva: {selectedColor}
               <RadioGroup
                 defaultValue={product.color?.[0]}
