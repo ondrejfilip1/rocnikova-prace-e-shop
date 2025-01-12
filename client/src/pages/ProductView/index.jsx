@@ -27,6 +27,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import { colors } from "@/components/constants";
 
 export default function ProductView() {
   const { id } = useParams();
@@ -44,15 +45,6 @@ export default function ProductView() {
     reebok: "reebok.svg",
     skechers: "skechers.svg",
     tommy_hilfiger: "tommy_hilfiger.svg",
-  };
-
-  const colors = {
-    white: "w",
-    black: "b",
-    olive: "o",
-    gray: "g",
-    beige: "be",
-    brown: "br"
   };
 
   const load = async () => {
@@ -105,9 +97,12 @@ export default function ProductView() {
       case "brown":
         setSelectedColor("hnědá");
         return;
-      case "olive":
-        setSelectedColor("olivová");
-        return;
+        case "olive":
+          setSelectedColor("olivová");
+          return;
+          case "sea_blue":
+            setSelectedColor("mořská modř");
+            return;
     }
     return;
   };
@@ -241,6 +236,7 @@ export default function ProductView() {
                         color === "brown" && s.color_brown_svg,
                         color === "beige" && s.color_beige_svg,
                         color === "olive" && s.color_olive_svg,
+                        color === "sea_blue" && s.color_sea_blue_svg,
                         s.radio_svg_fix
                       )}
                     />

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/tooltip";
 import classNames from "classnames";
 import s from "./Orders.module.css";
+import { colors } from "@/components/constants";
 
 export default function CartItemBig({
   productId,
@@ -25,15 +26,6 @@ export default function CartItemBig({
   const [product, setProducts] = useState();
   const [isLoaded, setLoaded] = useState();
   const [quantity, setQuantity] = useState(origQuantity);
-
-  const colors = {
-    white: "w",
-    black: "b",
-    olive: "o",
-    gray: "g",
-    beige: "be",
-    brown: "br",
-  };
 
   const loadItem = async () => {
     const data = await getProductById(productId);

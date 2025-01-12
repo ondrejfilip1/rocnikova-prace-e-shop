@@ -9,18 +9,10 @@ import classNames from "classnames";
 import { ShoppingCart, Heart } from "lucide-react";
 import { addItem } from "@/models/Cart";
 import { useState } from "react";
+import { colors } from "@/components/constants";
 
 export default function ProductLink(props) {
   const [selectedColor, setSelectedColor] = useState(props.color[0]);
-
-  const colors = {
-    white: "w",
-    black: "b",
-    olive: "o",
-    gray: "g",
-    beige: "be",
-    brown: "br",
-  };
 
   const handleAddItemsToCart = async (productId, color) => {
     // TODO: kvantita
@@ -93,6 +85,7 @@ export default function ProductLink(props) {
                       color === "brown" && s.color_brown_svg,
                       color === "beige" && s.color_beige_svg,
                       color === "olive" && s.color_olive_svg,
+                      color === "sea_blue" && s.color_sea_blue_svg,
                       s.radio_svg_fix
                     )}
                   />

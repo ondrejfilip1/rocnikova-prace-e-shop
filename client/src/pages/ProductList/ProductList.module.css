@@ -49,6 +49,11 @@
     color: #66662c;
 }
 
+.color_sea_blue_svg svg {
+    fill: #070730;
+    color: #070730;
+}
+
 .cart_button_hover {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, scale;
 }
