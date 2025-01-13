@@ -12,6 +12,7 @@ import {
 import classNames from "classnames";
 import s from "./Orders.module.css";
 import { colors } from "@/components/constants";
+import { Link } from "react-router-dom";
 
 export default function CartItemBig({
   productId,
@@ -113,12 +114,14 @@ export default function CartItemBig({
       <div className="flex justify-between items-center background-light-hover transition-colors rounded-md py-3 px-4">
         <div className="flex items-center">
           <div className="h-20 flex items-center">
-            <img
-              src={`${product.imagePath}front_${colors[color]}.avif`}
-              alt={product.name}
-              className="w-20 my-2"
-              draggable="false"
-            />
+            <Link to={`/product/${productId}`}>
+              <img
+                src={`${product.imagePath}front_${colors[color]}.avif`}
+                alt={product.name}
+                className="w-20 my-2"
+                draggable="false"
+              />
+            </Link>
           </div>
           <div className="ml-4">
             <div className="font-semibold">{product.name}</div>
