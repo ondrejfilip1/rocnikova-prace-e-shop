@@ -22,7 +22,7 @@ import { useLocation } from "react-router-dom";
 
 import NotFound from "@/components/NotFound";
 
-export default function ProductList() {
+export default function ProductList(props) {
   const [products, setProducts] = useState();
   const [isLoaded, setLoaded] = useState(false);
   const [isSidebarOpened, setSidebarOpened] = useState(false);
@@ -66,7 +66,7 @@ export default function ProductList() {
 
   return (
     <>
-      <div className={s.background}>
+      <div className="background">
         <Header onSearch={(query) => setSearchQuery(query)} />
         <div className="header-placeholder" />
         <SidebarProvider
@@ -97,7 +97,7 @@ export default function ProductList() {
           <div className="container mx-auto px-4">
             {isLoaded !== null && (
               <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
-                <span>Boty</span>
+                <span>{props.name}</span>
                 <span className="rounded-full background-primary min-w-5 px-1.5 text-center text-sm text-primary-light">
                   {totalProducts}
                 </span>
@@ -106,7 +106,7 @@ export default function ProductList() {
             <div className="flex flex-wrap justify-center gap-6">
               {isLoaded === null && (
                 <>
-                  <NotFound link="/view-products" content="Zobrazit produkty" />
+                  <NotFound link={`/view-products/${props.name}`} content="Zobrazit produkty" />
                 </>
               )}
               {isLoaded !== null &&

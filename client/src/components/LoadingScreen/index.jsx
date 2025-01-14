@@ -1,9 +1,7 @@
-import s from "./LoadingScreen.module.css";
-
 export default function LoadingScreen() {
   return (
     <>
-      <div className={s.background}>
+      <div className="background">
         <div
           className="flex flex-col items-center gap-2 min-h-screen text-red-900"
           style={{ justifyContent: "center" }}

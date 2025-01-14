@@ -60,7 +60,7 @@ export default function Orders() {
 
   return (
     <>
-      <div className={s.background}>
+      <div className="background">
         <Header />
         <div className="header-placeholder" />
         <div className="text-red-900 text-sm container mx-auto px-4 lg:max-w-screen-lg font-medium my-2 flex flex-col justify-center">
@@ -111,10 +111,12 @@ export default function Orders() {
                 {
                   // background-primary background-primary-hover
                 }
+                <Link to="/zaplaceni">
                 <Button className="text-white bg-red-900 hover:bg-red-950 gap-1 pr-3">
                   <div>Pokračovat</div>
                   <ChevronRight />
                 </Button>
+                </Link>
               </div>
             </>
           ) : (

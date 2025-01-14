@@ -10,7 +10,7 @@ import classNames from "classnames";
 export default function Home() {
   return (
     <>
-      <div className={s.background}>
+      <div className="background">
         <Header />
         <div className={s.heading_container}>
           <div className={s.heading}>

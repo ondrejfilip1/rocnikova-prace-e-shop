@@ -71,56 +71,56 @@ import CartItem from "./CartItem";
 const components = [
   {
     title: "Nike",
-    href: "/view-products?search=Nike",
+    href: "/view-products/boty?search=Nike",
     description:
       "Světově proslulá značka sportovního oblečení a obuvi, která kombinuje inovaci, styl a výkonnost.",
     iconPath: Nike,
   },
   {
     title: "Adidas",
-    href: "/view-products?search=Adidas",
+    href: "/view-products/boty?search=Adidas",
     description:
       "Přední značka sportovní módy známá svými ikonickými třemi pruhy a prvotřídní kvalitou.",
     iconPath: Adidas,
   },
   {
     title: "Tommy Hilfiger",
-    href: "/view-products?search=Tommy+Hilfiger",
+    href: "/view-products/boty?search=Tommy+Hilfiger",
     description:
       "Luxusní značka známá svým nadčasovým designem a americkým stylem.",
     iconPath: TommyHilfiger,
   },
   {
     title: "Vans",
-    href: "/view-products?search=Vans",
+    href: "/view-products/boty?search=Vans",
     description:
       "Legendární značka pro milovníky streetwearu a skateboardingu, která přináší stylové a pohodlné kousky.",
     iconPath: Vans,
   },
   {
     title: "Jordan",
-    href: "/view-products?search=Jordan",
+    href: "/view-products/boty?search=Jordan",
     description:
       "Prémiová sportovní značka inspirovaná legendárním Michaelem Jordanem, zaměřená na basketbalovou obuv a módu.",
     iconPath: Jordan,
   },
   {
     title: "Puma",
-    href: "/view-products?search=Puma",
+    href: "/view-products/boty?search=Puma",
     description:
       "Dynamická značka spojující sportovní výkon a trendy design, ideální pro aktivní životní styl.",
     iconPath: Puma,
   },
   {
     title: "Reebok",
-    href: "/view-products?search=Reebok",
+    href: "/view-products/boty?search=Reebok",
     description:
       "Ikonická značka s důrazem na fitness, sportovní oblečení a inovativní technologie.",
     iconPath: Reebok,
   },
   {
     title: "Skechers",
-    href: "/view-products?search=Skechers",
+    href: "/view-products/boty?search=Skechers",
     description:
       "Populární značka obuvi zaměřená na pohodlí, funkčnost a moderní design.",
     iconPath: Skechers,
@@ -399,12 +399,12 @@ export default function Header({ onSearch }) {
                         s.link_custom
                       )}
                     >
-                      <Link>Mikiny</Link>
-                      <Link>Trička</Link>
-                      <Link>Bundy</Link>
-                      <Link>Džíny</Link>
-                      <Link>Kalhoty</Link>
-                      <Link>Tepláky</Link>
+                      <Link to="/view-products/mikiny">Mikiny</Link>
+                      <Link to="/view-products/tricka">Trička</Link>
+                      <Link to="/view-products/bundy">Bundy</Link>
+                      <Link to="/view-products/dziny">Džíny</Link>
+                      <Link to="/view-products/kalhoty">Kalhoty</Link>
+                      <Link to="/view-products/teplaky">Tepláky</Link>
                     </li>
                     <li
                       className={classnames(
@@ -412,12 +412,12 @@ export default function Header({ onSearch }) {
                         s.link_custom
                       )}
                     >
-                      <Link>Svetry</Link>
-                      <Link>Prádlo</Link>
-                      <Link>Obleky</Link>
-                      <Link>Smokingy</Link>
-                      <Link>Košile</Link>
-                      <Link>Kabáty</Link>
+                      <Link to="/view-products/svetry">Svetry</Link>
+                      <Link to="/view-products/pradlo">Prádlo</Link>
+                      <Link to="/view-products/obleky">Obleky</Link>
+                      <Link to="/view-products/smokingy">Smokingy</Link>
+                      <Link to="/view-products/kosile">Košile</Link>
+                      <Link to="/view-products/kabaty">Kabáty</Link>
                     </li>
                   </ul>
                 </NavigationMenuContent>
@@ -449,7 +449,7 @@ export default function Header({ onSearch }) {
                       onClick={() =>
                         useNavigate("/view-products", { replace: true })
                       }
-                      to="/view-products"
+                      to="/view-products/boty"
                       className="text-sm font-medium ml-3"
                     >
                       Zobrazit vše

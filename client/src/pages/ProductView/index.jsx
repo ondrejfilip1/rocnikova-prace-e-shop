@@ -129,7 +129,7 @@ export default function ProductView() {
 
   return (
     <>
-      <div className={s.background}>
+      <div className="background">
         <Header />
         <div className="header-placeholder" />
         <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4 max-w-screen-xl">
@@ -140,11 +140,7 @@ export default function ProductView() {
                   <img
                     src={`${product.imagePath}front_${colors[engSelectedColor]}.avif`}
                     alt={product.name}
-                    sizes="100vw"
-                    style={{
-                      width: "100%",
-                      height: "auto",
-                    }}
+                    className="h-auto w-full cursor-zoom-in"
                     draggable="false"
                   />
                 </DialogTrigger>
