@@ -9,3 +9,13 @@ export const colors = {
   brown: "br",
   sea_blue: "sb",
 };
+
+export const colorsTranslated = {
+  white: "Bílá",
+  black: "Černá",
+  olive: "Olivová",
+  gray: "Šedá",
+  beige: "Béžová",
+  brown: "Hnědá",
+  sea_blue: "Mořská modř",
+};

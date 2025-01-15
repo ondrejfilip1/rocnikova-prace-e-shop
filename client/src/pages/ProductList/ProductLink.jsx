@@ -9,7 +9,13 @@ import classNames from "classnames";
 import { ShoppingCart, Heart } from "lucide-react";
 import { addItem } from "@/models/Cart";
 import { useState } from "react";
-import { colors } from "@/components/constants";
+import { colors, colorsTranslated } from "@/components/constants";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 export default function ProductLink(props) {
   const [selectedColor, setSelectedColor] = useState(props.color[0]);
@@ -60,7 +66,7 @@ export default function ProductLink(props) {
           <img
             src={`${props.imagePath}front_${colors[selectedColor]}.avif`}
             alt={props.name}
-            className="rounded-md border border-transparent my-6 px-6"
+            className="rounded-md border border-transparent my-6 px-6 aspect-video object-contain object-center"
             draggable="false"
           />
         </Link>
@@ -75,20 +81,30 @@ export default function ProductLink(props) {
             >
               {props.color?.map((color, index) => (
                 <div key={index} className="flex items-center space-x-2">
-                  <RadioGroupItem
-                    value={color}
-                    id={`r${index}`}
-                    className={classNames(
-                      color === "white" && s.color_white_svg,
-                      color === "black" && s.color_black_svg,
-                      color === "gray" && s.color_gray_svg,
-                      color === "brown" && s.color_brown_svg,
-                      color === "beige" && s.color_beige_svg,
-                      color === "olive" && s.color_olive_svg,
-                      color === "sea_blue" && s.color_sea_blue_svg,
-                      s.radio_svg_fix
-                    )}
-                  />
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <RadioGroupItem
+                            value={color}
+                            id={`r${index}`}
+                            className={classNames(
+                              color === "white" && s.color_white_svg,
+                              color === "black" && s.color_black_svg,
+                              color === "gray" && s.color_gray_svg,
+                              color === "brown" && s.color_brown_svg,
+                              color === "beige" && s.color_beige_svg,
+                              color === "olive" && s.color_olive_svg,
+                              color === "sea_blue" && s.color_sea_blue_svg,
+                              s.radio_svg_fix, s.radio_ring,
+                              "rounded-full border-none ring-1 ring-red-900/25"
+                            )}
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent className="text-sm background-primary-light text-red-900 outline-none border-none" side="bottom">
+                          <p>{colorsTranslated[color]}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                 </div>
               ))}
             </RadioGroup>
