@@ -235,19 +235,19 @@ export default function ProductView() {
                             value={color}
                             id={`r${index}`}
                             className={classNames(
-                              color === "white" && s.color_white_svg,
-                              color === "black" && s.color_black_svg,
-                              color === "gray" && s.color_gray_svg,
-                              color === "brown" && s.color_brown_svg,
-                              color === "beige" && s.color_beige_svg,
-                              color === "olive" && s.color_olive_svg,
-                              color === "sea_blue" && s.color_sea_blue_svg,
-                              s.radio_svg_fix, s.radio_ring,
+                              color === "white" && "color_white_svg",
+                              color === "black" && "color_black_svg",
+                              color === "gray" && "color_gray_svg",
+                              color === "brown" && "color_brown_svg",
+                              color === "beige" && "color_beige_svg",
+                              color === "olive" && "color_olive_svg",
+                              color === "sea_blue" && "color_sea_blue_svg",
+                              "radio_svg_fix", s.radio_ring,
                               "rounded-full border-none ring-1 ring-red-900/25"
                             )}
                           />
                         </TooltipTrigger>
-                        <TooltipContent className="text-sm background-primary-light text-red-900 outline-none border-none" side="bottom">
+                        <TooltipContent className="text-sm background-primary-light text-red-900 outline-none border-none mr-4" side="bottom">
                           <p>{colorsTranslated[color]}</p>
                         </TooltipContent>
                       </Tooltip>

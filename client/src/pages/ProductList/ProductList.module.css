@@ -5,52 +5,6 @@
   border-color: transparent;
 }
 
-.radio_svg_fix svg {
-  width: 100%;
-  height: 100%;
-}
-
-.color_white_svg {
-  fill: white;
-  background-color: white;
-  color: white;
-}
-
-.color_black_svg {
-  fill: black;
-  background-color: black;
-}
-
-.color_gray_svg {
-  fill: gray;
-  background-color: gray;
-  color: gray;
-}
-
-.color_brown_svg {
-  fill: #513f3f;
-  background-color: #513f3f;
-  color: #513f3f;
-}
-
-.color_beige_svg {
-  fill: #cab58c;
-  background-color: #cab58c;
-  color: #cab58c;
-}
-
-.color_olive_svg {
-  fill: #66662c;
-  background-color: #66662c;
-  color: #66662c;
-}
-
-.color_sea_blue_svg {
-  fill: #070730;
-  background-color: #070730;
-  color: #070730;
-}
-
 .cart_button_hover {
   transition-property: color, background-color, border-color,
     text-decoration-color, fill, stroke, scale;
