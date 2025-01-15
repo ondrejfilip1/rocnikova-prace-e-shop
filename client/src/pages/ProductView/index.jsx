@@ -3,6 +3,7 @@ import { getProductById } from "../../models/Product";
 import { useState, useEffect } from "react";
 import s from "./ProductView.module.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import NotFound from "@/components/NotFound";
 import { Button } from "@/components/ui/button";
@@ -135,7 +136,7 @@ export default function ProductView() {
 
   return (
     <>
-      <div className="background">
+      <div className="background pb-[1px]">
         <Header />
         <div className="header-placeholder" />
         <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4 max-w-screen-xl">
@@ -278,6 +279,7 @@ export default function ProductView() {
             </div>
           </div>
         </div>
+                <Footer />
         <Toaster
           position="bottom-right"
           className="font-manrope"

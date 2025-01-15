@@ -3,6 +3,7 @@ import { getAllProducts } from "../../models/Product";
 import ProductLink from "./ProductLink";
 import s from "./ProductList.module.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Filters from "./Filters";
@@ -66,7 +67,8 @@ export default function ProductList(props) {
 
   return (
     <>
-      <div className="background">
+      <div className="background pb-[1px]">
+        {/* tak tohle vubec nechapu */}
         <Header onSearch={(query) => setSearchQuery(query)} />
         <div className="header-placeholder" />
         <SidebarProvider
@@ -106,7 +108,10 @@ export default function ProductList(props) {
             <div className="flex flex-wrap justify-center gap-6">
               {isLoaded === null && (
                 <>
-                  <NotFound link={`/view-products/${props.name}`} content="Zobrazit produkty" />
+                  <NotFound
+                    link={`/view-products/${props.name}`}
+                    content="Zobrazit produkty"
+                  />
                 </>
               )}
               {isLoaded !== null &&
@@ -121,6 +126,7 @@ export default function ProductList(props) {
             </div>
           </div>
         </SidebarProvider>
+        <Footer />
         <Toaster
           position="bottom-right"
           className="font-manrope"

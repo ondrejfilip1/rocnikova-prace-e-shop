@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import s from "./Home.module.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 
@@ -10,7 +11,7 @@ import classNames from "classnames";
 export default function Home() {
   return (
     <>
-      <div className="background">
+      <div className="background pb-[1px]">
         <Header />
         <div className={s.heading_container}>
           <div className={s.heading}>
@@ -105,6 +106,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Footer />
 
         {/*
         <Link to={"/add-car"}>
