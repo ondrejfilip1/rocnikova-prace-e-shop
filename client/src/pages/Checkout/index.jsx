@@ -20,8 +20,8 @@ export default function Checkout() {
           <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
             <span>Platba</span>
           </div>
-          <form>
-            <div className="flex w-full items-center gap-2.5 mb-1.5">
+          <form className="backdrop-background-color p-5 shadow-lg rounded-lg mb-5">
+            <div className="flex w-full items-center gap-5 mb-3">
               <div className="w-full items-center gap-1.5">
                 <Label htmlFor="email">Jméno</Label>
                 <div className="relative">
@@ -45,7 +45,7 @@ export default function Checkout() {
                 </div>
               </div>
             </div>
-            <div className="flex w-full items-center gap-2.5 mb-1.5">
+            <div className="flex w-full items-center gap-5 mb-3">
               <div className="w-full items-center gap-1.5">
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
@@ -70,6 +70,9 @@ export default function Checkout() {
               </div>
             </div>
           </form>
+          <div className="backdrop-background-color p-5 shadow-lg rounded-lg text-lg">
+            Celkem: {}
+          </div>
         </div>
       </div>
     </>

@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import NotFound from "@/components/NotFound";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronsUpDown, Check } from "lucide-react";
 import { addItem } from "@/models/Cart";
 import { toast } from "sonner";
 import { X } from "lucide-react";
@@ -36,12 +36,81 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { colors, colorsTranslated } from "@/components/constants";
 
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 export default function ProductView() {
   const { id } = useParams();
   const [product, setProduct] = useState();
   const [isLoaded, setLoaded] = useState(false);
   const [selectedColor, setSelectedColor] = useState();
   const [engSelectedColor, setEngSelectedColor] = useState();
+
+  // dropdown pro velikosti
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+
+  const sizes = [
+    {
+      value: "39",
+      label: "39",
+    },
+    {
+      value: "40",
+      label: "40",
+    },
+    {
+      value: "40,5",
+      label: "40,5",
+    },
+    {
+      value: "41",
+      label: "41",
+    },
+    {
+      value: "42",
+      label: "42",
+    },
+    {
+      value: "42,5",
+      label: "42,5",
+    },
+    {
+      value: "43",
+      label: "43",
+    },
+    {
+      value: "44",
+      label: "44",
+    },
+    {
+      value: "44,5",
+      label: "44,5",
+    },
+    {
+      value: "45",
+      label: "45",
+    },
+    {
+      value: "45,5",
+      label: "45,5",
+    },
+    {
+      value: "46",
+      label: "46",
+    },
+  ];
 
   const brands = {
     adidas: "adidas.svg",
@@ -88,29 +157,7 @@ export default function ProductView() {
 
   const handleColorChange = (value) => {
     setEngSelectedColor(value);
-    switch (value) {
-      case "white":
-        setSelectedColor("bílá");
-        return;
-      case "black":
-        setSelectedColor("černá");
-        return;
-      case "beige":
-        setSelectedColor("béžová");
-        return;
-      case "gray":
-        setSelectedColor("šedá");
-        return;
-      case "brown":
-        setSelectedColor("hnědá");
-        return;
-      case "olive":
-        setSelectedColor("olivová");
-        return;
-      case "sea_blue":
-        setSelectedColor("mořská modř");
-        return;
-    }
+    setSelectedColor(colorsTranslated[value]);
     return;
   };
 
@@ -231,7 +278,7 @@ export default function ProductView() {
                   <div key={index} className="flex items-center space-x-2">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                           <RadioGroupItem
                             value={color}
                             id={`r${index}`}
@@ -243,12 +290,17 @@ export default function ProductView() {
                               color === "beige" && "color_beige_svg",
                               color === "olive" && "color_olive_svg",
                               color === "sea_blue" && "color_sea_blue_svg",
-                              "radio_svg_fix", s.radio_ring,
+                              color === "red" && "color_red_svg",
+                              "radio_svg_fix",
+                              s.radio_ring,
                               "rounded-full border-none ring-1 ring-red-900/25"
                             )}
                           />
                         </TooltipTrigger>
-                        <TooltipContent className="text-sm background-primary-light text-red-900 outline-none border-none mr-4" side="bottom">
+                        <TooltipContent
+                          className="text-sm background-primary-light text-red-900 outline-none border-none mr-4"
+                          side="bottom"
+                        >
                           <p>{colorsTranslated[color]}</p>
                         </TooltipContent>
                       </Tooltip>
@@ -259,6 +311,57 @@ export default function ProductView() {
             </div>
 
             <div className="flex flex-col">
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-full justify-between hover:text-red-900 mb-3 backdrop-background-color border-red-900/10 backdrop-background-color-hover"
+                  >
+                    {value
+                      ? sizes.find((size) => size.value === value)?.label
+                      : "Vybrat velikost..."}
+                    <ChevronsUpDown className="opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                  <Command className="!backdrop-background-color">
+                    <CommandInput
+                      placeholder="Vybrat velikost..."
+                      className="h-9 placeholder:text-red-900"
+                    />
+                    <CommandList>
+                      <CommandEmpty>Velikost není k dispozici</CommandEmpty>
+                      <CommandGroup>
+                        {sizes.map((size) => (
+                          <CommandItem
+                            key={size.value}
+                            value={size.value}
+                            onSelect={(currentValue) => {
+                              setValue(
+                                currentValue === value ? "" : currentValue
+                              );
+                              setOpen(false);
+                            }}
+                            className="backdrop-background-color-hover text-red-900 hover:!text-red-900"
+                          >
+                            {size.label}
+                            <Check
+                              className={classNames(
+                                "ml-auto",
+                                value === size.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <Button
                 className="bg-red-900 hover:bg-red-950 text-white font-semibold w-full mb-2"
                 onClick={() =>
@@ -279,7 +382,7 @@ export default function ProductView() {
             </div>
           </div>
         </div>
-                <Footer />
+        <Footer />
         <Toaster
           position="bottom-right"
           className="font-manrope"

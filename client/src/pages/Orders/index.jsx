@@ -12,12 +12,14 @@ export default function Orders() {
   const [isLoaded, setLoaded] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemPrices, setItemPrices] = useState({});
+  const [totalProducts, setTotalProducts] = useState(0);
 
   const loadCart = async () => {
     //console.log("aaa");
     const data = await getAllItems();
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
+      setTotalProducts(data.payload.length);
       setCartItems(data.payload);
       setLoaded(true);
     }
@@ -68,6 +70,9 @@ export default function Orders() {
             <>
               <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
                 <span>Nákupní košík</span>
+                <span className="rounded-full background-primary min-w-5 px-1.5 text-center text-sm text-primary-light">
+                  {totalProducts}
+                </span>
               </div>
               {cartItems.map((item, index) => {
                 return (
@@ -112,10 +117,10 @@ export default function Orders() {
                   // background-primary background-primary-hover
                 }
                 <Link to="/zaplaceni">
-                <Button className="text-white bg-red-900 hover:bg-red-950 gap-1 pr-3">
-                  <div>Pokračovat</div>
-                  <ChevronRight />
-                </Button>
+                  <Button className="text-white bg-red-900 hover:bg-red-950 gap-1 pr-3">
+                    <div>Pokračovat</div>
+                    <ChevronRight />
+                  </Button>
                 </Link>
               </div>
             </>
