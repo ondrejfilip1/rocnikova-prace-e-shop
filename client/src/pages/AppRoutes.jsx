@@ -7,7 +7,7 @@ import ProductView from "./ProductView";
 import ProductUpdateForm from "./ProductUpdateForm";
 import Search from "./Search";
 import Orders from "./Orders";
-import Checkout from "./Checkout";
+import Checkout from "./Orders/Checkout";
 
 export default function AppRoutes() {
   return (
@@ -38,7 +38,6 @@ export default function AppRoutes() {
           <Route path="/update-product/:id" element={<ProductUpdateForm />} />
           <Route path="/search" element={<Search />} />
           <Route path="/objednavky" element={<Orders />} />
-          <Route path="/zaplaceni" element={<Checkout />} />
         </Routes>
       </BrowserRouter>
     </>

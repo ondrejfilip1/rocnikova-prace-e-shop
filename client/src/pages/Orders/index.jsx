@@ -6,6 +6,7 @@ import { getAllItems } from "@/models/Cart";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Checkout from "./Checkout";
 
 export default function Orders() {
   const [cartItems, setCartItems] = useState([]);
@@ -13,6 +14,8 @@ export default function Orders() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [itemPrices, setItemPrices] = useState({});
   const [totalProducts, setTotalProducts] = useState(0);
+  const [heading, setHeading] = useState("Nákupní košík");
+  const [showCheckoutBool, setShowCheckoutBool] = useState(false);
 
   const loadCart = async () => {
     //console.log("aaa");
@@ -56,6 +59,11 @@ export default function Orders() {
     });
   };
 
+  const showCheckout = () => {
+    setHeading("Platba");
+    setShowCheckoutBool(true);
+  };
+
   useEffect(() => {
     loadCart();
   }, []);
@@ -69,36 +77,42 @@ export default function Orders() {
           {isLoaded !== null && cartItems ? (
             <>
               <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
-                <span>Nákupní košík</span>
+                <span>{heading}</span>
                 <span className="rounded-full background-primary min-w-5 px-1.5 text-center text-sm text-primary-light">
                   {totalProducts}
                 </span>
               </div>
-              {cartItems.map((item, index) => {
-                return (
-                  <Fragment key={item._id}>
-                    <CartItemBig
-                      productId={item.items[0].productId}
-                      quantity={item.items[0].quantity}
-                      color={item.items[0].color}
-                      itemId={item._id}
-                      itemOrigId={item.items[0]._id}
-                      reloadCart={loadCart}
-                      itemPrice={calcPrice}
-                      removeItemPrice={removePrice}
-                    />
-                    <div className="border-b border-red-900/25 my-2" />
-                  </Fragment>
-                );
-              })}
-              <div className="flex justify-between items-center mx-4 text-sm text-red-900/75 mt-5">
-                <div>Cena bez DPH</div>
-                {
-                  // Vypocet ceny bez DPH
-                  // https://www.matematika.cz/vypocet-dph/
-                }
-                <div>{Math.floor(totalPrice / 1.15)} Kč</div>
-              </div>
+              {showCheckoutBool ? (
+                <Checkout />
+              ) : (
+                <>
+                  {cartItems.map((item, index) => {
+                    return (
+                      <Fragment key={item._id}>
+                        <CartItemBig
+                          productId={item.items[0].productId}
+                          quantity={item.items[0].quantity}
+                          color={item.items[0].color}
+                          itemId={item._id}
+                          itemOrigId={item.items[0]._id}
+                          reloadCart={loadCart}
+                          itemPrice={calcPrice}
+                          removeItemPrice={removePrice}
+                        />
+                        <div className="border-b border-red-900/25 my-2" />
+                      </Fragment>
+                    );
+                  })}
+                </>
+              )}
+                  <div className="flex justify-between items-center mx-4 text-sm text-red-900/75 mt-5">
+                    <div>Cena bez DPH</div>
+                    {
+                      // Vypocet ceny bez DPH
+                      // https://www.matematika.cz/vypocet-dph/
+                    }
+                    <div>{Math.floor(totalPrice / 1.15)} Kč</div>
+                  </div>
               <div className="flex justify-between items-center mx-4 text-lg mb-5">
                 <div>Celkem</div>
                 <div>{totalPrice} Kč</div>
@@ -116,12 +130,32 @@ export default function Orders() {
                 {
                   // background-primary background-primary-hover
                 }
-                <Link to="/zaplaceni">
-                  <Button className="text-white bg-red-900 hover:bg-red-950 gap-1 pr-3">
-                    <div>Pokračovat</div>
-                    <ChevronRight />
-                  </Button>
-                </Link>
+                <Button
+                  className="text-white bg-red-900 hover:bg-red-950 gap-1 pr-3"
+                  onClick={() => showCheckout()}
+                >
+                  {!isLoaded ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={30}
+                      height={30}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="animate-spin mx-8"
+                    >
+                      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                    </svg>
+                  ) : (
+                    <>
+                      <div>Pokračovat</div>
+                      <ChevronRight />
+                    </>
+                  )}
+                </Button>
               </div>
             </>
           ) : (
