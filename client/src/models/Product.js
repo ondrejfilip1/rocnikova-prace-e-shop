@@ -29,6 +29,21 @@ export const getProductById = async (id) => {
     message: data.message,
   };
 };
+export const getProductsByCategory = async (category) => {
+  const req = await fetch(`http://localhost:3000/products/${category}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "GET",
+  });
+  const data = await req.json();
+  return {
+    status: req.status,
+    payload: data.payload,
+    message: data.message,
+  };
+};
 export const createProduct = async (formData) => {
   const req = await fetch(`http://localhost:3000/products`, {
     headers: {

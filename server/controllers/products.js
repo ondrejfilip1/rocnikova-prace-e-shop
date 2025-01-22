@@ -46,6 +46,23 @@ exports.getAllProducts = async (req, res, next) => {
   }
 }; */
 
+exports.getProductsByCategory = async (req, res, next) => {
+  try {
+    const data = await Product.find({ category: req.params.category });
+    if (data && data.length !== 0) {
+      return res.status(200).send({
+        message: "Product found",
+        payload: data,
+      });
+    }
+    res.status(404).send({
+      message: "Product not found",
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 exports.getProductById = async (req, res, next) => {
   try {
     const data = await Product.findById(req.params.id);
