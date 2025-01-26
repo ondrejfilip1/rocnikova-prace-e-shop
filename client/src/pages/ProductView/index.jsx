@@ -194,7 +194,7 @@ export default function ProductView() {
                   <img
                     src={`${product.imagePath}front_${colors[engSelectedColor]}.avif`}
                     alt={product.name}
-                    className="h-auto w-full cursor-zoom-in"
+                    className="h-auto w-full cursor-zoom-in aspect-square object-contain"
                     draggable="false"
                   />
                 </DialogTrigger>

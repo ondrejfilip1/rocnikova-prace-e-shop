@@ -118,7 +118,7 @@ export default function CartItemBig({
               <img
                 src={`${product.imagePath}front_${colors[color]}.avif`}
                 alt={product.name}
-                className="w-20 my-2"
+                className="w-20 my-2 aspect-square object-contain object-center"
                 draggable="false"
               />
             </Link>

@@ -43,7 +43,7 @@ export default function CartItem({ productId, quantity, itemId, reloadCart }) {
       <div className="mx-1">
         <div className="font-semibold">{product.name}</div>
         <div>
-          {quantity}{" "}
+          {quantity}
           {quantity == 1
             ? "kus"
             : quantity >= 2 && quantity <= 4

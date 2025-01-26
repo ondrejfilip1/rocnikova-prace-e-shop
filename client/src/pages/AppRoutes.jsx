@@ -19,7 +19,7 @@ export default function AppRoutes() {
           {/* TODO: vsechny produkty */}
           <Route
             path="/view-products"
-            element={<ProductList name="Všechny produkty" />}
+            element={<ProductList name="Všechny produkty" category="" />}
           />
 
           <Route
