@@ -30,7 +30,7 @@ export const getProductById = async (id) => {
   };
 };
 export const getProductsByCategory = async (category) => {
-  const req = await fetch(`http://localhost:3000/products/${category}`, {
+  const req = await fetch(`http://localhost:3000/products/category/${category}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

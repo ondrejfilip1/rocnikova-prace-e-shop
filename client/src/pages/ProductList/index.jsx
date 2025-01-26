@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllProducts } from "../../models/Product";
+import { getAllProducts, getProductsByCategory } from "../../models/Product";
 import ProductLink from "./ProductLink";
 import s from "./ProductList.module.css";
 import Header from "@/components/Header";
@@ -33,7 +33,9 @@ export default function ProductList(props) {
   const location = useLocation();
 
   const load = async (query = "") => {
-    const data = await getAllProducts(query);
+    //    const data = await getAllProducts(query);
+    // ziska produkty podle kategorie
+    const data = await getProductsByCategory(props.category);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
       setTotalProducts(data.payload.length);
