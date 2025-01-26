@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllProducts, getProductsByCategory } from "../../models/Product";
+import { getAllProducts } from "../../models/Product";
 import ProductLink from "./ProductLink";
 import s from "./ProductList.module.css";
 import Header from "@/components/Header";
@@ -32,10 +32,11 @@ export default function ProductList(props) {
 
   const location = useLocation();
 
-  const load = async (query = "") => {
-    //    const data = await getAllProducts(query);
-    // ziska produkty podle kategorie
-    const data = await getProductsByCategory(props.category);
+  const load = async (query = "", queryCategory = "") => {
+    // ziska produkty podle parametru
+    // console.log(queryCategory);
+    // console.log(query);
+    const data = await getAllProducts(query, queryCategory);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
       setTotalProducts(data.payload.length);
@@ -46,16 +47,22 @@ export default function ProductList(props) {
   };
 
   useEffect(() => {
+    // varovani - cinsky kod
     const query = new URLSearchParams(location.search);
-    const queryParam = query.get("search");
-    if (searchQuery) {
-      load(searchQuery);
+    const queryParam = query.get("search") || "";
+    const queryParam2 = query.get("category") || "";
+    if (searchQuery || queryParam2) {
+      if (searchQuery) {
+        load(searchQuery, queryParam2);
+      } else {
+        load(queryParam, queryParam2);
+      }
     } else if (queryParam) {
       setSearchQuery(query.get("search"));
-      load(query.get("search"));
+      load(query.get("search"), queryParam2);
     } else {
       setSearchQuery("");
-      load("");
+      load("", "");
     }
   }, [location.search, searchQuery]);
 

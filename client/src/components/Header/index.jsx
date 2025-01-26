@@ -447,9 +447,9 @@ export default function Header({ onSearch }) {
                     ))}
                     <Link
                       onClick={() =>
-                        useNavigate("/view-products", { replace: true })
+                        useNavigate("/view-products/boty?category=boty", { replace: true })
                       }
-                      to="/view-products/boty"
+                      to="/view-products/boty?category=boty"
                       className="text-sm font-medium ml-3"
                     >
                       Zobrazit vše

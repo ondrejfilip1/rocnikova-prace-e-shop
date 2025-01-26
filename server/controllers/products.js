@@ -2,11 +2,15 @@ const Product = require("../models/products");
 
 exports.getAllProducts = async (req, res, next) => {
   try {
-    const { search } = req.query;
+    const { search, category } = req.query;
     let query = {};
     if (search) {
       // $regex - vyhledani podle vzoru
       query.name = { $regex: search, $options: "i" };
+    }
+    if (category) {
+      // tady nemusime davat velky nebo maly pismena, protoze kategorie se nebude zadavat uzivatelem
+      query.category = category;
     }
     const data = await Product.find(query).sort({ name: 1 });
     if (data && data.length !== 0) {
@@ -46,6 +50,7 @@ exports.getAllProducts = async (req, res, next) => {
   }
 }; */
 
+/*
 exports.getProductsByCategory = async (req, res, next) => {
   try {
     const data = await Product.find({ category: req.params.category });
@@ -61,7 +66,7 @@ exports.getProductsByCategory = async (req, res, next) => {
   } catch (err) {
     res.status(500).send(err);
   }
-};
+};*/
 
 exports.getProductById = async (req, res, next) => {
   try {
