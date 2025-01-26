@@ -36,6 +36,9 @@ export default function ProductList(props) {
     // ziska produkty podle parametru
     // console.log(queryCategory);
     // console.log(query);
+    if (props.category !== "") {
+      queryCategory = props.category;
+    }
     const data = await getAllProducts(query, queryCategory);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
@@ -118,7 +121,7 @@ export default function ProductList(props) {
               {isLoaded === null && (
                 <>
                   <NotFound
-                    link={`/view-products/${props.name}`}
+                    link={`/view-products/${props.category}?category=${props.category}`}
                     content="Zobrazit produkty"
                   />
                 </>

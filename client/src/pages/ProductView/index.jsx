@@ -370,7 +370,7 @@ export default function ProductView() {
               >
                 Přidat do košíku
               </Button>
-              <Link to="/view-products">
+              <Link to={`/view-products/${product.category}?category=${product.category}`}>
                 <Button
                   className="background-button-hover !text-red-900 gap-1 pl-3"
                   variant="ghost"
