@@ -84,6 +84,7 @@ export default function ProductLink(props) {
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
+                          { /* Fixnout default value */ }
                           <RadioGroupItem
                             value={color}
                             id={`r${index}`}

@@ -399,12 +399,67 @@ export default function Header({ onSearch }) {
                         s.link_custom
                       )}
                     >
-                      <Link to="/view-products/mikiny">Mikiny</Link>
-                      <Link to="/view-products/tricka">Trička</Link>
-                      <Link to="/view-products/bundy">Bundy</Link>
-                      <Link to="/view-products/dziny">Džíny</Link>
-                      <Link to="/view-products/kalhoty">Kalhoty</Link>
-                      <Link to="/view-products/teplaky">Tepláky</Link>
+                      {/* ZJEDNODUSIT!!!!!!!! */}
+                      <Link
+                        to="/view-products/mikiny"
+                        onClick={() =>
+                          useNavigate("/view-products/mikiny", {
+                            replace: true,
+                          })
+                        }
+                      >
+                        Mikiny
+                      </Link>
+                      <Link
+                        to="/view-products/tricka"
+                        onClick={() =>
+                          useNavigate("/view-products/tricka", {
+                            replace: true,
+                          })
+                        }
+                      >
+                        Trička
+                      </Link>
+                      <Link
+                        to="/view-products/bundy"
+                        onClick={() =>
+                          useNavigate("/view-products/bundy", {
+                            replace: true,
+                          })
+                        }
+                      >
+                        Bundy
+                      </Link>
+                      <Link
+                        to="/view-products/dziny"
+                        onClick={() =>
+                          useNavigate("/view-products/dziny", {
+                            replace: true,
+                          })
+                        }
+                      >
+                        Džíny
+                      </Link>
+                      <Link
+                        to="/view-products/kalhoty"
+                        onClick={() =>
+                          useNavigate("/view-products/kalhoty", {
+                            replace: true,
+                          })
+                        }
+                      >
+                        Kalhoty
+                      </Link>
+                      <Link
+                        to="/view-products/teplaky"
+                        onClick={() =>
+                          useNavigate("/view-products/teplaky", {
+                            replace: true,
+                          })
+                        }
+                      >
+                        Tepláky
+                      </Link>
                     </li>
                     <li
                       className={classnames(
@@ -447,7 +502,9 @@ export default function Header({ onSearch }) {
                     ))}
                     <Link
                       onClick={() =>
-                        useNavigate("/view-products/boty?category=boty", { replace: true })
+                        useNavigate("/view-products/boty?category=boty", {
+                          replace: true,
+                        })
                       }
                       to="/view-products/boty?category=boty"
                       className="text-sm font-medium ml-3"
