@@ -19,12 +19,10 @@ exports.getAllFavourites = async (req, res, next) => {
 
 exports.addFavourite = async (req, res, next) => {
   try {
-    const { productId, color } = req.body;
     const data = new Favourites({
       productId: req.body.productId,
-      color: req.body.color,
+      color: req.body.color
     });
-    data.items.push({ productId, color });
     const result = await data.save();
     if (result) {
       return res.status(201).send({
