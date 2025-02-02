@@ -43,7 +43,6 @@ export default function ProductLink(props) {
   };
 
   const addToCart = async (productId, color) => {
-    console.log(productId + color);
     const data = await addFavourite({ productId, color });
     if (data.status === 201) {
       toast("Položka byla přidána do oblíbených", {
