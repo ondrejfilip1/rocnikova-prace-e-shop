@@ -323,6 +323,7 @@ export default function Header({ onSearch }) {
                   <span>Nastavení</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
+                <Link to="/oblibene">
                 <DropdownMenuItem
                   className={classnames(
                     "background-button-hover font-medium",
@@ -331,7 +332,7 @@ export default function Header({ onSearch }) {
                 >
                   <Heart />
                   <span>Oblíbené</span>
-                </DropdownMenuItem>
+                </DropdownMenuItem></Link>
                 <DropdownMenuItem
                   className={classnames(
                     "background-button-hover font-medium",

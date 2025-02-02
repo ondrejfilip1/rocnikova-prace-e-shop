@@ -5,8 +5,8 @@ import ProductCreateForm from "./ProductCreateForm";
 import ProductList from "./ProductList";
 import ProductView from "./ProductView";
 import ProductUpdateForm from "./ProductUpdateForm";
-import Search from "./Search";
 import Orders from "./Orders";
+import Favourites from "./Favourites";
 
 export default function AppRoutes() {
   return (
@@ -77,7 +77,7 @@ export default function AppRoutes() {
 
           <Route path="/product/:id" element={<ProductView />} />
           <Route path="/update-product/:id" element={<ProductUpdateForm />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/oblibene" element={<Favourites />} />
           <Route path="/objednavky" element={<Orders />} />
         </Routes>
       </BrowserRouter>

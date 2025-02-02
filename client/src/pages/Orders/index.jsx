@@ -72,7 +72,7 @@ export default function Orders() {
     <>
       <div className="background">
         <Header />
-        <div className="header-placeholder" />
+        <div className="mt-3.5" />
         <div className="text-red-900 text-sm container mx-auto px-4 lg:max-w-screen-lg font-medium my-2 flex flex-col justify-center">
           {isLoaded !== null && cartItems ? (
             <>

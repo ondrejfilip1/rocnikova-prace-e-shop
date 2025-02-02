@@ -185,7 +185,6 @@ export default function ProductView() {
     <>
       <div className="background pb-[1px]">
         <Header />
-        <div className="header-placeholder" />
         <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4 max-w-screen-xl">
           <div className="w-2/3">
             <div className="rounded-lg backdrop-background-color backdrop-blur-xl aspect-square shadow-2xl p-5 flex items-center justify-center">

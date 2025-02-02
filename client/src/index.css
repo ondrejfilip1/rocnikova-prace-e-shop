@@ -89,16 +89,7 @@ div#root {
   height: calc(100vh - 192px);
 }
 
-div.header-placeholder {
-  height: 120px;
-  width: 100%;
-}
-
 @media only screen and (min-width: 768px) {
-  div.header-placeholder {
-    height: 136px;
-  }
-
   .placeholder-min-h-screen {
     height: calc(100vh - 216px);
   }

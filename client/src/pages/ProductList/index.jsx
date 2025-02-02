@@ -82,7 +82,7 @@ export default function ProductList(props) {
       <div className="background pb-[1px]">
         {/* tak tohle vubec nechapu */}
         <Header onSearch={(query) => setSearchQuery(query)} />
-        <div className="header-placeholder" />
+        <div className="mt-3.5" />
         <SidebarProvider
           open={isSidebarOpened}
           onOpenChange={() => setSidebarOpened(!isSidebarOpened)}
