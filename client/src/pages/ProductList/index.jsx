@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllProducts } from "../../models/Product";
+import { getAllFavourites } from "@/models/Favourites";
 import ProductLink from "./ProductLink";
 import s from "./ProductList.module.css";
 import Header from "@/components/Header";
@@ -29,6 +30,7 @@ export default function ProductList(props) {
   const [isSidebarOpened, setSidebarOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [totalProducts, setTotalProducts] = useState(0);
+  const [favouritesIDs, setFavouritesIDs] = useState();
 
   const location = useLocation();
 
@@ -39,7 +41,11 @@ export default function ProductList(props) {
     if (props.category !== "") {
       queryCategory = props.category;
     }
+    // data - produkty
+    // data2 - oblibene polozky IDs
     const data = await getAllProducts(query, queryCategory);
+    const data2 = await getAllFavourites();
+    if (data2.status === 200) setFavouritesIDs(data2.payload);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
       setTotalProducts(data.payload.length);
@@ -132,7 +138,7 @@ export default function ProductList(props) {
                     key={index}
                     className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 flex-shrink-0"
                   >
-                    <ProductLink {...product} />
+                    <ProductLink {...product} favouritesIDs={favouritesIDs} />
                   </div>
                 ))}
             </div>

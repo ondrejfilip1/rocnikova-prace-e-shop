@@ -8,7 +8,7 @@ import s from "./ProductList.module.css";
 import classNames from "classnames";
 import { ShoppingCart, Heart } from "lucide-react";
 import { addItem } from "@/models/Cart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { colors, colorsTranslated } from "@/components/constants";
 import { addFavourite } from "@/models/Favourites";
 import {
@@ -20,6 +20,7 @@ import {
 
 export default function ProductLink(props) {
   const [selectedColor, setSelectedColor] = useState(props.color[0]);
+  const [heartFill, setHeartFill] = useState(false);
 
   const handleAddItemsToCart = async (productId, color) => {
     // TODO: kvantita
@@ -61,6 +62,16 @@ export default function ProductLink(props) {
     }
   };
 
+  useEffect(() => {
+    if (props.favouritesIDs) {
+      props.favouritesIDs.map((item, index) => {
+        if (item.productId == props._id) {
+          setHeartFill(true);
+        }
+      });
+    }
+  }, []);
+
   return (
     <>
       <Card
@@ -70,7 +81,10 @@ export default function ProductLink(props) {
         )}
       >
         <Heart
-          className="bg-transparent background-button-hover transition-colors inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer"
+          className={
+            "bg-transparent background-button-hover transition-colors inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer " +
+            (heartFill ? "fill-red-500/50" : "fill-none")
+          }
           onClick={() => addToCart(props._id, selectedColor)}
           size={28}
           strokeWidth={1.75}
