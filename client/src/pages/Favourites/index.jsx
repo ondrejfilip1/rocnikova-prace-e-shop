@@ -49,6 +49,7 @@ export default function Favourites() {
                   <span>Oblíbené položky</span>
                 </div>
               </div>
+              <div className="placeholder-min-h-screen">
               <div className="flex flex-wrap gap-6 justify-center">
                 {favourites.map((item, index) => {
                   return (
@@ -79,6 +80,7 @@ export default function Favourites() {
                     </div>
                   );
                 })}
+              </div>
               </div>
             </>
           ) : (

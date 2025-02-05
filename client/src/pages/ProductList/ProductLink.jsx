@@ -10,7 +10,7 @@ import { ShoppingCart, Heart } from "lucide-react";
 import { addItem } from "@/models/Cart";
 import { useState, useEffect } from "react";
 import { colors, colorsTranslated } from "@/components/constants";
-import { addFavourite } from "@/models/Favourites";
+import { addFavourite, deleteFavourite } from "@/models/Favourites";
 import {
   Tooltip,
   TooltipContent,
@@ -21,8 +21,9 @@ import {
 export default function ProductLink(props) {
   const [selectedColor, setSelectedColor] = useState(props.color[0]);
   const [heartFill, setHeartFill] = useState(false);
+  const [currentId, setCurrentId] = useState();
 
-  const handleAddItemsToCart = async (productId, color) => {
+  const addToCart = async (productId, color) => {
     // TODO: kvantita
     const quantity = 1;
     const data = await addItem({ productId, quantity, color });
@@ -43,9 +44,15 @@ export default function ProductLink(props) {
     }
   };
 
-  const addToCart = async (productId, color) => {
+  const handleFavourite = async (productId, color) => {
+    return heartFill ? removeFromFavourite() : addToFavourite(productId, color);
+  };
+
+  const addToFavourite = async (productId, color) => {
     const data = await addFavourite({ productId, color });
     if (data.status === 201) {
+      setHeartFill(true);
+      setCurrentId(data.payload._id);
       toast("Položka byla přidána do oblíbených", {
         description: props.name,
         action: {
@@ -62,11 +69,32 @@ export default function ProductLink(props) {
     }
   };
 
+  const removeFromFavourite = async () => {
+    const data = await deleteFavourite(currentId);
+    if (data.status === 200) {
+      setHeartFill(false);
+      toast("Položka byla odebrána z oblíbených", {
+        description: props.name,
+        action: {
+          label: <X />,
+        },
+      });
+    } else {
+      toast("Chyba při odebírání položky z oblíbených", {
+        description: data.message,
+        action: {
+          label: <X />,
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     if (props.favouritesIDs) {
-      props.favouritesIDs.map((item, index) => {
+      props.favouritesIDs.map((item) => {
         if (item.productId == props._id) {
           setHeartFill(true);
+          setCurrentId(item._id);
         }
       });
     }
@@ -82,10 +110,10 @@ export default function ProductLink(props) {
       >
         <Heart
           className={
-            "bg-transparent background-button-hover transition-colors inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer " +
-            (heartFill ? "fill-red-500/50" : "fill-none")
+            "bg-transparent background-button-hover transition-all inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer " +
+            (heartFill ? "fill-red-500/50" : "fill-transparent")
           }
-          onClick={() => addToCart(props._id, selectedColor)}
+          onClick={() => handleFavourite(props._id, selectedColor)}
           size={28}
           strokeWidth={1.75}
         />
@@ -148,7 +176,7 @@ export default function ProductLink(props) {
                 "text-red-900 bg-transparent background-button-hover font-semibold",
                 s.cart_button_hover
               )}
-              onClick={() => handleAddItemsToCart(props._id, selectedColor)}
+              onClick={() => addToCart(props._id, selectedColor)}
             >
               <ShoppingCart />
               Přidat do košíku
