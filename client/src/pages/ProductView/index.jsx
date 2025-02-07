@@ -7,19 +7,20 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import NotFound from "@/components/NotFound";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronsUpDown, Check } from "lucide-react";
-import { addItem } from "@/models/Cart";
-import { toast } from "sonner";
-import { X } from "lucide-react";
-import { Toaster } from "@/components/ui/sonner";
-import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group";
-import classNames from "classnames";
+import { ChevronLeft, ChevronsUpDown, Check, Heart } from "lucide-react";
+import { addFavourite, deleteFavourite } from "@/models/Favourites";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import { addItem } from "@/models/Cart";
+import { toast } from "sonner";
+import { X } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
+import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group";
+import classNames from "classnames";
 import {
   Dialog,
   DialogContent,
@@ -35,6 +36,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { colors, colorsTranslated } from "@/components/constants";
+import { getAllFavourites } from "@/models/Favourites";
 
 import {
   Command,
@@ -56,6 +58,9 @@ export default function ProductView() {
   const [isLoaded, setLoaded] = useState(false);
   const [selectedColor, setSelectedColor] = useState();
   const [engSelectedColor, setEngSelectedColor] = useState();
+  const [heartFill, setHeartFill] = useState(false);
+  const [currentId, setCurrentId] = useState();
+  const [favouritesIDs, setFavouritesIDs] = useState();
 
   // dropdown pro velikosti
   const [open, setOpen] = useState(false);
@@ -125,6 +130,8 @@ export default function ProductView() {
 
   const load = async () => {
     const data = await getProductById(id);
+    const data2 = await getAllFavourites();
+    if (data2.status === 200) setFavouritesIDs(data2.payload);
     if (data.status === 500 || data.status === 404) return setLoaded(null);
     if (data.status === 200) {
       setProduct(data.payload);
@@ -161,24 +168,73 @@ export default function ProductView() {
     return;
   };
 
+  const handleFavourite = async (productId, color) => {
+    return heartFill ? removeFromFavourite() : addToFavourite(productId, color);
+  };
+
+  const addToFavourite = async (productId, color) => {
+    const data = await addFavourite({ productId, color });
+    if (data.status === 201) {
+      setHeartFill(true);
+      setCurrentId(data.payload._id);
+      toast("Položka byla přidána do oblíbených", {
+        description: product.name,
+        action: {
+          label: <X />,
+        },
+      });
+    } else {
+      toast("Chyba při přidávání položky do oblíbených", {
+        description: data.message,
+        action: {
+          label: <X />,
+        },
+      });
+    }
+  };
+
+  const removeFromFavourite = async () => {
+    const data = await deleteFavourite(currentId);
+    if (data.status === 200) {
+      setHeartFill(false);
+      toast("Položka byla odebrána z oblíbených", {
+        description: product.name,
+        action: {
+          label: <X />,
+        },
+      });
+    } else {
+      toast("Chyba při odebírání položky z oblíbených", {
+        description: data.message,
+        action: {
+          label: <X />,
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     load();
+    console.log('aaa');
   }, []);
 
+  useEffect(() => {
+    if (favouritesIDs) {
+      favouritesIDs.map((item) => {
+        if (item.productId == product._id) {
+          setHeartFill(true);
+          setCurrentId(item._id);
+        }
+      });
+    }
+  }, [favouritesIDs]);
+
   if (isLoaded === null) {
-    return (
-      <>
-        <NotFound />
-      </>
-    );
+    return <NotFound />;
   }
 
   if (!isLoaded) {
-    return (
-      <>
-        <LoadingScreen />
-      </>
-    );
+    return <LoadingScreen />;
   }
 
   return (
@@ -259,11 +315,40 @@ export default function ProductView() {
             </Carousel>
           </div>
           <div className="w-1/2">
-            <img
-              src={`/src/assets/icons/${brands[product.brand]}`}
-              alt={product.brand}
-              className="w-12 h-auto mb-1"
-            />
+            <div className="flex justify-between items-center">
+              <img
+                src={`/src/assets/icons/${brands[product.brand]}`}
+                alt={product.brand}
+                className="w-12 h-auto mb-1"
+              />
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Heart
+                      className={
+                        "bg-transparent background-button-hover transition-all inline-block text-red-900 p-1 m-1 rounded-md cursor-pointer " +
+                        (heartFill ? "fill-red-900" : "fill-transparent")
+                      }
+                      onClick={() =>
+                        handleFavourite(product._id, engSelectedColor)
+                      }
+                      size={28}
+                      strokeWidth={1.75}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent
+                    className="text-sm background-primary-light text-red-900 outline-none border-none"
+                    side="bottom"
+                  >
+                    <p>
+                      {heartFill
+                        ? "Odebrat z oblíbených"
+                        : "Přidat do oblíbených"}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
             <h1 className="text-lg font-medium">{product.name}</h1>
             <p className="text-sm font-medium">{product.price} Kč</p>
             <div className="text-sm font-medium">
@@ -316,7 +401,7 @@ export default function ProductView() {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-full justify-between hover:text-red-900 mb-3 backdrop-background-color border-red-900/10 backdrop-background-color-hover"
+                    className="w-full justify-between hover:text-red-900 backdrop-background-color border-red-900/10 backdrop-background-color-hover mb-2"
                   >
                     {value
                       ? sizes.find((size) => size.value === value)?.label
@@ -369,7 +454,9 @@ export default function ProductView() {
               >
                 Přidat do košíku
               </Button>
-              <Link to={`/view-products/${product.category}?category=${product.category}`}>
+              <Link
+                to={`/view-products/${product.category}?category=${product.category}`}
+              >
                 <Button
                   className="background-button-hover !text-red-900 gap-1 pl-3"
                   variant="ghost"

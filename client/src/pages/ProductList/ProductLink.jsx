@@ -108,20 +108,32 @@ export default function ProductLink(props) {
           s.card_background
         )}
       >
-        <Heart
-          className={
-            "bg-transparent background-button-hover transition-all inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer " +
-            (heartFill ? "fill-red-500/50" : "fill-transparent")
-          }
-          onClick={() => handleFavourite(props._id, selectedColor)}
-          size={28}
-          strokeWidth={1.75}
-        />
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Heart
+                className={
+                  "bg-transparent background-button-hover transition-all inline-block text-red-900 p-1 m-1 rounded-md absolute cursor-pointer " +
+                  (heartFill ? "fill-red-900" : "fill-transparent")
+                }
+                onClick={() => handleFavourite(props._id, selectedColor)}
+                size={28}
+                strokeWidth={1.75}
+              />
+            </TooltipTrigger>
+            <TooltipContent
+              className="text-sm background-primary-light text-red-900 outline-none border-none"
+              side="bottom"
+            >
+              <p>{heartFill ? "Odebrat z oblíbených" : "Přidat do oblíbených"}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <Link to={`/product/${props._id}`} className={s.image_fix}>
           <img
             src={`${props.imagePath}front_${colors[selectedColor]}.avif`}
             alt={props.name}
-            className="rounded-md border border-transparent my-6 px-6 aspect-video object-contain object-center"
+            className="rounded-md border border-transparent my-6 px-6 aspect-video object-contain object-center select-none"
             draggable="false"
           />
         </Link>
