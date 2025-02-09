@@ -8,7 +8,8 @@ export const colors = {
   beige: "be",
   brown: "br",
   sea_blue: "sb",
-  red: "r"
+  red: "r",
+  purple: "p"
 };
 
 export const colorsTranslated = {
@@ -19,5 +20,6 @@ export const colorsTranslated = {
   beige: "Béžová",
   brown: "Hnědá",
   sea_blue: "Mořská modř",
-  red: "Červená"
+  red: "Červená",
+  purple: "Fialová"
 };

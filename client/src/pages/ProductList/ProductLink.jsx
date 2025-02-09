@@ -100,6 +100,11 @@ export default function ProductLink(props) {
     }
   }, []);
 
+  // fix na bug s defaultni hodnotou
+  useEffect(() => {
+    setSelectedColor(props.color[0]);
+  }, [props.color]);
+
   return (
     <>
       <Card
@@ -125,7 +130,9 @@ export default function ProductLink(props) {
               className="text-sm background-primary-light text-red-900 outline-none border-none"
               side="bottom"
             >
-              <p>{heartFill ? "Odebrat z oblíbených" : "Přidat do oblíbených"}</p>
+              <p>
+                {heartFill ? "Odebrat z oblíbených" : "Přidat do oblíbených"}
+              </p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -151,7 +158,6 @@ export default function ProductLink(props) {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        {/* Fixnout default value */}
                         <RadioGroupItem
                           value={color}
                           id={`r${index}`}
@@ -164,6 +170,7 @@ export default function ProductLink(props) {
                             color === "olive" && "color_olive_svg",
                             color === "sea_blue" && "color_sea_blue_svg",
                             color === "red" && "color_red_svg",
+                            color === "purple" && "color_purple_svg",
                             "radio_svg_fix",
                             s.radio_ring,
                             "rounded-full border-none ring-1 ring-red-900/25"

@@ -65,6 +65,7 @@ import Skechers from "../../assets/icons/skechers.svg";
 import classnames from "classnames";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllItems } from "@/models/Cart";
 import CartItem from "./CartItem";
 
@@ -160,6 +161,8 @@ export default function Header({ onSearch }) {
   const [cartItems, setCartItems] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
 
+  const navigate = useNavigate();
+
   // logika pro nacteni kosiku
   const loadCart = async () => {
     //console.log("aaa");
@@ -173,8 +176,9 @@ export default function Header({ onSearch }) {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-    onSearch(e.target.value);
+    if (onSearch) onSearch(e.target.value);
   };
+
   return (
     <>
       <div className={s.header_container}>
@@ -324,15 +328,16 @@ export default function Header({ onSearch }) {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
                 <Link to="/oblibene">
-                <DropdownMenuItem
-                  className={classnames(
-                    "background-button-hover font-medium",
-                    s.button_fix
-                  )}
-                >
-                  <Heart />
-                  <span>Oblíbené</span>
-                </DropdownMenuItem></Link>
+                  <DropdownMenuItem
+                    className={classnames(
+                      "background-button-hover font-medium",
+                      s.button_fix
+                    )}
+                  >
+                    <Heart />
+                    <span>Oblíbené</span>
+                  </DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem
                   className={classnames(
                     "background-button-hover font-medium",
@@ -533,7 +538,7 @@ export default function Header({ onSearch }) {
           </NavigationMenu>
           <div className="flex items-center text-sm relative">
             <Link
-              to="/view-products"
+              to={`/view-products?search=${searchQuery}`}
               className={classnames(
                 "text-red-900 absolute left-3 top-5 transform -translate-y-1/2",
                 s.search_icon
@@ -548,6 +553,14 @@ export default function Header({ onSearch }) {
                 s.custom_input
               )}
               onChange={handleSearch}
+              // kdyz zmacknu enter tak to vyhleda produkty podle jmena
+              onKeyPress={(e) =>
+                e.charCode == 13
+                  ? navigate(`/view-products?search=${searchQuery}`, {
+                      replace: true,
+                    })
+                  : false
+              }
               value={searchQuery}
             />
           </div>

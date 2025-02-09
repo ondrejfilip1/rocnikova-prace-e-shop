@@ -125,12 +125,10 @@ export default function ProductList(props) {
             )}
             <div className="flex flex-wrap justify-center gap-6">
               {isLoaded === null && (
-                <>
-                  <NotFound
-                    link={`/view-products/${props.category}?category=${props.category}`}
-                    content="Zobrazit produkty"
-                  />
-                </>
+                <NotFound
+                  link={`/view-products/${props.category}?category=${props.category}`}
+                  content="Zobrazit produkty"
+                />
               )}
               {isLoaded !== null &&
                 products.map((product, index) => (

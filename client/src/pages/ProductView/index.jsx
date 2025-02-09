@@ -375,6 +375,7 @@ export default function ProductView() {
                               color === "olive" && "color_olive_svg",
                               color === "sea_blue" && "color_sea_blue_svg",
                               color === "red" && "color_red_svg",
+                              color === "purple" && "color_purple_svg",
                               "radio_svg_fix",
                               s.radio_ring,
                               "rounded-full border-none ring-1 ring-red-900/25"

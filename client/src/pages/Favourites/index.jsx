@@ -55,7 +55,7 @@ export default function Favourites() {
                   return (
                     <div
                       key={index}
-                      className="p-5 rounded-lg backdrop-background-color backdrop-blur-xl shadow-2xl relative aspect-square md:w-[48%] w-full flex"
+                      className="p-5 rounded-lg backdrop-background-color backdrop-blur-xl shadow-2xl relative aspect-square md:w-[48%] w-full flex justify-center"
                     >
                       <ProductLink
                         productId={item.productId}
