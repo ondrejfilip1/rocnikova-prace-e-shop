@@ -555,7 +555,7 @@ export default function Header({ onSearch }) {
               onChange={handleSearch}
               // kdyz zmacknu enter tak to vyhleda produkty podle jmena
               onKeyPress={(e) =>
-                e.charCode == 13
+                (e.charCode == 13 && !onSearch)
                   ? navigate(`/view-products?search=${searchQuery}`, {
                       replace: true,
                     })

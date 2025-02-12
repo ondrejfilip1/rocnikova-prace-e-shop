@@ -1,12 +1,33 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { User, Mail, Phone, House, Building2 } from "lucide-react";
+import {
+  User,
+  Mail,
+  Phone,
+  House,
+  Building2,
+  Truck,
+  CreditCard,
+  QrCode,
+  Lock,
+} from "lucide-react";
+import { useState } from "react";
 
 export default function Checkout() {
+  // TODO: platebni metody
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState();
+
+  const selectPM = (number) => {
+    setSelectedPaymentMethod(number);
+    console.log(number);
+  }
+
   const inputStyles = {
     styles:
-      "pl-8 border-transparent border-red-900/10 focus-visible:ring-transparent focus-visible:ring-offset-0 bg-transparent backdrop-background-color backdrop-background-color-hover transition-colors backdrop-blur-md",
+      "pl-8 border-red-900/10 focus-visible:ring-transparent focus-visible:ring-offset-0 bg-transparent backdrop-background-color backdrop-background-color-hover transition-colors backdrop-blur-md",
     icons: "absolute left-2 top-2 z-1 w-4 pointer-events-none",
+    boxes:
+      "cursor-pointer w-1/2 sm:w-full h-auto gap-1 select-none text-center px-8 py-4 flex flex-col justify-center items-center border border-red-900/10 bg-transparent backdrop-background-color backdrop-background-color-hover transition-colors backdrop-blur-md rounded-md",
   };
 
   return (
@@ -73,12 +94,31 @@ export default function Checkout() {
             <div className="w-full items-center gap-1.5">
               <Label htmlFor="email">Město</Label>
               <div className="relative">
-                <Building2  className={inputStyles.icons} />
+                <Building2 className={inputStyles.icons} />
                 <Input type="email" id="email" className={inputStyles.styles} />
               </div>
             </div>
           </div>
         </form>
+        <div className="text-lg">Způsob platby</div>
+        <div className="flex mt-3 justify-between gap-5">
+          <div className={inputStyles.boxes} onClick={() => selectPM(0)}>
+            <span>Dobírkou</span>
+            <Truck />
+          </div>
+          <div className={inputStyles.boxes} onClick={() => selectPM(1)}>
+            <span>Online platbou</span>
+            <Lock />
+          </div>
+          <div className={inputStyles.boxes} onClick={() => selectPM(2)}>
+            <span>Bankovním převodem</span>
+            <CreditCard />
+          </div>
+          <div className={inputStyles.boxes} onClick={() => selectPM(3)}>
+            <span>QR kódem</span>
+            <QrCode />
+          </div>
+        </div>
       </div>
     </>
   );

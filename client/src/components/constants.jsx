@@ -23,3 +23,15 @@ export const colorsTranslated = {
   red: "Červená",
   purple: "Fialová"
 };
+
+export const colorList = [
+  "white",
+  "black",
+  "olive",
+  "gray",
+  "beige",
+  "brown",
+  "sea_blue",
+  "red",
+  "purple"
+]

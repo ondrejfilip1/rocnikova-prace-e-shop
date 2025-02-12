@@ -5,6 +5,7 @@ import ProductCreateForm from "./ProductCreateForm";
 import ProductList from "./ProductList";
 import ProductView from "./ProductView";
 import ProductUpdateForm from "./ProductUpdateForm";
+import Admin from "./Admin";
 import Orders from "./Orders";
 import Favourites from "./Favourites";
 
@@ -14,7 +15,10 @@ export default function AppRoutes() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/add-product" element={<ProductCreateForm />} />
+
+          <Route path="/admin/add-product" element={<ProductCreateForm />} />
+          <Route path="/admin/update-product/:id" element={<ProductUpdateForm />} />
+          <Route path="/admin/" element={<Admin />} />
 
           {/* TODO: vsechny produkty */}
           <Route
@@ -76,7 +80,6 @@ export default function AppRoutes() {
           />
 
           <Route path="/product/:id" element={<ProductView />} />
-          <Route path="/update-product/:id" element={<ProductUpdateForm />} />
           <Route path="/oblibene" element={<Favourites />} />
           <Route path="/objednavky" element={<Orders />} />
         </Routes>

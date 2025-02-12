@@ -315,11 +315,11 @@ export default function ProductView() {
             </Carousel>
           </div>
           <div className="w-1/2">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-1">
               <img
                 src={`/src/assets/icons/${brands[product.brand]}`}
                 alt={product.brand}
-                className="w-12 h-auto mb-1"
+                className="w-24 max-h-12 object-left object-contain h-auto"
               />
               <TooltipProvider>
                 <Tooltip>
