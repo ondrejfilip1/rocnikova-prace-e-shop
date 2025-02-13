@@ -3,31 +3,74 @@ import { useState, Fragment } from "react";
 import { createProduct } from "../../models/Product";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 import { colorList, colorsTranslated } from "@/components/constants";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 
 export default function ProductCreateForm() {
   const [selectedColors, setSelectedColors] = useState([]);
   const [formData, setFormData] = useState();
   const [info, setInfo] = useState();
+  const [status, setStatus] = useState("");
   const navigate = useNavigate();
+
+  const toastStyle = {
+    error: "background-primary-light border-red-900/20",
+    success: "bg-green-100 border-green-900/20",
+  };
+
+  const textStyle = {
+    error: "text-red-900",
+    success: "text-green-900",
+  };
+
+  const buttonStyle = {
+    error: "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7 !transition-colors",
+    success: "!text-green-900 !bg-transparent hover:!bg-green-900/10 !p-1 !h-7 !w-7 !transition-colors",
+  };
 
   const postForm = async () => {
     const product = await createProduct(formData);
     if (product.status === 201) {
+      setStatus("success");
+      toast("Produkt úspěšně vytvořen", {
+        description: product.payload.name,
+        action: {
+          label: <X />,
+        },
+      });
       return navigate();
+    } else {
+      setStatus("error");
+      toast("Chyba " + product.status + " při vytváření produktu", {
+        description: product.message,
+        action: {
+          label: <X />,
+        },
+      });
     }
-    setInfo(product.message);
   };
 
   const handleChange = (e) => {
     if (e.target.type == "checkbox") {
-      setSelectedColors([...selectedColors, e.target.value]);
-      console.log(selectedColors);
+      setSelectedColors((prev) => {
+        let copy = [...prev];
+        if (e.target.checked) {
+          copy.push(e.target.value);
+          //console.log("pridalo se " + e.target.value);
+        } else {
+          // dekuju chlape: https://dev.to/urielbitton/react-tricks-miniseries-3-how-to-remove-element-from-usestate-array-13h1
+          //console.log("odebralo se " + e.target.value);
+          copy = copy.filter((colorValue) => colorValue !== e.target.value);
+        }
+        setFormData({ ...formData, [e.target.name]: copy });
+        return copy;
+      });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
     }
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
+    //console.log(formData);
   };
 
   const handlePost = (e) => {
@@ -95,12 +138,15 @@ export default function ProductCreateForm() {
             placeholder="Zadejte imagePath"
             onChange={handleChange}
           />
-          <Button variant="secondary" onClick={handlePost} className="w-fit">
+          <Button
+            variant="secondary"
+            onClick={handlePost}
+            className="w-fit mb-2"
+          >
             <span>Přidat produkt</span>
           </Button>
         </form>
         <div className="flex flex-col gap-2">
-          <p>{info}</p>
           <Link to={"/admin"}>
             <Button variant="secondary" className="gap-1 pl-3">
               <ChevronLeft />
@@ -109,6 +155,24 @@ export default function ProductCreateForm() {
           </Link>
         </div>
       </div>
+      <Toaster
+        position="bottom-right"
+        className="font-manrope"
+        toastOptions={{
+          unstyled: false,
+          classNames: {
+            toast: toastStyle[status],
+            title: textStyle[status],
+            description: textStyle[status],
+            actionButton:
+              buttonStyle[status],
+            cancelButton:
+            buttonStyle[status],
+            closeButton:
+            buttonStyle[status],
+          },
+        }}
+      />
     </>
   );
 }
