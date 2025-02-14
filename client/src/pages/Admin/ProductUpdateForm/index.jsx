@@ -1,18 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState, Fragment } from "react";
-import { createProduct } from "../../models/Product";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, Fragment } from "react";
+import { updateProduct, getProductById } from "../../../models/Product";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { colorList, colorsTranslated } from "@/components/constants";
+import { ChevronLeft } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { colorList, colorsTranslated } from "@/components/constants";
-import { ChevronLeft, X } from "lucide-react";
+import ProductLink from "../../Favourites/ProductLink";
 
-export default function ProductCreateForm() {
-  const [selectedColors, setSelectedColors] = useState([]);
-  const [formData, setFormData] = useState();
+export default function ProductUpdateForm() {
+  const { id } = useParams();
+  const [product, setProduct] = useState();
+  const [isLoaded, setLoaded] = useState();
   const [info, setInfo] = useState();
-  const [status, setStatus] = useState("");
+  const [formData, setFormData] = useState();
   const navigate = useNavigate();
 
   const toastStyle = {
@@ -26,66 +28,70 @@ export default function ProductCreateForm() {
   };
 
   const buttonStyle = {
-    error: "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7 !transition-colors",
-    success: "!text-green-900 !bg-transparent hover:!bg-green-900/10 !p-1 !h-7 !w-7 !transition-colors",
+    error:
+      "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7 !transition-colors",
+    success:
+      "!text-green-900 !bg-transparent hover:!bg-green-900/10 !p-1 !h-7 !w-7 !transition-colors",
   };
 
-  const postForm = async () => {
-    const product = await createProduct(formData);
-    if (product.status === 201) {
-      setStatus("success");
-      toast("Produkt úspěšně vytvořen", {
-        description: product.payload.name,
-        action: {
-          label: <X />,
-        },
-      });
-      return navigate();
-    } else {
-      setStatus("error");
-      toast("Chyba " + product.status + " při vytváření produktu", {
-        description: product.message,
-        action: {
-          label: <X />,
-        },
-      });
+  const load = async () => {
+    const data = await getProductById(id);
+    if (data.status === 500 || data.status === 404) return setLoaded(null);
+    if (data.status === 200) {
+      setProduct(data.payload);
+      setLoaded(true);
     }
+  };
+
+  const updateForm = async () => {
+    const data = await updateProduct(id, formData);
+    if (data.status === 200) return navigate(`/product/${id}`);
+    setInfo(data.message);
   };
 
   const handleChange = (e) => {
-    if (e.target.type == "checkbox") {
-      setSelectedColors((prev) => {
-        let copy = [...prev];
-        if (e.target.checked) {
-          copy.push(e.target.value);
-          //console.log("pridalo se " + e.target.value);
-        } else {
-          // dekuju chlape: https://dev.to/urielbitton/react-tricks-miniseries-3-how-to-remove-element-from-usestate-array-13h1
-          //console.log("odebralo se " + e.target.value);
-          copy = copy.filter((colorValue) => colorValue !== e.target.value);
-        }
-        setFormData({ ...formData, [e.target.name]: copy });
-        return copy;
-      });
-    } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
-    //console.log(formData);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData);
   };
 
-  const handlePost = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
-    postForm();
+    updateForm();
   };
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  if (isLoaded === null) {
+    return (
+      <>
+        <div className="container px-2 mx-auto">
+          <p>Product nenalezen</p>
+        </div>
+      </>
+    );
+  }
+
+  if (!isLoaded) {
+    return (
+      <>
+        <div className="container px-2 mx-auto">
+          <p>Product se načítá...</p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
       <div className="container px-2 mx-auto">
-        <h1 className="my-3 text-2xl">Vytvořit produkt</h1>
+        <h1 className="my-3 text-2xl">Upravit produkt</h1>
         <form className="flex flex-col gap-2">
           <Input
             type="text"
             name="name"
+            value={product.name}
             required
             placeholder="Zadejte name"
             onChange={handleChange}
@@ -93,6 +99,7 @@ export default function ProductCreateForm() {
           <Input
             type="text"
             name="brand"
+            value={product.brand}
             required
             placeholder="Zadejte brand"
             onChange={handleChange}
@@ -120,6 +127,7 @@ export default function ProductCreateForm() {
           <Input
             type="number"
             name="price"
+            value={product.price}
             required
             placeholder="Zadejte price"
             onChange={handleChange}
@@ -127,6 +135,7 @@ export default function ProductCreateForm() {
           <Input
             type="text"
             name="category"
+            value={product.category}
             required
             placeholder="Zadejte category"
             onChange={handleChange}
@@ -134,16 +143,17 @@ export default function ProductCreateForm() {
           <Input
             type="text"
             name="imagePath"
+            value={product.imagePath}
             required
             placeholder="Zadejte imagePath"
             onChange={handleChange}
           />
           <Button
             variant="secondary"
-            onClick={handlePost}
+            onClick={handleUpdate}
             className="w-fit mb-2"
           >
-            <span>Přidat produkt</span>
+            <span>Upravit produkt</span>
           </Button>
         </form>
         <div className="flex flex-col gap-2">
@@ -164,12 +174,9 @@ export default function ProductCreateForm() {
             toast: toastStyle[status],
             title: textStyle[status],
             description: textStyle[status],
-            actionButton:
-              buttonStyle[status],
-            cancelButton:
-            buttonStyle[status],
-            closeButton:
-            buttonStyle[status],
+            actionButton: buttonStyle[status],
+            cancelButton: buttonStyle[status],
+            closeButton: buttonStyle[status],
           },
         }}
       />

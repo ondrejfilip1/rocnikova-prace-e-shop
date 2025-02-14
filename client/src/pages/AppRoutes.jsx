@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Home from "./Home";
-import ProductCreateForm from "./ProductCreateForm";
+import ProductCreateForm from "./Admin/ProductCreateForm";
 import ProductList from "./ProductList";
 import ProductView from "./ProductView";
-import ProductUpdateForm from "./ProductUpdateForm";
+import ProductUpdateForm from "./Admin/ProductUpdateForm";
 import Admin from "./Admin";
 import Orders from "./Orders";
 import Favourites from "./Favourites";

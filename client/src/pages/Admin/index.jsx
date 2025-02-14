@@ -13,9 +13,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 export default function Admin() {
-  const [updateId, setUpdateId] = useState("");
-
-
+  const [updateId, setUpdateId] = useState();
 
   return (
     <>
@@ -28,17 +26,17 @@ export default function Admin() {
         </Link>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline">Změnit produkt</Button>
+            <Button variant="outline">Upravit produkt</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Změnit produkt</DialogTitle>
+              <DialogTitle>Upravit produkt</DialogTitle>
               <DialogDescription />
             </DialogHeader>
             <Input id="username" placeholder="Zadejte ID produktu" onChange={(e) => setUpdateId(e.target.value)} />
             <DialogFooter>
-              <Link to={`/admin/update-product/${updateId}`}>
-                <Button type="submit">Pokračovat</Button>
+              <Link to={`/admin/update-product/${updateId}`} className={!updateId ? "pointer-events-none" : ""}>
+                <Button type="submit" disabled={!updateId} className="transition-all" >Pokračovat</Button>
               </Link>
             </DialogFooter>
           </DialogContent>
