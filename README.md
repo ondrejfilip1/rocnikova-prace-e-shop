@@ -1,4 +1,7 @@
 # Ročníková práce E-shop
+
+![logo stránky](https://github.com/ondrejfilip1/rocnikova-prace-e-shop/blob/main/logo.png)
+
 ## Použité technologie
 ### Klient
 Vytvořen v Reactu + Vite
