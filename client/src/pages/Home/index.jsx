@@ -30,7 +30,7 @@ export default function Home() {
         </div>
 
         <div className="min-h-screen" />
-        <div className="h-fit mx-auto rounded-3xl backdrop-background-color backdrop-blur-2xl md:pb-0 pb-10 custom_shadow">
+        <div className="h-fit container mx-auto rounded-3xl backdrop-background-color backdrop-blur-2xl md:pb-0 pb-10 custom_shadow">
           <div className="flex items-center justify-between md:gap-10 gap-5 mx-auto md:flex-row flex-col ">
             <div className="aspect-square rounded-lg border border-transparent w-full md:w-1/2 text-center">
               <div
