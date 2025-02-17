@@ -109,7 +109,7 @@ export default function ProductList(props) {
                 </div>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    <Filters />
+                    <Filters category={props.category} />
                   </SidebarMenu>
                 </SidebarGroupContent>
               </SidebarGroup>

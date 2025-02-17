@@ -6,6 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FormProvider, useForm, Controller } from "react-hook-form";
 import { Separator } from "@/components/ui/separator";
 import { Filter } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const checkboxBrands = [
   {
@@ -42,8 +43,9 @@ const checkboxBrands = [
   },
 ];
 
-export default function Filters() {
+export default function Filters(props) {
   const [sliderValue, setSliderValue] = useState([1000, 5000]);
+  const navigate = useNavigate();
 
   const methods = useForm({
     defaultValues: {
@@ -56,9 +58,22 @@ export default function Filters() {
   };
 
   const onSubmit = (data) => {
-    if (data && data.length !== 0) 
-    // to do
-    console.log(data);
+    if (data && data.length !== 0) {
+      if (props.category !== "") {
+        let brandQuery = "";
+        data.items.map((value, index) => {
+          index + 1 != data.items.length
+            ? (brandQuery += value + ",")
+            : (brandQuery += value);
+        });
+        navigate(
+          `/view-products/${props.category}?category=${props.category}&brand=${brandQuery}`,
+          {
+            replace: true,
+          }
+        );
+      }
+    }
   };
 
   return (
@@ -102,7 +117,10 @@ export default function Filters() {
               )}
             />
           ))}
-          <Button type="submit" className="bg-red-900 hover:bg-red-950"><Filter />Filtrovat</Button>
+          <Button type="submit" className="bg-red-900 hover:bg-red-950">
+            <Filter />
+            Filtrovat
+          </Button>
         </SidebarMenuItem>
       </form>
     </FormProvider>
