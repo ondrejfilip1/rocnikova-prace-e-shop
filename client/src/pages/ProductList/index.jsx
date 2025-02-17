@@ -34,7 +34,7 @@ export default function ProductList(props) {
 
   const location = useLocation();
 
-  const load = async (query = "", queryCategory = "") => {
+  const load = async (query = "", queryCategory = "", queryBrand = "") => {
     // ziska produkty podle parametru
     // console.log(queryCategory);
     // console.log(query);
@@ -43,7 +43,7 @@ export default function ProductList(props) {
     }
     // data - produkty
     // data2 - oblibene polozky IDs
-    const data = await getAllProducts(query, queryCategory);
+    const data = await getAllProducts(query, queryCategory, queryBrand);
     const data2 = await getAllFavourites();
     if (data2.status === 200) setFavouritesIDs(data2.payload);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
@@ -57,18 +57,20 @@ export default function ProductList(props) {
 
   useEffect(() => {
     // varovani - cinsky kod
+    // TODO: strasne moc ifu - opravit
     const query = new URLSearchParams(location.search);
     const queryParam = query.get("search") || "";
     const queryParam2 = query.get("category") || "";
-    if (searchQuery || queryParam2) {
+    const queryParam3 = query.get("brand") || "";
+    if (searchQuery || queryParam2 || queryParam3) {
       if (searchQuery) {
-        load(searchQuery, queryParam2);
+        load(searchQuery, queryParam2, queryParam3);
       } else {
-        load(queryParam, queryParam2);
+        load(queryParam, queryParam2, queryParam3);
       }
     } else if (queryParam) {
       setSearchQuery(query.get("search"));
-      load(query.get("search"), queryParam2);
+      load(query.get("search"), queryParam2, queryParam3);
     } else {
       setSearchQuery("");
       load("", "");

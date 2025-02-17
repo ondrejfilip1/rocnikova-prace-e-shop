@@ -2,7 +2,7 @@ const Product = require("../models/products");
 
 exports.getAllProducts = async (req, res, next) => {
   try {
-    const { search, category } = req.query;
+    const { search, category, brand } = req.query;
     let query = {};
     if (search) {
       // $regex - vyhledani podle vzoru
@@ -11,6 +11,11 @@ exports.getAllProducts = async (req, res, next) => {
     if (category) {
       // tady nemusime davat velky nebo maly pismena, protoze kategorie se nebude zadavat uzivatelem
       query.category = category;
+    }
+    if (brand) {
+      // oddeli carku (kdyby bylo vic znacek v query)
+      query.brand = brand.split(",");
+      console.log(query.brand);
     }
     const data = await Product.find(query).sort({ name: 1 });
     if (data && data.length !== 0) {
