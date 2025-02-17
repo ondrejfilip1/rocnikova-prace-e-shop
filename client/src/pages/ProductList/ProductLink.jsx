@@ -107,12 +107,7 @@ export default function ProductLink(props) {
 
   return (
     <>
-      <Card
-        className={classNames(
-          "w-full h-full border-transparent shadow-none flex flex-col justify-between",
-          s.card_background
-        )}
-      >
+      <Card className="w-full h-full border-transparent shadow-none flex flex-col justify-between card_background">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -171,6 +166,9 @@ export default function ProductLink(props) {
                             color === "sea_blue" && "color_sea_blue_svg",
                             color === "red" && "color_red_svg",
                             color === "purple" && "color_purple_svg",
+                            color === "light_blue" && "color_light_blue_svg",
+                            color === "blue" && "color_blue_svg",
+                            color === "green" && "color_green_svg",
                             "radio_svg_fix",
                             s.radio_ring,
                             "rounded-full border-none ring-1 ring-red-900/25"

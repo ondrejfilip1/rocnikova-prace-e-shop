@@ -156,15 +156,33 @@ div#root {
 }
 
 .color_red_svg {
-  fill: #d33737;
-  background-color: #d33737;
-  color: #d33737;
+  fill: #c75555;
+  background-color: #c75555;
+  color: #c75555;
 }
 
 .color_purple_svg {
   fill: #9862b8;
   background-color: #9862b8;
   color: #9862b8;
+}
+
+.color_light_blue_svg {
+  fill: #6262c1;
+  background-color: #6262c1;
+  color: #6262c1;
+}
+
+.color_blue_svg {
+  fill: #0a0a67;
+  background-color: #0a0a67;
+  color: #0a0a67;
+}
+
+.color_green_svg {
+  fill: #637b65;
+  background-color: #637b65;
+  color: #637b65;
 }
 
 .z-1 {
@@ -201,4 +219,11 @@ div#root {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+}
+
+.card_background {
+  background-color: transparent;
+  box-shadow: rgba(17, 12, 46, 0.21) 0px 24px 100px 0px;
+  backdrop-filter: blur(16px);
+  border-color: transparent;
 }

@@ -9,7 +9,10 @@ export const colors = {
   brown: "br",
   sea_blue: "sb",
   red: "r",
-  purple: "p"
+  purple: "p",
+  light_blue: "lb",
+  blue: "bl",
+  green: "gr"
 };
 
 export const colorsTranslated = {
@@ -21,7 +24,10 @@ export const colorsTranslated = {
   brown: "Hnědá",
   sea_blue: "Mořská modř",
   red: "Červená",
-  purple: "Fialová"
+  purple: "Fialová",
+  light_blue: "Světlě modrá",
+  blue: "Modrá",
+  green: "Zelená"
 };
 
 export const colorList = [
@@ -33,5 +39,8 @@ export const colorList = [
   "brown",
   "sea_blue",
   "red",
-  "purple"
-]
+  "purple",
+  "light_blue",
+  "blue",
+  "green"
+];

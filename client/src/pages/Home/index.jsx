@@ -3,12 +3,17 @@ import s from "./Home.module.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Truck, PackageCheck, CalendarClock } from "lucide-react";
 
 import React from "react";
 import classNames from "classnames";
 
 export default function Home() {
+  const cardStyles = {
+    icons: "h-8 w-8",
+    cards: "flex md:flex-auto w-full max-w-sm mx-auto justify-stretch gap-2 md:w-0 md:max-w-full h-auto flex-col items-center text-center card_background px-4 py-8 rounded-3xl transition-[outline] duration-700 outline outline-3 outline-transparent hover:outline-red-100"
+  }
+
   return (
     <>
       <div className="background pb-[1px]">
@@ -30,6 +35,21 @@ export default function Home() {
         </div>
 
         <div className="min-h-screen" />
+        <div className="flex flex-col md:flex-row justify-between gap-4 text-red-900 font-medium my-4 container mx-auto">
+          <div className={cardStyles.cards}>
+            <Truck className={cardStyles.icons} />
+            <span>Rychlé dodání</span>
+          </div>
+          <div className={cardStyles.cards}>
+            <PackageCheck className={cardStyles.icons} />
+            <span>Bezplatná doprava a vrácení zboží</span>
+          </div>
+          <div className={cardStyles.cards}>
+            <CalendarClock className={cardStyles.icons} />
+            <span>Možnost vrácení zboží do 3 měsíců</span>
+          </div>
+        </div>
+
         <div className="h-fit container mx-auto rounded-3xl backdrop-background-color backdrop-blur-2xl md:pb-0 pb-10 custom_shadow">
           <div className="flex items-center justify-between md:gap-10 gap-5 mx-auto md:flex-row flex-col ">
             <div className="aspect-square rounded-lg border border-transparent w-full md:w-1/2 text-center">

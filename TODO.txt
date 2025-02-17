@@ -3,6 +3,7 @@
  - Hledání pomocí filtru (cena, značka atd.)
  - Přejmenovat URL cesty v AppRoutes na české názvy
  - Přidat další produkty
+ - Změnit prokliky na značky bot (nyní je vyhledávání pomocí jména)
 
 Hotovo:
  - Fixnout, když vymažu item v košíku, aby se změnila celková cena
