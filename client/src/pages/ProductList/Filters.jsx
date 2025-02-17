@@ -59,20 +59,19 @@ export default function Filters(props) {
 
   const onSubmit = (data) => {
     if (data && data.length !== 0) {
-      if (props.category !== "") {
-        let brandQuery = "";
-        data.items.map((value, index) => {
-          index + 1 != data.items.length
-            ? (brandQuery += value + ",")
-            : (brandQuery += value);
-        });
-        navigate(
-          `/view-products/${props.category}?category=${props.category}&brand=${brandQuery}`,
-          {
-            replace: true,
-          }
-        );
-      }
+      let categoryQuery =
+        props.category !== ""
+          ? `/${props.category}?category=${props.category}`
+          : "";
+      let brandQuery = categoryQuery !== "" ? "&brand=" : "?brand=";
+      data.items.map((value, index) => {
+        index + 1 != data.items.length
+          ? (brandQuery += value + ",")
+          : (brandQuery += value);
+      });
+      navigate(`/view-products${categoryQuery}${brandQuery}`, {
+        replace: true,
+      });
     }
   };
 

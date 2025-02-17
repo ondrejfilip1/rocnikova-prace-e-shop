@@ -4,11 +4,19 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan')
 const cors = require("cors");
+
+// dotenv
+const dotenv = require("dotenv");
+dotenv.config();
+const USER = process.env.DB_USER;
+const PASSWORD = process.env.DB_PASSWORD;
+
+// pripojovani do databaze
 const mongoose = require("mongoose");
 mongoose
-.connect(`mongodb+srv://admin:adminadmin@cluster0.nrqdm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+.connect(`mongodb+srv://${USER}:${PASSWORD}@cluster0.nrqdm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
 .then(() => console.log("Database connected"))
-.catch(() => console.log("chyba"))
+.catch(() => console.log("Chyba"))
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
