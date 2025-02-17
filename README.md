@@ -1,8 +1,17 @@
 # Ročníková práce E-shop
 
-![logo stránky](https://github.com/ondrejfilip1/rocnikova-prace-e-shop/blob/main/logo.png)
+<img src="https://github.com/ondrejfilip1/rocnikova-prace-e-shop/blob/main/logo.png" />
+
+## Informace
+- Název E-shopu - Pigress
+- E-shop je zaměřen na prodej oblečení a bot
 
 ## Použité technologie
+
+<div align="center"> 
+  <img src="https://skillicons.dev/icons?i=react,js,html,css,express,nodejs,mongodb,tailwind&perline=4" />
+</div>
+
 ### Client
 Vytvořen v Reactu + Vite
 - shadcn/ui (komponenty)
@@ -13,12 +22,6 @@ Vytvořen v Reactu + Vite
 - MongoDB
 - Express
 - Mongoose
-## Informace
-[TODO](https://github.com/ondrejfilip1/rocnikova-prace-e-shop/blob/main/TODO.txt)
-<br>Obrázky a informace z produktů jsou ze stránky [aboutyou.cz](https://www.aboutyou.cz/)
-
-<div align="center"> 
-  
-  [![Technologie](https://skillicons.dev/icons?i=react,js,html,css,express,nodejs,mongodb,tailwind&perline=4)](https://skillicons.dev)
-  
-</div>
+## Ostatní
+- [TODO list](https://github.com/ondrejfilip1/rocnikova-prace-e-shop/blob/main/TODO.txt)
+- Obrázky a informace o produktech jsou ze stránky [aboutyou.cz](https://www.aboutyou.cz/)
