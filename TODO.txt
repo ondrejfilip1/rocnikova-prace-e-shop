@@ -1,12 +1,12 @@
 ✅TODO:
 
- - Fixnout errory ve filtru při mobilní šířce stránky
  - Hledání pomocí filtru (cena, značka atd.)
  - Přejmenovat URL cesty v AppRoutes na české názvy
- - Get by category (pro produkty)
  - Přidat další produkty
 
 Hotovo:
  - Fixnout, když vymažu item v košíku, aby se změnila celková cena
  - Stránka pro objednávky (basically košík ale lepší)
  - Podrobná stránka pro jednotlivé produkty (když je rozkliknu)
+ - Get by category (pro produkty)
+ - Fixnout errory ve filtru při mobilní šířce stránky
