@@ -15,7 +15,6 @@ exports.getAllProducts = async (req, res, next) => {
     if (brand) {
       // oddeli carku (kdyby bylo vic znacek v query)
       query.brand = brand.split(",");
-      console.log(query.brand);
     }
     const data = await Product.find(query).sort({ name: 1 });
     if (data && data.length !== 0) {

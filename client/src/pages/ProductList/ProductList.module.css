@@ -24,3 +24,8 @@
     var(--tw-shadow, 0 0 #0000);
 }
 
+@media only screen and (max-width: 768px) {
+  .background_primary_light_breakpoint {
+    background-color: hsl(0, 49%, 93%);
+  }
+}

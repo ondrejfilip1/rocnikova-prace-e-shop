@@ -23,6 +23,7 @@ import {
 import { useLocation } from "react-router-dom";
 
 import NotFound from "@/components/NotFound";
+import classNames from "classnames";
 
 export default function ProductList(props) {
   const [products, setProducts] = useState();
@@ -94,9 +95,10 @@ export default function ProductList(props) {
         <SidebarProvider
           open={isSidebarOpened}
           onOpenChange={() => setSidebarOpened(!isSidebarOpened)}
+          
         >
           <Sidebar className={s.card_background}>
-            <SidebarContent className="text-red-900">
+            <SidebarContent className={classNames("text-red-900", s.background_primary_light_breakpoint)}>
               <SidebarGroup>
                 <div className="flex items-center justify-between">
                   <SidebarGroupLabel className="text-red-900">

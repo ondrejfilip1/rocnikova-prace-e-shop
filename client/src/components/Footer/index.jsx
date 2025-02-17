@@ -2,12 +2,14 @@ import {
   Instagram,
   Facebook,
   Youtube,
-  Link as LinkIcon,
-  Rss,
+  Link as LinkIcon
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+
+import s from "./Footer.module.css";
+import classNames from "classnames";
 
 export default function Footer() {
   const styles = {
@@ -17,13 +19,14 @@ export default function Footer() {
   return (
     <>
       <div className="h-[2px] mt-4 container mx-auto sm:px-0 px-4">
-        <div className="bg-red-900/10 w-full h-full" />
+        <div className={classNames("w-full h-full", s.divider_gradient)} />
       </div>
 
       <div className="text-red-900 font-medium flex container lg:max-w-[1024px] sm:px-0 px-4 mx-auto mb-8">
         <div className="w-1/2">
-          <div className="mb-2 mt-6">
+          <div className="mb-2 mt-6 flex gap-1">
             <span>Odkazy</span>
+            <LinkIcon className="p-1" />
           </div>
           <div className="flex flex-col text-sm gap-1 opacity-75">
             <Link to="/" className={styles.link}>
