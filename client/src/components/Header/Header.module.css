@@ -4,7 +4,7 @@ div.header_container {
   left: 0;
   width: 100%;
   backdrop-filter: blur(40px);
-  background-color: var(--backdrop-background-color);
+  background-color: var(--backdrop-background-color-header);
   padding: 1em 2em;
   display: flex;
   flex-direction: column;

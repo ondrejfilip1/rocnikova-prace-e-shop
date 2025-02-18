@@ -1,6 +1,6 @@
-export const getAllProducts = async (searchQuery, categoryQuery, brandQuery) => {
+export const getAllProducts = async (searchQuery, categoryQuery, brandQuery, minPriceQuery, maxPriceQuery) => {
   // encodeURIComponent prevede searchQuery na string s + misto mezery a tak
-  const req = await fetch(`http://localhost:3000/products?search=${encodeURIComponent(searchQuery)}&category=${encodeURIComponent(categoryQuery)}&brand=${encodeURIComponent(brandQuery)}`, {
+  const req = await fetch(`http://localhost:3000/products?search=${encodeURIComponent(searchQuery)}&category=${encodeURIComponent(categoryQuery)}&brand=${encodeURIComponent(brandQuery)}&minprice=${encodeURIComponent(minPriceQuery)}&maxprice=${encodeURIComponent(maxPriceQuery)}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

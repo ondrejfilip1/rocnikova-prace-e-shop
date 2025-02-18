@@ -35,7 +35,13 @@ export default function ProductList(props) {
 
   const location = useLocation();
 
-  const load = async (query = "", queryCategory = "", queryBrand = "") => {
+  const load = async (
+    query = "",
+    queryCategory = "",
+    queryBrand = "",
+    queryMinPrice = "",
+    queryMaxPrice = ""
+  ) => {
     // ziska produkty podle parametru
     // console.log(queryCategory);
     // console.log(query);
@@ -44,7 +50,13 @@ export default function ProductList(props) {
     }
     // data - produkty
     // data2 - oblibene polozky IDs
-    const data = await getAllProducts(query, queryCategory, queryBrand);
+    const data = await getAllProducts(
+      query,
+      queryCategory,
+      queryBrand,
+      queryMinPrice,
+      queryMaxPrice
+    );
     const data2 = await getAllFavourites();
     if (data2.status === 200) setFavouritesIDs(data2.payload);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
@@ -63,15 +75,29 @@ export default function ProductList(props) {
     const queryParam = query.get("search") || "";
     const queryParam2 = query.get("category") || "";
     const queryParam3 = query.get("brand") || "";
-    if (searchQuery || queryParam2 || queryParam3) {
+    const queryParam4 = query.get("minprice") || "";
+    const queryParam5 = query.get("maxprice") || "";
+    if (
+      searchQuery ||
+      queryParam2 ||
+      queryParam3 ||
+      queryParam4 ||
+      queryParam5
+    ) {
       if (searchQuery) {
-        load(searchQuery, queryParam2, queryParam3);
+        load(searchQuery, queryParam2, queryParam3, queryParam4, queryParam5);
       } else {
-        load(queryParam, queryParam2, queryParam3);
+        load(queryParam, queryParam2, queryParam3, queryParam4, queryParam5);
       }
     } else if (queryParam) {
       setSearchQuery(query.get("search"));
-      load(query.get("search"), queryParam2, queryParam3);
+      load(
+        query.get("search"),
+        queryParam2,
+        queryParam3,
+        queryParam4,
+        queryParam5
+      );
     } else {
       setSearchQuery("");
       load("", "");
@@ -95,10 +121,14 @@ export default function ProductList(props) {
         <SidebarProvider
           open={isSidebarOpened}
           onOpenChange={() => setSidebarOpened(!isSidebarOpened)}
-          
         >
           <Sidebar className={s.card_background}>
-            <SidebarContent className={classNames("text-red-900", s.background_primary_light_breakpoint)}>
+            <SidebarContent
+              className={classNames(
+                "text-red-900",
+                s.background_primary_light_breakpoint
+              )}
+            >
               <SidebarGroup>
                 <div className="flex items-center justify-between">
                   <SidebarGroupLabel className="text-red-900">

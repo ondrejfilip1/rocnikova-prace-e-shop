@@ -2,7 +2,7 @@ const Product = require("../models/products");
 
 exports.getAllProducts = async (req, res, next) => {
   try {
-    const { search, category, brand } = req.query;
+    const { search, category, brand, minprice, maxprice } = req.query;
     let query = {};
     if (search) {
       // $regex - vyhledani podle vzoru
@@ -16,7 +16,10 @@ exports.getAllProducts = async (req, res, next) => {
       // oddeli carku (kdyby bylo vic znacek v query)
       query.brand = brand.split(",");
     }
-    const data = await Product.find(query).sort({ name: 1 });
+
+    const price = (minprice && maxprice) ? { $gt: minprice, $lt: maxprice } : { $type : 16 };
+    
+    const data = await Product.find({...query, price: price}).sort({ name: 1 });
     if (data && data.length !== 0) {
       return res.status(200).send({
         message: "Products found",

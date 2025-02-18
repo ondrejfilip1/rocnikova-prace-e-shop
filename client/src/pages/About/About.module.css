@@ -1,0 +1,16 @@
+.animation_shadow:hover div {
+    transform: translateX(2rem) translateY(2rem) rotate(17deg) scale(0.95);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.animation_shadow:hover {
+    transform: translateX(1rem) translateY(-1rem) rotate(-6deg);
+}
+
+.animation_shadow:hover img {
+    box-shadow: rgba(50, 50, 93, 0.148) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.animation_shadow div, .animation_shadow, .animation_shadow img {
+    transition: .8s all;
+}

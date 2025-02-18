@@ -69,7 +69,8 @@ export default function Filters(props) {
           ? (brandQuery += value + ",")
           : (brandQuery += value);
       });
-      navigate(`/view-products${categoryQuery}${brandQuery}`, {
+      let priceQuery = ("&minprice=" + sliderValue[0] + "&maxprice=" + sliderValue[1]);
+      navigate(`/view-products${categoryQuery}${brandQuery}${priceQuery}`, {
         replace: true,
       });
     }

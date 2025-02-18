@@ -11,9 +11,25 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import classNames from "classnames";
+import { deleteProduct } from "@/models/Product";
 
 export default function Admin() {
   const [updateId, setUpdateId] = useState();
+  const [deleteId, setDeleteId] = useState();
+  const [status, setStatus] = useState();
+  const [isSuccessful, setSuccessful] = useState(false);
+
+  const handleDeleteProduct = async () => {
+    const product = await deleteProduct(deleteId);
+    if (product.status === 201) {
+      setStatus("Produkt byl úspěěšně odebrán");
+      setSuccessful(true);
+    } else {
+      setStatus("Při odebírání produktu nastala chyba");
+      setSuccessful(false);
+    }
+  };
 
   return (
     <>
@@ -33,17 +49,59 @@ export default function Admin() {
               <DialogTitle>Upravit produkt</DialogTitle>
               <DialogDescription />
             </DialogHeader>
-            <Input id="username" placeholder="Zadejte ID produktu" onChange={(e) => setUpdateId(e.target.value)} />
+            <Input
+              id="updateId"
+              placeholder="Zadejte ID produktu"
+              onChange={(e) => setUpdateId(e.target.value)}
+            />
             <DialogFooter>
-              <Link to={`/admin/update-product/${updateId}`} className={!updateId ? "pointer-events-none" : ""}>
-                <Button type="submit" disabled={!updateId} className="transition-all" >Pokračovat</Button>
+              <Link
+                to={`/admin/update-product/${updateId}`}
+                className={!updateId ? "pointer-events-none" : ""}
+              >
+                <Button
+                  type="submit"
+                  disabled={!updateId}
+                  className="transition-all"
+                >
+                  Pokračovat
+                </Button>
               </Link>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        <Link to="/admin/delete-product">
-          <Button variant="destructive">Odebrat produkt</Button>
-        </Link>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="destructive">Odebrat produkt</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Odebrat produkt</DialogTitle>
+              <DialogDescription />
+            </DialogHeader>
+            <Input
+              id="deleteId"
+              placeholder="Zadejte ID produktu"
+              onChange={(e) => setDeleteId(e.target.value)}
+            />
+            <p className={classNames(isSuccessful ? "text-green-500" : "text-red-500", "text-sm")}>
+              {status}
+            </p>
+            <DialogFooter>
+              <Button
+                className={classNames(
+                  !deleteId ? "pointer-events-none" : "",
+                  "transition-all"
+                )}
+                type="submit"
+                disabled={!deleteId}
+                onClick={handleDeleteProduct}
+              >
+                Pokračovat
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );
