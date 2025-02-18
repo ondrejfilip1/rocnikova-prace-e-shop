@@ -21,11 +21,11 @@ export default function ProductLink(props) {
   }, []);
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-full">
-        <Link to={`/product/${props.productId}`} className="h-full max-h-[90%]">
+      <div className="flex flex-col items-center justify-center h-full w-full">
+        <Link to={`/product/${props.productId}`} className="h-full max-h-[90%] w-full">
           <img
             src={`${product.imagePath}front_${colors[props.color]}.avif`}
-            className="object-contain object-center h-full p-4"
+            className="object-contain object-center h-full w-full p-4"
             draggable="false"
           />
         </Link>

@@ -68,6 +68,33 @@ export default function ProductView() {
 
   const sizes = [
     {
+      value: "XS",
+      label: "XS",
+    },
+    {
+      value: "S",
+      label: "S",
+    },
+    {
+      value: "M",
+      label: "M",
+    },
+    {
+      value: "L",
+      label: "L",
+    },
+    {
+      value: "XL",
+      label: "XL",
+    },
+    {
+      value: "XXL",
+      label: "XXL",
+    }
+  ];
+
+  const shoeSizes = [
+    {
       value: "39",
       label: "39",
     },
@@ -408,7 +435,7 @@ export default function ProductView() {
                     className="w-full justify-between hover:text-red-900 backdrop-background-color border-red-900/10 backdrop-background-color-hover mb-2"
                   >
                     {value
-                      ? sizes.find((size) => size.value === value)?.label
+                      ? (product.category == "boty" ? shoeSizes : sizes).find((size) => size.value === value)?.label
                       : "Vybrat velikost..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -422,7 +449,7 @@ export default function ProductView() {
                     <CommandList>
                       <CommandEmpty>Velikost není k dispozici</CommandEmpty>
                       <CommandGroup>
-                        {sizes.map((size) => (
+                        {(product.category == "boty" ? shoeSizes : sizes).map((size) => (
                           <CommandItem
                             key={size.value}
                             value={size.value}

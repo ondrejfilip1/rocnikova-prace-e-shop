@@ -19,6 +19,7 @@ import {
   Shirt,
   Footprints,
   PackageOpen,
+  ArrowRight
 } from "lucide-react";
 
 import {
@@ -513,9 +514,10 @@ export default function Header({ onSearch }) {
                         })
                       }
                       to="/view-products/boty?category=boty"
-                      className="text-sm font-medium ml-3"
+                      className="text-sm font-medium ml-3 flex items-center gap-0.5"
                     >
                       Zobrazit vše
+                      <ArrowRight className="!h-4" />
                     </Link>
                   </ul>
                 </NavigationMenuContent>

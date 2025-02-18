@@ -11,8 +11,9 @@ import classNames from "classnames";
 export default function Home() {
   const cardStyles = {
     icons: "h-8 w-8",
-    cards: "flex md:flex-auto w-full max-w-sm mx-auto justify-stretch gap-2 md:w-0 md:max-w-full h-auto flex-col items-center text-center card_background px-4 py-8 rounded-3xl transition-[outline] duration-700 outline outline-3 outline-transparent hover:outline-red-100"
-  }
+    cards:
+      "flex md:flex-auto w-full mx-auto justify-stretch gap-2 md:w-0 md:max-w-full h-auto flex-col items-center text-center card_background px-4 py-8 rounded-3xl transition-[outline] duration-700 outline outline-3 outline-transparent hover:outline-red-100",
+  };
 
   return (
     <>
