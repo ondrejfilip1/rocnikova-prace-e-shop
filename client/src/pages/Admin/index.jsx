@@ -10,15 +10,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames";
 import { deleteProduct } from "@/models/Product";
+import { isAlive } from "@/models/Server";
 
 export default function Admin() {
   const [updateId, setUpdateId] = useState();
   const [deleteId, setDeleteId] = useState();
   const [status, setStatus] = useState();
   const [isSuccessful, setSuccessful] = useState(false);
+  const [isServerAlive, setIsServerAlive] = useState(false);
 
   const handleDeleteProduct = async () => {
     const product = await deleteProduct(deleteId);
@@ -31,10 +33,22 @@ export default function Admin() {
     }
   };
 
+  const checkServer = async () => {
+    const serverCheck = await isAlive();
+    setIsServerAlive(serverCheck);
+  };
+
+  useEffect(() => {
+    checkServer();
+  }, []);
+
   return (
     <>
       <div className="absolute left-0 w-full text-center text-2xl top-4">
         Admin panel
+      </div>
+      <div className="absolute left-0 w-full text-sm text-center top-14 text-gray-500">
+        {isServerAlive ? "Server je zapnut" : "Server je vypnut"}
       </div>
       <div className="flex flex-col min-h-screen items-center justify-center gap-2">
         <Link to="/admin/add-product">
@@ -84,7 +98,12 @@ export default function Admin() {
               placeholder="Zadejte ID produktu"
               onChange={(e) => setDeleteId(e.target.value)}
             />
-            <p className={classNames(isSuccessful ? "text-green-500" : "text-red-500", "text-sm")}>
+            <p
+              className={classNames(
+                isSuccessful ? "text-green-500" : "text-red-500",
+                "text-sm"
+              )}
+            >
               {status}
             </p>
             <DialogFooter>
