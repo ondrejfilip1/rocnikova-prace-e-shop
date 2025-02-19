@@ -12,7 +12,8 @@ export const colors = {
   purple: "p",
   light_blue: "lb",
   blue: "bl",
-  green: "gr"
+  green: "gr",
+  pastel_yellow: "py",
 };
 
 export const colorsTranslated = {
@@ -27,7 +28,8 @@ export const colorsTranslated = {
   purple: "Fialová",
   light_blue: "Světlě modrá",
   blue: "Modrá",
-  green: "Zelená"
+  green: "Zelená",
+  pastel_yellow: "Pastelově žlutá",
 };
 
 export const colorList = [
@@ -42,5 +44,22 @@ export const colorList = [
   "purple",
   "light_blue",
   "blue",
-  "green"
+  "green",
+  "pastel_yellow"
 ];
+
+export const categoriesTranslated = {
+  kosile: "Košile",
+  boty: "Boty",
+  mikiny: "Mikiny",
+  kalhoty: "Kalhoty",
+  tricka: "Trička",
+  bundy: "Bundy",
+  dziny: "Džíny",
+  teplaky: "Tepláky",
+  svetry: "Svetry",
+  pradlo: "Prádlo",
+  obleky: "Obleky",
+  smokingy: "Smokingy",
+  kabaty: "Kabáty"
+}

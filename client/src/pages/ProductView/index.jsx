@@ -35,7 +35,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { colors, colorsTranslated } from "@/components/constants";
+import {
+  colors,
+  colorsTranslated,
+  categoriesTranslated,
+} from "@/components/constants";
 import { getAllFavourites } from "@/models/Favourites";
 
 import {
@@ -51,6 +55,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function ProductView() {
   const { id } = useParams();
@@ -90,7 +103,7 @@ export default function ProductView() {
     {
       value: "XXL",
       label: "XXL",
-    }
+    },
   ];
 
   const shoeSizes = [
@@ -242,7 +255,7 @@ export default function ProductView() {
 
   useEffect(() => {
     load();
-    console.log('aaa');
+    console.log("aaa");
   }, []);
 
   useEffect(() => {
@@ -342,6 +355,27 @@ export default function ProductView() {
             </Carousel>
           </div>
           <div className="w-1/2">
+            <Breadcrumb className="mt-1">
+              <BreadcrumbList className="text-red-900 hover:!text-red-950 opacity-50 font-medium">
+                <BreadcrumbItem>
+                  <BreadcrumbLink
+                    href={`/view-products/${product.category}?category=${product.category}`}
+                    className="hover:text-red-950"
+                  >
+                    {categoriesTranslated[product.category]}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink
+                    href={`/view-products/${product.category}?category=${product.category}&search=${product.name}`}
+                    className="hover:text-red-950"
+                  >
+                    {product.name}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
             <div className="flex justify-between items-center mb-1">
               <img
                 src={`/src/assets/icons/${brands[product.brand]}`}
@@ -406,6 +440,8 @@ export default function ProductView() {
                               color === "light_blue" && "color_light_blue_svg",
                               color === "blue" && "color_blue_svg",
                               color === "green" && "color_green_svg",
+                              color === "pastel_yellow" &&
+                                "color_pastel_yellow_svg",
                               "radio_svg_fix",
                               s.radio_ring,
                               "rounded-full border-none ring-1 ring-red-900/25"
@@ -435,7 +471,9 @@ export default function ProductView() {
                     className="w-full justify-between hover:text-red-900 backdrop-background-color border-red-900/10 backdrop-background-color-hover mb-2"
                   >
                     {value
-                      ? (product.category == "boty" ? shoeSizes : sizes).find((size) => size.value === value)?.label
+                      ? (product.category == "boty" ? shoeSizes : sizes).find(
+                          (size) => size.value === value
+                        )?.label
                       : "Vybrat velikost..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -449,29 +487,31 @@ export default function ProductView() {
                     <CommandList>
                       <CommandEmpty>Velikost není k dispozici</CommandEmpty>
                       <CommandGroup>
-                        {(product.category == "boty" ? shoeSizes : sizes).map((size) => (
-                          <CommandItem
-                            key={size.value}
-                            value={size.value}
-                            onSelect={(currentValue) => {
-                              setValue(
-                                currentValue === value ? "" : currentValue
-                              );
-                              setOpen(false);
-                            }}
-                            className="backdrop-background-color-hover text-red-900 hover:!text-red-900"
-                          >
-                            {size.label}
-                            <Check
-                              className={classNames(
-                                "ml-auto",
-                                value === size.value
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              )}
-                            />
-                          </CommandItem>
-                        ))}
+                        {(product.category == "boty" ? shoeSizes : sizes).map(
+                          (size) => (
+                            <CommandItem
+                              key={size.value}
+                              value={size.value}
+                              onSelect={(currentValue) => {
+                                setValue(
+                                  currentValue === value ? "" : currentValue
+                                );
+                                setOpen(false);
+                              }}
+                              className="backdrop-background-color-hover text-red-900 hover:!text-red-900"
+                            >
+                              {size.label}
+                              <Check
+                                className={classNames(
+                                  "ml-auto",
+                                  value === size.value
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                )}
+                              />
+                            </CommandItem>
+                          )
+                        )}
                       </CommandGroup>
                     </CommandList>
                   </Command>

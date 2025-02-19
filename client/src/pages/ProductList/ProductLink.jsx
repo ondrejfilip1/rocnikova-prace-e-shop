@@ -169,6 +169,7 @@ export default function ProductLink(props) {
                             color === "light_blue" && "color_light_blue_svg",
                             color === "blue" && "color_blue_svg",
                             color === "green" && "color_green_svg",
+                            color === "pastel_yellow" && "color_pastel_yellow_svg",
                             "radio_svg_fix",
                             s.radio_ring,
                             "rounded-full border-none ring-1 ring-red-900/25"
