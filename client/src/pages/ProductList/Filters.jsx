@@ -7,41 +7,7 @@ import { FormProvider, useForm, Controller } from "react-hook-form";
 import { Separator } from "@/components/ui/separator";
 import { Filter } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-const checkboxBrands = [
-  {
-    id: "adidas",
-    label: "Adidas",
-  },
-  {
-    id: "nike",
-    label: "Nike",
-  },
-  {
-    id: "vans",
-    label: "Vans",
-  },
-  {
-    id: "jordan",
-    label: "Jordan",
-  },
-  {
-    id: "reebok",
-    label: "Reebok",
-  },
-  {
-    id: "tommy_hilfiger",
-    label: "Tommy Hilfiger",
-  },
-  {
-    id: "puma",
-    label: "Puma",
-  },
-  {
-    id: "skechers",
-    label: "Skechers",
-  },
-];
+import { brandsList } from "@/components/constants";
 
 export default function Filters(props) {
   const [sliderValue, setSliderValue] = useState([1000, 5000]);
@@ -69,7 +35,8 @@ export default function Filters(props) {
           ? (brandQuery += value + ",")
           : (brandQuery += value);
       });
-      let priceQuery = ("&minprice=" + sliderValue[0] + "&maxprice=" + sliderValue[1]);
+      let priceQuery =
+        "&minprice=" + sliderValue[0] + "&maxprice=" + sliderValue[1];
       navigate(`/view-products${categoryQuery}${brandQuery}${priceQuery}`, {
         replace: true,
       });
@@ -95,7 +62,7 @@ export default function Filters(props) {
         <Separator className="!bg-red-900/20 my-2" />
         <SidebarMenuItem className="flex flex-col gap-2 mx-2">
           <span className="font-medium">Značky</span>
-          {checkboxBrands.map((item) => (
+          {brandsList.map((item) => (
             <Controller
               key={item.id}
               name="items"

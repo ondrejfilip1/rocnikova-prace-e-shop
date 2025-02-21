@@ -19,7 +19,7 @@ import {
   Shirt,
   Footprints,
   PackageOpen,
-  ArrowRight
+  ArrowRight,
 } from "lucide-react";
 
 import {
@@ -178,6 +178,12 @@ export default function Header({ onSearch }) {
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
     if (onSearch) onSearch(e.target.value);
+  };
+
+  const handleNavigate = (link) => {
+    useNavigate(`/view-products/${link}`, {
+      replace: true,
+    });
   };
 
   return (
@@ -409,61 +415,37 @@ export default function Header({ onSearch }) {
                       {/* ZJEDNODUSIT!!!!!!!! */}
                       <Link
                         to="/view-products/mikiny"
-                        onClick={() =>
-                          useNavigate("/view-products/mikiny", {
-                            replace: true,
-                          })
-                        }
+                        onClick={() => handleNavigate("mikiny")}
                       >
                         Mikiny
                       </Link>
                       <Link
                         to="/view-products/tricka"
-                        onClick={() =>
-                          useNavigate("/view-products/tricka", {
-                            replace: true,
-                          })
-                        }
+                        onClick={() => handleNavigate("tricka")}
                       >
                         Trička
                       </Link>
                       <Link
                         to="/view-products/bundy"
-                        onClick={() =>
-                          useNavigate("/view-products/bundy", {
-                            replace: true,
-                          })
-                        }
+                        onClick={() => handleNavigate("bundy")}
                       >
                         Bundy
                       </Link>
                       <Link
                         to="/view-products/dziny"
-                        onClick={() =>
-                          useNavigate("/view-products/dziny", {
-                            replace: true,
-                          })
-                        }
+                        onClick={() => handleNavigate("dziny")}
                       >
                         Džíny
                       </Link>
                       <Link
                         to="/view-products/kalhoty"
-                        onClick={() =>
-                          useNavigate("/view-products/kalhoty", {
-                            replace: true,
-                          })
-                        }
+                        onClick={() => handleNavigate("kalhoty")}
                       >
                         Kalhoty
                       </Link>
                       <Link
                         to="/view-products/teplaky"
-                        onClick={() =>
-                          useNavigate("/view-products/teplaky", {
-                            replace: true,
-                          })
-                        }
+                        onClick={() => handleNavigate("teplaky")}
                       >
                         Tepláky
                       </Link>
@@ -474,12 +456,42 @@ export default function Header({ onSearch }) {
                         s.link_custom
                       )}
                     >
-                      <Link to="/view-products/svetry">Svetry</Link>
-                      <Link to="/view-products/pradlo">Prádlo</Link>
-                      <Link to="/view-products/obleky">Obleky</Link>
-                      <Link to="/view-products/smokingy">Smokingy</Link>
-                      <Link to="/view-products/kosile">Košile</Link>
-                      <Link to="/view-products/kabaty">Kabáty</Link>
+                      <Link
+                        to="/view-products/svetry"
+                        onClick={() => handleNavigate("svetry")}
+                      >
+                        Svetry
+                      </Link>
+                      <Link
+                        to="/view-products/pradlo"
+                        onClick={() => handleNavigate("pradlo")}
+                      >
+                        Prádlo
+                      </Link>
+                      <Link
+                        to="/view-products/obleky"
+                        onClick={() => handleNavigate("obleky")}
+                      >
+                        Obleky
+                      </Link>
+                      <Link
+                        to="/view-products/smokingy"
+                        onClick={() => handleNavigate("smokingy")}
+                      >
+                        Smokingy
+                      </Link>
+                      <Link
+                        to="/view-products/kosile"
+                        onClick={() => handleNavigate("kosile")}
+                      >
+                        Košile
+                      </Link>
+                      <Link
+                        to="/view-products/kabaty"
+                        onClick={() => handleNavigate("kabaty")}
+                      >
+                        Kabáty
+                      </Link>
                     </li>
                   </ul>
                 </NavigationMenuContent>
@@ -557,7 +569,7 @@ export default function Header({ onSearch }) {
               onChange={handleSearch}
               // kdyz zmacknu enter tak to vyhleda produkty podle jmena
               onKeyPress={(e) =>
-                (e.charCode == 13 && !onSearch)
+                e.charCode == 13 && !onSearch
                   ? navigate(`/view-products?search=${searchQuery}`, {
                       replace: true,
                     })

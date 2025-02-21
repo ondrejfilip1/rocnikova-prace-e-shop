@@ -4,15 +4,33 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Truck, PackageCheck, CalendarClock } from "lucide-react";
+import { useState } from "react";
 
 import React from "react";
 import classNames from "classnames";
 
 export default function Home() {
+  const [position, setPosition] = useState({ first: 0, second: 0, third: 0 });
+
   const cardStyles = {
     icons: "h-8 w-8",
     cards:
-      "flex md:flex-auto w-full mx-auto justify-stretch gap-2 md:w-0 md:max-w-full h-auto flex-col items-center text-center card_background px-4 py-8 rounded-3xl transition-[outline] duration-700 outline outline-3 outline-transparent hover:outline-red-100",
+      "relative flex md:flex-auto w-full mx-auto justify-stretch gap-2 md:w-0 md:max-w-full h-auto flex-col items-center text-center card_background px-4 py-8 rounded-3xl",
+  };
+
+  const handleMouse = (e) => {
+    const element = e.target.getBoundingClientRect();
+    switch (e.target.id) {
+      case "box1":
+        setPosition({ first: e.clientX - element.left });
+        break;
+      case "box2":
+        setPosition({ second: e.clientX - element.left });
+        break;
+      case "box3":
+        setPosition({ third: e.clientX - element.left });
+        break;
+    }
   };
 
   return (
@@ -37,15 +55,57 @@ export default function Home() {
 
         <div className="min-h-screen" />
         <div className="flex flex-col md:flex-row justify-between gap-4 text-red-900 font-medium my-4 container mx-auto">
-          <div className={cardStyles.cards}>
+          <div className={cardStyles.cards} onMouseMove={handleMouse}>
+            <div
+              className="w-full top-0 left-0 h-full bg-transparent absolute rounded-3xl border-[3px] border-red-300/50 transition-opacity duration-500"
+              style={{
+                WebkitMaskImage: `linear-gradient(90deg, transparent ${
+                  position.first - 120
+                }px, black ${position.first - 30}px, black ${
+                  position.first + 30
+                }px, transparent ${position.first + 120}px)`,
+                opacity: "0",
+              }}
+              onMouseLeave={(e) => (e.target.style.opacity = "0")}
+              onMouseEnter={(e) => (e.target.style.opacity = "1")}
+              id="box1"
+            />
             <Truck className={cardStyles.icons} />
             <span>Rychlé dodání</span>
           </div>
-          <div className={cardStyles.cards}>
+          <div className={cardStyles.cards} onMouseMove={handleMouse}>
+            <div
+              className="w-full top-0 left-0 h-full bg-transparent absolute rounded-3xl border-[3px] border-red-300/50 transition-opacity duration-500"
+              style={{
+                WebkitMaskImage: `linear-gradient(90deg, transparent ${
+                  position.second - 120
+                }px, black ${position.second - 30}px, black ${
+                  position.second + 30
+                }px, transparent ${position.second + 120}px)`,
+                opacity: "0",
+              }}
+              onMouseLeave={(e) => (e.target.style.opacity = "0")}
+              onMouseEnter={(e) => (e.target.style.opacity = "1")}
+              id="box2"
+            />
             <PackageCheck className={cardStyles.icons} />
             <span>Bezplatná doprava a vrácení zboží</span>
           </div>
-          <div className={cardStyles.cards}>
+          <div className={cardStyles.cards} onMouseMove={handleMouse}>
+            <div
+              className="w-full top-0 left-0 h-full bg-transparent absolute rounded-3xl border-[3px] border-red-300/50 transition-opacity duration-500"
+              style={{
+                WebkitMaskImage: `linear-gradient(90deg, transparent ${
+                  position.third - 120
+                }px, black ${position.third - 30}px, black ${
+                  position.third + 30
+                }px, transparent ${position.third + 120}px)`,
+                opacity: "0",
+              }}
+              onMouseLeave={(e) => (e.target.style.opacity = "0")}
+              onMouseEnter={(e) => (e.target.style.opacity = "1")}
+              id="box3"
+            />
             <CalendarClock className={cardStyles.icons} />
             <span>Možnost vrácení zboží do 3 měsíců</span>
           </div>

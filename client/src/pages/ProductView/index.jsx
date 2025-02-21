@@ -39,6 +39,9 @@ import {
   colors,
   colorsTranslated,
   categoriesTranslated,
+  sizes,
+  shoeSizes,
+  brands
 } from "@/components/constants";
 import { getAllFavourites } from "@/models/Favourites";
 
@@ -78,95 +81,6 @@ export default function ProductView() {
   // dropdown pro velikosti
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-
-  const sizes = [
-    {
-      value: "XS",
-      label: "XS",
-    },
-    {
-      value: "S",
-      label: "S",
-    },
-    {
-      value: "M",
-      label: "M",
-    },
-    {
-      value: "L",
-      label: "L",
-    },
-    {
-      value: "XL",
-      label: "XL",
-    },
-    {
-      value: "XXL",
-      label: "XXL",
-    },
-  ];
-
-  const shoeSizes = [
-    {
-      value: "39",
-      label: "39",
-    },
-    {
-      value: "40",
-      label: "40",
-    },
-    {
-      value: "40,5",
-      label: "40,5",
-    },
-    {
-      value: "41",
-      label: "41",
-    },
-    {
-      value: "42",
-      label: "42",
-    },
-    {
-      value: "42,5",
-      label: "42,5",
-    },
-    {
-      value: "43",
-      label: "43",
-    },
-    {
-      value: "44",
-      label: "44",
-    },
-    {
-      value: "44,5",
-      label: "44,5",
-    },
-    {
-      value: "45",
-      label: "45",
-    },
-    {
-      value: "45,5",
-      label: "45,5",
-    },
-    {
-      value: "46",
-      label: "46",
-    },
-  ];
-
-  const brands = {
-    adidas: "adidas.svg",
-    nike: "nike.svg",
-    vans: "vans.svg",
-    jordan: "jordan.svg",
-    puma: "puma.svg",
-    reebok: "reebok.svg",
-    skechers: "skechers.svg",
-    tommy_hilfiger: "tommy_hilfiger.svg",
-  };
 
   const load = async () => {
     const data = await getProductById(id);
@@ -355,7 +269,7 @@ export default function ProductView() {
             </Carousel>
           </div>
           <div className="w-1/2">
-            <Breadcrumb className="mt-1">
+            <Breadcrumb className="my-1">
               <BreadcrumbList className="text-red-900 hover:!text-red-950 opacity-50 font-medium">
                 <BreadcrumbItem>
                   <BreadcrumbLink

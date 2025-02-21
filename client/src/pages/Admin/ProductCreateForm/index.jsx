@@ -26,8 +26,10 @@ export default function ProductCreateForm() {
   };
 
   const buttonStyle = {
-    error: "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7 !transition-colors",
-    success: "!text-green-900 !bg-transparent hover:!bg-green-900/10 !p-1 !h-7 !w-7 !transition-colors",
+    error:
+      "!text-red-900 !bg-transparent background-button-hover !p-1 !h-7 !w-7 !transition-colors",
+    success:
+      "!text-green-900 !bg-transparent hover:!bg-green-900/10 !p-1 !h-7 !w-7 !transition-colors",
   };
 
   const postForm = async () => {
@@ -164,12 +166,9 @@ export default function ProductCreateForm() {
             toast: toastStyle[status],
             title: textStyle[status],
             description: textStyle[status],
-            actionButton:
-              buttonStyle[status],
-            cancelButton:
-            buttonStyle[status],
-            closeButton:
-            buttonStyle[status],
+            actionButton: buttonStyle[status],
+            cancelButton: buttonStyle[status],
+            closeButton: buttonStyle[status],
           },
         }}
       />

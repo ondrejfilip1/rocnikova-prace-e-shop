@@ -44,11 +44,11 @@ export default function Admin() {
 
   return (
     <>
-      <div className="absolute left-0 w-full text-center text-2xl top-4">
-        Admin panel
-      </div>
-      <div className="absolute left-0 w-full text-sm text-center top-14 text-gray-500">
-        {isServerAlive ? "Server je zapnut" : "Server je vypnut"}
+      <div className="absolute left-0 w-full text-center text-2xl top-4 flex flex-col gap-2">
+        <span>Admin panel</span>
+        <span className="text-sm text-gray-500">
+          {isServerAlive ? "Server je zapnut" : "Server je vypnut"}
+        </span>
       </div>
       <div className="flex flex-col min-h-screen items-center justify-center gap-2">
         <Link to="/admin/add-product">
