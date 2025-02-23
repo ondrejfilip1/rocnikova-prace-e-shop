@@ -1,7 +1,6 @@
 import { getProductById } from "@/models/Product";
 import { useEffect, useState } from "react";
 import { Trash2, Plus, Minus } from "lucide-react";
-import { deleteItem, updateQuantity } from "@/models/Cart";
 import { Input } from "@/components/ui/input";
 import {
   Tooltip,
@@ -15,6 +14,7 @@ import { colors } from "@/components/constants";
 import { Link } from "react-router-dom";
 
 export default function CartItemBig({
+  index,
   productId,
   quantity: origQuantity,
   color,
@@ -41,47 +41,44 @@ export default function CartItemBig({
   // timhle ziskam ceny produktu, ktery pak jdou do Orders
   useEffect(() => {
     if (product) {
-      itemPrice(itemId, product.price * quantity);
+      itemPrice(index, product.price * quantity, productId);
     }
-  }, [quantity, product]);
+
+    return () => removeItemPrice(productId, index)
+  }, [product]);
 
   useEffect(() => {
     loadItem();
   }, []);
 
-  const handleDelete = async () => {
-    const data = await deleteItem(itemId);
-    if (data.status === 200) {
-      if (product) {
-        removeItemPrice(itemId);
-      }
-      reloadCart();
-    }
-    // TODO: tady by neco melo bejt (if status 404 nebo 500)
+  const handleDelete = () => {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    if (product) removeItemPrice(productId, index);
+    // vymaze item ve vybranem indexu
+    cart.splice(index, 1);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    reloadCart();
   };
 
-  const plusQuantity = async () => {
-    if (quantity < 30) {
-      const newQuantity = quantity + 1;
+  const handleQuantity = async (add) => {
+    if ((quantity < 30 && add) || (quantity > 1 && !add)) {
+      const newQuantity = add ? quantity + 1 : quantity - 1;
       setQuantity(newQuantity);
-      const data = await updateQuantity(itemId, {
-        itemId: itemOrigId,
-        newQuantity: newQuantity,
-      });
-      itemPrice(itemId, product.price * newQuantity);
-      //console.log(data.status);
-    }
-  };
-
-  const minusQuantity = async () => {
-    if (quantity > 1) {
-      const newQuantity = quantity - 1;
-      setQuantity(newQuantity);
-      const data = await updateQuantity(itemId, {
-        itemId: itemOrigId,
-        newQuantity: newQuantity,
-      });
-      itemPrice(itemId, product.price * newQuantity);
+      const updatedCartItem = JSON.parse(localStorage.getItem("cart")).map(
+        (item, ind) => {
+          if (ind === index) {
+            return {
+              productId: item.productId,
+              quantity: newQuantity,
+              color: item.color,
+            };
+          }
+          return item;
+        }
+      );
+      localStorage.setItem("cart", JSON.stringify(updatedCartItem));
+      itemPrice(index, product.price * newQuantity, productId);
       //console.log(data.status);
     }
   };
@@ -147,7 +144,7 @@ export default function CartItemBig({
           <div className="flex items-center">
             <Minus
               className="bg-transparent background-button-hover transition-colors text-red-900 p-1 min-h-6 min-w-6 cursor-pointer rounded-md"
-              onClick={minusQuantity}
+              onClick={() => handleQuantity(false)}
             />
             <Input
               type="number"
@@ -162,7 +159,7 @@ export default function CartItemBig({
             />
             <Plus
               className="bg-transparent background-button-hover transition-colors text-red-900 p-1 min-h-6 min-w-6 cursor-pointer rounded-md"
-              onClick={plusQuantity}
+              onClick={() => handleQuantity(true)}
             />
           </div>
           <div>{product.price * quantity} Kč</div>

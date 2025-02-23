@@ -159,20 +159,14 @@ ListItem.displayName = "ListItem";
 
 export default function Header({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState();
   const [isLoaded, setLoaded] = useState(false);
 
   const navigate = useNavigate();
 
   // logika pro nacteni kosiku
-  const loadCart = async () => {
-    //console.log("aaa");
-    const data = await getAllItems();
-    if (data.status === 404 || data.status === 500) return setLoaded(null);
-    if (data.status === 200) {
-      setCartItems(data.payload);
-      setLoaded(true);
-    }
+  const loadCart = () => {
+    setCartItems(JSON.parse(localStorage.getItem("cart")));
   };
 
   const handleSearch = (e) => {
@@ -231,29 +225,22 @@ export default function Header({ onSearch }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className={classnames(
-                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
+                  "w-96 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
                   s.custom_shadow
                 )}
               >
-                {isLoaded !== null && cartItems ? (
+                {cartItems && cartItems.length > 0 ? (
                   <>
-                    {cartItems.map((item) => {
+                    {cartItems.map((item, index) => {
                       return (
-                        <Fragment key={item._id}>
-                          {/* key musi byt na prvnim elementu asi */}
+                        <Fragment key={`${item.productId}-${index}`}>
                           <div className="w-full text-sm font-medium my-2 mx-1">
                             <CartItem
-                              productId={item.items[0].productId}
-                              quantity={item.items[0].quantity}
-                              itemId={item._id}
+                              cartItems={item}
+                              index={index}
                               reloadCart={loadCart}
                             />
                           </div>
-                          {/* posledni divider nebude
-                        {index < cartItems.length - 1 && (
-                          <div className="border-b border-red-900/25 my-1 mx-2" />
-                        )}
-                         */}
                           <div className="border-b border-red-900/25 my-1 mx-2" />
                         </Fragment>
                       );
@@ -271,7 +258,7 @@ export default function Header({ onSearch }) {
                     </Link>
                   </>
                 ) : (
-                  <div className="flex align-center justify-center flex-col place-items-center">
+                  <div className="flex align-center justify-center flex-col place-items-center w-56">
                     <ShoppingBasket
                       size={30}
                       strokeWidth={1}

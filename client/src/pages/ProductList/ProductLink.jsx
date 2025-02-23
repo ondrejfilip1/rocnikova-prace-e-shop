@@ -26,22 +26,20 @@ export default function ProductLink(props) {
   const addToCart = async (productId, color) => {
     // TODO: kvantita
     const quantity = 1;
-    const data = await addItem({ productId, quantity, color });
-    if (data.status === 201) {
-      toast("Položka byla přidána do košíku", {
-        description: props.name,
-        action: {
-          label: <X />,
-        },
-      });
-    } else {
-      toast("Chyba při přidávání položky", {
-        description: data.message,
-        action: {
-          label: <X />,
-        },
-      });
-    }
+    const itemObject = {
+      productId: productId,
+      quantity: quantity,
+      color: color,
+    };
+    const items = JSON.parse(localStorage.getItem("cart")) || "";
+    const newItems = JSON.stringify([...items, itemObject]);
+    localStorage.setItem("cart", newItems) || "[]";
+    toast("Položka byla přidána do košíku", {
+      description: props.name,
+      action: {
+        label: <X />,
+      },
+    });
   };
 
   const handleFavourite = async (productId, color) => {
@@ -169,7 +167,8 @@ export default function ProductLink(props) {
                             color === "light_blue" && "color_light_blue_svg",
                             color === "blue" && "color_blue_svg",
                             color === "green" && "color_green_svg",
-                            color === "pastel_yellow" && "color_pastel_yellow_svg",
+                            color === "pastel_yellow" &&
+                              "color_pastel_yellow_svg",
                             "radio_svg_fix",
                             s.radio_ring,
                             "rounded-full border-none ring-1 ring-red-900/25"

@@ -1,18 +1,18 @@
 import { getProductById } from "@/models/Product";
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
-import { deleteItem } from "@/models/Cart";
+import { motion } from "motion/react";
 
-export default function CartItem({ productId, quantity, itemId, reloadCart }) {
+export default function CartItem({ cartItems, index, reloadCart }) {
   const [product, setProducts] = useState();
   const [isLoaded, setLoaded] = useState();
 
   const loadItem = async () => {
-    const data = await getProductById(productId);
+    //console.log(props.cartItems.productId);
+    const data = await getProductById(cartItems.productId);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
       setProducts(data.payload);
-      //console.log(data.payload);
       setLoaded(true);
     }
   };
@@ -21,32 +21,53 @@ export default function CartItem({ productId, quantity, itemId, reloadCart }) {
     loadItem();
   }, []);
 
-  const handleDelete = async () => {
-    const data = await deleteItem(itemId);
-    if (data.status === 200) {
-      reloadCart();
-    }
-    // TODO: tady by neco melo bejt (if status 404 nebo 500)
+  const handleDelete = () => {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    // vymaze item ve vybranem indexu
+    cart.splice(index, 1);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    reloadCart();
   };
 
   if (!isLoaded) {
     return (
       <>
-        {/* nevim co sem dam tak tu je jen prazdny div lol */}
-        <div></div>
+        {/* placeholder */}
+        <div className="h-[40px] rounded-md ml-1 mr-3 w-[344px] flex justify-center items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={20}
+            height={20}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="animate-spin"
+          >
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
+        </div>
       </>
     );
   }
 
   return (
-    <div className="flex justify-between items-center">
+    <motion.div
+      initial={{ opacity: 0, scale: .9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.2 }}
+      className="flex justify-between items-center"
+    >
       <div className="mx-1">
         <div className="font-semibold">{product.name}</div>
         <div>
-          {quantity}{" "}
-          {quantity == 1
+          {cartItems.quantity}{" "}
+          {cartItems.quantity == 1
             ? "kus"
-            : quantity >= 2 && quantity <= 4
+            : cartItems.quantity >= 2 && cartItems.quantity <= 4
             ? "kusy"
             : "kusů"}
         </div>
@@ -56,6 +77,6 @@ export default function CartItem({ productId, quantity, itemId, reloadCart }) {
         size={24}
         onClick={handleDelete}
       />
-    </div>
+    </motion.div>
   );
 }

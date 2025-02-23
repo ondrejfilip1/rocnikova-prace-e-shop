@@ -17,21 +17,18 @@ export default function Orders() {
   const [heading, setHeading] = useState("Nákupní košík");
   const [showCheckoutBool, setShowCheckoutBool] = useState(false);
 
-  const loadCart = async () => {
-    //console.log("aaa");
-    const data = await getAllItems();
-    if (data.status === 404 || data.status === 500) return setLoaded(null);
-    if (data.status === 200) {
-      setTotalProducts(data.payload.length);
-      setCartItems(data.payload);
-      setLoaded(true);
-    }
+  const loadCart = () => {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    setTotalProducts(cart.length);
+    setCartItems(cart);
+    setLoaded(true);
   };
 
   // podle ID itemu pocita celkovou castku
-  const calcPrice = (itemId, price) => {
+  const calcPrice = (index, price, itemId) => {
     setItemPrices((prevPrices) => {
-      const prices2 = { ...prevPrices, [itemId]: price };
+      const prices2 = { ...prevPrices, [`${itemId}-${index}`]: price };
+      //console.log(prices2);
       let newTotalPrice = 0;
 
       for (let id in prices2) {
@@ -44,16 +41,16 @@ export default function Orders() {
   };
 
   // v podstate to samy, ale odecte hodnotu itemu z celkove castky
-  const removePrice = (itemId) => {
+  const removePrice = (itemId, index) => {
     setItemPrices((prevPrices) => {
       const prices2 = { ...prevPrices };
-      delete prices2[itemId];
+      delete prices2[`${itemId}-${index}`];
+      //console.log(prices2);
       let newTotalPrice = 0;
 
       for (let id in prices2) {
         newTotalPrice += prices2[id];
       }
-
       setTotalPrice(newTotalPrice);
       return prices2;
     });
@@ -74,7 +71,7 @@ export default function Orders() {
         <Header />
         <div className="mt-3.5" />
         <div className="text-red-900 text-sm container mx-auto px-4 lg:max-w-screen-lg font-medium my-2 flex flex-col justify-center">
-          {isLoaded !== null && cartItems ? (
+          {cartItems && cartItems.length > 0 ? (
             <>
               <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
                 <span>{heading}</span>
@@ -82,37 +79,37 @@ export default function Orders() {
                   {totalProducts}
                 </span>
               </div>
-              {showCheckoutBool ? (
-                <Checkout />
-              ) : (
-                <>
-                  {cartItems.map((item, index) => {
-                    return (
-                      <Fragment key={item._id}>
-                        <CartItemBig
-                          productId={item.items[0].productId}
-                          quantity={item.items[0].quantity}
-                          color={item.items[0].color}
-                          itemId={item._id}
-                          itemOrigId={item.items[0]._id}
-                          reloadCart={loadCart}
-                          itemPrice={calcPrice}
-                          removeItemPrice={removePrice}
-                        />
-                        <div className="border-b border-red-900/25 my-2" />
-                      </Fragment>
-                    );
-                  })}
-                </>
-              )}
-                  <div className="flex justify-between items-center mx-4 text-sm text-red-900/75 mt-5">
-                    <div>Cena bez DPH</div>
-                    {
-                      // Vypocet ceny bez DPH
-                      // https://www.matematika.cz/vypocet-dph/
-                    }
-                    <div>{Math.floor(totalPrice / 1.15)} Kč</div>
-                  </div>
+              {showCheckoutBool ? <Checkout /> : null}
+              <div className={showCheckoutBool ? "hidden" : ""}>
+                {cartItems.map((item, index) => {
+                  return (
+                    // key musi byt unikatni, jinak bude renderovani divny
+                    <Fragment
+                      key={`${item.productId}-${index}-${totalProducts}`}
+                    >
+                      <CartItemBig
+                        index={index}
+                        productId={item.productId}
+                        quantity={item.quantity}
+                        color={item.color}
+                        reloadCart={loadCart}
+                        itemPrice={calcPrice}
+                        removeItemPrice={removePrice}
+                      />
+                      <div className="border-b border-red-900/25 my-2" />
+                    </Fragment>
+                  );
+                })}
+              </div>
+
+              <div className="flex justify-between items-center mx-4 text-sm text-red-900/75 mt-5">
+                <div>Cena bez DPH</div>
+                {
+                  // Vypocet ceny bez DPH
+                  // https://www.matematika.cz/vypocet-dph/
+                }
+                <div>{Math.floor(totalPrice / 1.15)} Kč</div>
+              </div>
               <div className="flex justify-between items-center mx-4 text-lg mb-5">
                 <div>Celkem</div>
                 <div>{totalPrice} Kč</div>
