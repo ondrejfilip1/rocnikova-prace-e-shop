@@ -41,7 +41,7 @@ import {
   categoriesTranslated,
   sizes,
   shoeSizes,
-  brands
+  brands,
 } from "@/components/constants";
 import { getAllFavourites } from "@/models/Favourites";
 
@@ -77,10 +77,13 @@ export default function ProductView() {
   const [heartFill, setHeartFill] = useState(false);
   const [currentId, setCurrentId] = useState();
   const [favouritesIDs, setFavouritesIDs] = useState();
+  const [selectedImage, setSelectedImage] = useState("front");
 
   // dropdown pro velikosti
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+
+  const [maxHeight, setMaxHeight] = useState(0);
 
   const load = async () => {
     const data = await getProductById(id);
@@ -98,22 +101,20 @@ export default function ProductView() {
   const handleAddItemsToCart = async (productId, color) => {
     // TODO: kvantita
     const quantity = 1;
-    const data = await addItem({ productId, quantity, color });
-    if (data.status === 201) {
-      toast("Položka byla přidána do košíku", {
-        description: product.name,
-        action: {
-          label: <X />,
-        },
-      });
-    } else {
-      toast("Chyba při přidávání položky", {
-        description: data.message,
-        action: {
-          label: <X />,
-        },
-      });
-    }
+    const itemObject = {
+      productId: productId,
+      quantity: quantity,
+      color: color,
+    };
+    const items = JSON.parse(localStorage.getItem("cart")) || "";
+    const newItems = JSON.stringify([...items, itemObject]);
+    localStorage.setItem("cart", newItems) || "[]";
+    toast("Položka byla přidána do košíku", {
+      description: product.name,
+      action: {
+        label: <X />,
+      },
+    });
   };
 
   const handleColorChange = (value) => {
@@ -169,7 +170,6 @@ export default function ProductView() {
 
   useEffect(() => {
     load();
-    console.log("aaa");
   }, []);
 
   useEffect(() => {
@@ -197,28 +197,21 @@ export default function ProductView() {
         <Header />
         <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4 max-w-screen-xl">
           <div className="w-2/3">
-            <div className="rounded-lg backdrop-background-color backdrop-blur-xl aspect-square shadow-2xl p-5 flex items-center justify-center">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <img
-                    src={`${product.imagePath}front_${colors[engSelectedColor]}.avif`}
-                    alt={product.name}
-                    className="h-auto w-full cursor-zoom-in aspect-square object-contain"
-                    draggable="false"
-                  />
-                </DialogTrigger>
-                <DialogTitle />
-                <DialogContent className="border-0 bg-white px-10 max-w-[90%]">
-                  <div className="relative h-[calc(100vh-220px)] w-full overflow-clip rounded-md bg-white">
-                    <img
-                      src={`${product.imagePath}front_${colors[engSelectedColor]}.avif`}
-                      alt={product.name}
-                      className="h-full w-full object-contain"
-                      draggable="false"
-                    />
-                  </div>
-                </DialogContent>
-              </Dialog>
+            <div
+              className="rounded-lg backdrop-background-color backdrop-blur-xl aspect-square shadow-2xl p-5 flex items-center justify-center object-cover overflow-hidden"
+            >
+              <img
+                src={`${product.imagePath}${selectedImage}_${colors[engSelectedColor]}.avif`}
+                alt={product.name}
+                className="h-auto w-full object-contain aspect-square"
+                draggable="false"
+                /*
+                classNameMagnifier="bg-red-100 rounded-md shadow-lg"
+                magnifierHeight={150}
+                magnifierWidth={150}
+                zoomLevel={2}
+                styleImg={{ maxHeight: `${maxHeight}px` }}*/
+              />
             </div>
             <Carousel
               opts={{
@@ -227,7 +220,10 @@ export default function ProductView() {
               className="w-full my-4"
             >
               <CarouselContent className="pb-6">
-                <CarouselItem className="sm:basis-1/2 lg:basis-1/3">
+                <CarouselItem
+                  className="sm:basis-1/2 lg:basis-1/3"
+                  onClick={() => setSelectedImage("bottom")}
+                >
                   <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img
@@ -239,7 +235,10 @@ export default function ProductView() {
                     </CardContent>
                   </Card>
                 </CarouselItem>
-                <CarouselItem className="sm:basis-1/2 lg:basis-1/3">
+                <CarouselItem
+                  className="sm:basis-1/2 lg:basis-1/3"
+                  onClick={() => setSelectedImage("top")}
+                >
                   <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img
@@ -251,7 +250,10 @@ export default function ProductView() {
                     </CardContent>
                   </Card>
                 </CarouselItem>
-                <CarouselItem className="sm:basis-1/2 lg:basis-1/3">
+                <CarouselItem
+                  className="sm:basis-1/2 lg:basis-1/3"
+                  onClick={() => setSelectedImage("front")}
+                >
                   <Card className="rounded-lg backdrop-background-color backdrop-blur-xl border-transparent shadow-lg">
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <img

@@ -211,7 +211,7 @@ export default function Header({ onSearch }) {
             />
           </Link>
           <div className="flex items-center">
-            <DropdownMenu onOpenChange={(isOpen) => isOpen && loadCart()}>
+            <DropdownMenu onOpenChange={(isOpen) => isOpen && loadCart()} modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button
                   className={classnames(
@@ -225,7 +225,7 @@ export default function Header({ onSearch }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className={classnames(
-                  "w-96 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
+                  "w-96 mr-2 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
                   s.custom_shadow
                 )}
               >
