@@ -132,15 +132,14 @@ exports.createProduct = async (req, res, next) => {
           payload: result,
         });
       }
+      return res.status(500).send({
+        message: "Product not found",
+      });
     } else {
       return res.status(500).send({
         message: "Incorrect password",
       });
     }
-
-    res.status(500).send({
-      message: "Product not found",
-    });
   } catch (err) {
     res.status(500).send(err);
   }
@@ -165,14 +164,14 @@ exports.updateProduct = async (req, res, next) => {
           payload: result,
         });
       }
+      return res.status(500).send({
+        message: "Product not updated",
+      });
     } else {
       return res.status(500).send({
         message: "Incorrect password",
       });
     }
-    res.status(500).send({
-      message: "Product not updated",
-    });
   } catch (err) {
     res.status(500).send(err);
   }

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { createProduct } from "../../../models/Product";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import DialogWarning from "../dialogwarning";
 
 export default function ProductCreateForm() {
   const [selectedColors, setSelectedColors] = useState([]);
@@ -24,6 +25,9 @@ export default function ProductCreateForm() {
   const [hasPassword, setHasPassword] = useState(
     localStorage.getItem("adminPassword")
   );
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [fillImagePath, setFillImagePath] = useState("");
+
   const navigate = useNavigate();
 
   const toastStyle = {
@@ -77,11 +81,19 @@ export default function ProductCreateForm() {
           //console.log("odebralo se " + e.target.value);
           copy = copy.filter((colorValue) => colorValue !== e.target.value);
         }
-        setFormData({ ...formData, [e.target.name]: copy, password: localStorage.getItem("adminPassword") });
+        setFormData({
+          ...formData,
+          [e.target.name]: copy,
+          password: localStorage.getItem("adminPassword"),
+        });
         return copy;
       });
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value, password: localStorage.getItem("adminPassword") });
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+        password: localStorage.getItem("adminPassword"),
+      });
     }
     //console.log(formData);
   };
@@ -91,28 +103,30 @@ export default function ProductCreateForm() {
     postForm();
   };
 
+  useEffect(() => {
+    // divam se jestli uz jsem zadal brand a category, abych mohl zviditelnit tlacitko "doplnit"
+    if (
+      formData &&
+      formData.hasOwnProperty("brand") &&
+      formData["brand"] != "" &&
+      formData.hasOwnProperty("category") &&
+      formData["category"] != ""
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [formData]);
+
+  useEffect(() => {
+    setFormData({
+      password: localStorage.getItem("adminPassword"),
+    });
+  }, []);
+
   return (
     <>
-      <Dialog open={!hasPassword}>
-        <DialogContent className="sm:max-w-[425px] [&>button]:hidden">
-          <DialogHeader>
-          <DialogTitle className="flex items-center gap-2"><KeyRound />Přihlášení</DialogTitle>
-            <DialogDescription>
-              Nemáte nastavené heslo na admin panel
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Link to="/admin">
-              <Button
-                type="submit"
-                className="transition-all"
-              >
-                Zpět na admin panel
-              </Button>
-            </Link>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <DialogWarning pass={hasPassword} />
       <div className="container px-2 mx-auto">
         <h1 className="my-3 text-2xl">Vytvořit produkt</h1>
         <form className="flex flex-col gap-2">
@@ -164,13 +178,27 @@ export default function ProductCreateForm() {
             placeholder="Zadejte category"
             onChange={handleChange}
           />
-          <Input
-            type="text"
-            name="imagePath"
-            required
-            placeholder="Zadejte imagePath"
-            onChange={handleChange}
-          />
+          <div className="flex gap-2">
+            <Input
+              type="text"
+              name="imagePath"
+              required
+              placeholder="Zadejte imagePath"
+              onChange={handleChange}
+              defaultValue={fillImagePath}
+            />
+            <Button
+              variant="secondary"
+              disabled={buttonDisabled ? true : false}
+              onClick={() =>
+                setFillImagePath(
+                  `/public/${formData["category"]}/${formData["brand"]}/`
+                )
+              }
+            >
+              Doplnit
+            </Button>
+          </div>
           <Button
             variant="secondary"
             onClick={handlePost}
@@ -179,14 +207,12 @@ export default function ProductCreateForm() {
             <span>Přidat produkt</span>
           </Button>
         </form>
-        <div className="flex flex-col gap-2">
-          <Link to={"/admin"}>
-            <Button variant="secondary" className="gap-1 pl-3">
-              <ChevronLeft />
-              <span>Jít zpět</span>
-            </Button>
-          </Link>
-        </div>
+        <Link to={"/admin"}>
+          <Button variant="secondary" className="gap-1 pl-3">
+            <ChevronLeft />
+            <span>Jít zpět</span>
+          </Button>
+        </Link>
       </div>
       <Toaster
         position="bottom-right"

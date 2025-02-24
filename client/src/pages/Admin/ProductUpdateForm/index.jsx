@@ -6,16 +6,7 @@ import { Button } from "@/components/ui/button";
 import { colorList, colorsTranslated } from "@/components/constants";
 import { ChevronLeft, KeyRound } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
-import { toast } from "sonner";
-import ProductLink from "../../Favourites/ProductLink";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import DialogWarning from "../dialogwarning";
 
 export default function ProductUpdateForm() {
   const { id } = useParams();
@@ -51,6 +42,9 @@ export default function ProductUpdateForm() {
     if (data.status === 200) {
       setProduct(data.payload);
       setLoaded(true);
+      setFormData({
+        password: localStorage.getItem("adminPassword"),
+      });
     }
   };
 
@@ -61,8 +55,11 @@ export default function ProductUpdateForm() {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value, password: localStorage.getItem("adminPassword") });
-    console.log(formData);
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      password: localStorage.getItem("adminPassword"),
+    });
   };
 
   const handleUpdate = (e) => {
@@ -77,8 +74,8 @@ export default function ProductUpdateForm() {
   if (isLoaded === null) {
     return (
       <>
-        <div className="container px-2 mx-auto">
-          <p>Product nenalezen</p>
+        <div className="text-center h-screen flex justify-center items-center text-lg">
+          Produkt nenalezen
         </div>
       </>
     );
@@ -87,8 +84,8 @@ export default function ProductUpdateForm() {
   if (!isLoaded) {
     return (
       <>
-        <div className="container px-2 mx-auto">
-          <p>Product se načítá...</p>
+        <div className="text-center h-screen flex justify-center items-center text-lg">
+          Produkt se načítá...
         </div>
       </>
     );
@@ -96,33 +93,14 @@ export default function ProductUpdateForm() {
 
   return (
     <>
-      <Dialog open={!hasPassword}>
-        <DialogContent className="sm:max-w-[425px] [&>button]:hidden">
-          <DialogHeader>
-          <DialogTitle className="flex items-center gap-2"><KeyRound />Přihlášení</DialogTitle>
-            <DialogDescription>
-              Nemáte nastavené heslo na admin panel
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Link to="/admin">
-              <Button
-                type="submit"
-                className="transition-all"
-              >
-                Zpět na admin panel
-              </Button>
-            </Link>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <DialogWarning pass={hasPassword} />
       <div className="container px-2 mx-auto">
         <h1 className="my-3 text-2xl">Upravit produkt</h1>
         <form className="flex flex-col gap-2">
           <Input
             type="text"
             name="name"
-            value={product.name}
+            defaultValue={product.name}
             required
             placeholder="Zadejte name"
             onChange={handleChange}
@@ -130,7 +108,7 @@ export default function ProductUpdateForm() {
           <Input
             type="text"
             name="brand"
-            value={product.brand}
+            defaultValue={product.brand}
             required
             placeholder="Zadejte brand"
             onChange={handleChange}
@@ -145,6 +123,7 @@ export default function ProductUpdateForm() {
                   name="color"
                   value={color}
                   onChange={handleChange}
+                  checked={color === product.color[index] ? true : false}
                 />
                 <label
                   htmlFor={`terms${index}`}
@@ -158,7 +137,7 @@ export default function ProductUpdateForm() {
           <Input
             type="number"
             name="price"
-            value={product.price}
+            defaultValue={product.price}
             required
             placeholder="Zadejte price"
             onChange={handleChange}
@@ -166,7 +145,7 @@ export default function ProductUpdateForm() {
           <Input
             type="text"
             name="category"
-            value={product.category}
+            defaultValue={product.category}
             required
             placeholder="Zadejte category"
             onChange={handleChange}
@@ -174,7 +153,7 @@ export default function ProductUpdateForm() {
           <Input
             type="text"
             name="imagePath"
-            value={product.imagePath}
+            defaultValue={product.imagePath}
             required
             placeholder="Zadejte imagePath"
             onChange={handleChange}
@@ -194,6 +173,7 @@ export default function ProductUpdateForm() {
               <span>Jít zpět</span>
             </Button>
           </Link>
+          <p>{info}</p>
         </div>
       </div>
       <Toaster

@@ -105,6 +105,9 @@ export default function Admin() {
         </span>
       </div>
       <div className="flex flex-col min-h-screen items-center justify-center gap-2">
+        <Link to="/admin/product-list">
+          <Button variant="outline">List produktů</Button>
+        </Link>
         <Link to="/admin/add-product">
           <Button variant="outline">Přidat produkt</Button>
         </Link>

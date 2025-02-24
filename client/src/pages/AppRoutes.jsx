@@ -1,14 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Home from "./Home";
-import ProductCreateForm from "./Admin/ProductCreateForm";
 import ProductList from "./ProductList";
 import ProductView from "./ProductView";
-import ProductUpdateForm from "./Admin/ProductUpdateForm";
-import Admin from "./Admin";
 import Orders from "./Orders";
 import Favourites from "./Favourites";
 import About from "./About";
+
+// Admin panel
+import Admin from "./Admin";
+import AdminProductList from "./Admin/ProductList";
+import ProductUpdateForm from "./Admin/ProductUpdateForm";
+import ProductCreateForm from "./Admin/ProductCreateForm";
 
 export default function AppRoutes() {
   return (
@@ -17,11 +20,12 @@ export default function AppRoutes() {
         <Routes>
           <Route path="/" element={<Home />} />
 
+          {/* Admin panel */}
           <Route path="/admin/add-product" element={<ProductCreateForm />} />
           <Route path="/admin/update-product/:id" element={<ProductUpdateForm />} />
           <Route path="/admin/" element={<Admin />} />
+          <Route path="/admin/product-list" element={<AdminProductList />} />
 
-          {/* TODO: vsechny produkty */}
           <Route
             path="/view-products"
             element={<ProductList name="Všechny produkty" category="" />}

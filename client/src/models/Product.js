@@ -1,9 +1,9 @@
 export const getAllProducts = async (
-  searchQuery,
-  categoryQuery,
-  brandQuery,
-  minPriceQuery,
-  maxPriceQuery
+  searchQuery = "",
+  categoryQuery = "",
+  brandQuery = "",
+  minPriceQuery = "",
+  maxPriceQuery = ""
 ) => {
   // encodeURIComponent prevede searchQuery na string s + misto mezery a tak
   const req = await fetch(
