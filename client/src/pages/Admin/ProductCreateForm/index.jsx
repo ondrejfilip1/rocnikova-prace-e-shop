@@ -6,13 +6,24 @@ import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { colorList, colorsTranslated } from "@/components/constants";
-import { ChevronLeft, X } from "lucide-react";
+import { ChevronLeft, X, KeyRound } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function ProductCreateForm() {
   const [selectedColors, setSelectedColors] = useState([]);
   const [formData, setFormData] = useState();
   const [info, setInfo] = useState();
   const [status, setStatus] = useState("");
+  const [hasPassword, setHasPassword] = useState(
+    localStorage.getItem("adminPassword")
+  );
   const navigate = useNavigate();
 
   const toastStyle = {
@@ -66,11 +77,11 @@ export default function ProductCreateForm() {
           //console.log("odebralo se " + e.target.value);
           copy = copy.filter((colorValue) => colorValue !== e.target.value);
         }
-        setFormData({ ...formData, [e.target.name]: copy });
+        setFormData({ ...formData, [e.target.name]: copy, password: localStorage.getItem("adminPassword") });
         return copy;
       });
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData({ ...formData, [e.target.name]: e.target.value, password: localStorage.getItem("adminPassword") });
     }
     //console.log(formData);
   };
@@ -82,6 +93,26 @@ export default function ProductCreateForm() {
 
   return (
     <>
+      <Dialog open={!hasPassword}>
+        <DialogContent className="sm:max-w-[425px] [&>button]:hidden">
+          <DialogHeader>
+          <DialogTitle className="flex items-center gap-2"><KeyRound />Přihlášení</DialogTitle>
+            <DialogDescription>
+              Nemáte nastavené heslo na admin panel
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Link to="/admin">
+              <Button
+                type="submit"
+                className="transition-all"
+              >
+                Zpět na admin panel
+              </Button>
+            </Link>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <div className="container px-2 mx-auto">
         <h1 className="my-3 text-2xl">Vytvořit produkt</h1>
         <form className="flex flex-col gap-2">

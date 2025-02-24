@@ -67,7 +67,6 @@ import classnames from "classnames";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllItems } from "@/models/Cart";
 import CartItem from "./CartItem";
 
 const components = [
@@ -225,8 +224,8 @@ export default function Header({ onSearch }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className={classnames(
-                  "w-96 mr-2 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
-                  s.custom_shadow
+                  "mr-2 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
+                  s.custom_shadow, (cartItems && cartItems.length > 0 ? "w-96" : "")
                 )}
               >
                 {cartItems && cartItems.length > 0 ? (
@@ -234,7 +233,7 @@ export default function Header({ onSearch }) {
                     {cartItems.map((item, index) => {
                       return (
                         <Fragment key={`${item.productId}-${index}`}>
-                          <div className="w-full text-sm font-medium my-2 mx-1">
+                          <div className="w-full text-sm font-medium my-2 mx-1 ">
                             <CartItem
                               cartItems={item}
                               index={index}

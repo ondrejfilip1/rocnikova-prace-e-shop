@@ -15,7 +15,6 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { addItem } from "@/models/Cart";
 import { toast } from "sonner";
 import { X } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";

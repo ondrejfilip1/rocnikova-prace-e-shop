@@ -3,6 +3,8 @@ const router = express.Router();
 
 const productsRouter = require("../controllers/products");
 
+router.post("/password/", productsRouter.hasCorrectPassword);
+
 router.get("/", productsRouter.getAllProducts);
 
 router.get("/:id", productsRouter.getProductById);

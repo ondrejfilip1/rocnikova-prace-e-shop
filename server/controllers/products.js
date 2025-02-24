@@ -1,4 +1,22 @@
 const Product = require("../models/products");
+const AP_PASSWORD = process.env.AP_PASSWORD;
+
+exports.hasCorrectPassword = async (req, res, next) => {
+  try {
+    const password = req.body.password;
+    if (password === AP_PASSWORD) {
+      return res.status(200).send({
+        message: "Correct password",
+      });
+    } else {
+      return res.status(500).send({
+        message: "Incorrect password",
+      });
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 
 exports.getAllProducts = async (req, res, next) => {
   try {
@@ -17,9 +35,12 @@ exports.getAllProducts = async (req, res, next) => {
       query.brand = brand.split(",");
     }
 
-    const price = (minprice && maxprice) ? { $gt: minprice, $lt: maxprice } : { $type : 16 };
-    
-    const data = await Product.find({...query, price: price}).sort({ name: 1 });
+    const price =
+      minprice && maxprice ? { $gt: minprice, $lt: maxprice } : { $type: 16 };
+
+    const data = await Product.find({ ...query, price: price }).sort({
+      name: 1,
+    });
     if (data && data.length !== 0) {
       return res.status(200).send({
         message: "Products found",
@@ -94,21 +115,29 @@ exports.getProductById = async (req, res, next) => {
 
 exports.createProduct = async (req, res, next) => {
   try {
-    const data = new Product({
-      name: req.body.name,
-      brand: req.body.brand,
-      color: req.body.color,
-      price: req.body.price,
-      category: req.body.category,
-      imagePath: req.body.imagePath,
-    });
-    const result = await data.save();
-    if (result) {
-      return res.status(201).send({
-        message: "Product created",
-        payload: result,
+    const passwordReq = req.body.password;
+    if (AP_PASSWORD === passwordReq) {
+      const data = new Product({
+        name: req.body.name,
+        brand: req.body.brand,
+        color: req.body.color,
+        price: req.body.price,
+        category: req.body.category,
+        imagePath: req.body.imagePath,
+      });
+      const result = await data.save();
+      if (result) {
+        return res.status(201).send({
+          message: "Product created",
+          payload: result,
+        });
+      }
+    } else {
+      return res.status(500).send({
+        message: "Incorrect password",
       });
     }
+
     res.status(500).send({
       message: "Product not found",
     });
@@ -119,19 +148,26 @@ exports.createProduct = async (req, res, next) => {
 
 exports.updateProduct = async (req, res, next) => {
   try {
-    const data = {
-      name: req.body.name,
-      brand: req.body.brand,
-      color: req.body.color,
-      price: req.body.price,
-      category: req.body.category,
-      imagePath: req.body.imagePath,
-    };
-    const result = await Product.findByIdAndUpdate(req.params.id, data);
-    if (result) {
-      return res.status(200).send({
-        message: "Product updated",
-        payload: result,
+    const passwordReq = req.body.password;
+    if (AP_PASSWORD === passwordReq) {
+      const data = {
+        name: req.body.name,
+        brand: req.body.brand,
+        color: req.body.color,
+        price: req.body.price,
+        category: req.body.category,
+        imagePath: req.body.imagePath,
+      };
+      const result = await Product.findByIdAndUpdate(req.params.id, data);
+      if (result) {
+        return res.status(200).send({
+          message: "Product updated",
+          payload: result,
+        });
+      }
+    } else {
+      return res.status(500).send({
+        message: "Incorrect password",
       });
     }
     res.status(500).send({
@@ -144,16 +180,23 @@ exports.updateProduct = async (req, res, next) => {
 
 exports.deleteProduct = async (req, res, next) => {
   try {
-    const result = await Product.findByIdAndDelete(req.params.id);
-    if (result) {
-      return res.status(200).send({
-        message: "Product deleted",
-        payload: result,
+    const passwordReq = req.body.password;
+    if (AP_PASSWORD === passwordReq) {
+      const result = await Product.findByIdAndDelete(req.params.id);
+      if (result) {
+        return res.status(200).send({
+          message: "Product deleted",
+          payload: result,
+        });
+      }
+      res.status(500).send({
+        message: "Product not deleted",
+      });
+    } else {
+      return res.status(500).send({
+        message: "Incorrect password",
       });
     }
-    res.status(500).send({
-      message: "Product not deleted",
-    });
   } catch (err) {
     res.status(500).send(err);
   }

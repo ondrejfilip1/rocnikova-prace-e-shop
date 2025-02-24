@@ -14,22 +14,49 @@ import { useState, useEffect } from "react";
 import classNames from "classnames";
 import { deleteProduct } from "@/models/Product";
 import { isAlive } from "@/models/Server";
+import { hasCorrectPassword } from "@/models/Server";
+import { KeyRound } from "lucide-react";
 
 export default function Admin() {
   const [updateId, setUpdateId] = useState();
   const [deleteId, setDeleteId] = useState();
   const [status, setStatus] = useState();
+  const [statusPassword, setStatusPassword] = useState();
   const [isSuccessful, setSuccessful] = useState(false);
   const [isServerAlive, setIsServerAlive] = useState(false);
+  const [password, setPassword] = useState();
+  const [hasPassword, setHasPassword] = useState(
+    localStorage.getItem("adminPassword")
+  );
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleDeleteProduct = async () => {
-    const product = await deleteProduct(deleteId);
+    const product = await deleteProduct(
+      deleteId,
+      localStorage.getItem("adminPassword")
+    );
     if (product.status === 201) {
-      setStatus("Produkt byl úspěěšně odebrán");
+      setStatus("Produkt byl úspěšně odebrán");
       setSuccessful(true);
     } else {
       setStatus("Při odebírání produktu nastala chyba");
       setSuccessful(false);
+    }
+  };
+
+  const checkPassword = async () => {
+    const passData = await hasCorrectPassword({
+      password: password,
+    });
+    if (passData.status === 200) {
+      localStorage.setItem("adminPassword", password);
+      window.location.reload();
+    } else {
+      setStatusPassword("Neplatné heslo");
+      setButtonDisabled(true);
+      setTimeout(() => {
+        setButtonDisabled(false);
+      }, 2000);
     }
   };
 
@@ -44,6 +71,33 @@ export default function Admin() {
 
   return (
     <>
+      <Dialog open={!hasPassword}>
+        <DialogContent className="sm:max-w-[425px] [&>button]:hidden">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <KeyRound />
+              Přihlášení
+            </DialogTitle>
+            <DialogDescription />
+          </DialogHeader>
+          <Input
+            id="password"
+            placeholder="Zadejte heslo do admin panelu"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <p className="text-sm text-red-500">{statusPassword}</p>
+          <DialogFooter>
+            <Button
+              type="submit"
+              className="transition-all"
+              onClick={checkPassword}
+              disabled={buttonDisabled ? true : false}
+            >
+              Pokračovat
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <div className="absolute left-0 w-full text-center text-2xl top-4 flex flex-col gap-2">
         <span>Admin panel</span>
         <span className="text-sm text-gray-500">

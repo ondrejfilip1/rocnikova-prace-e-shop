@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import s from "./Orders.module.css";
 import CartItemBig from "./CartItemBig";
 import { useState, Fragment, useEffect } from "react";
-import { getAllItems } from "@/models/Cart";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -70,7 +69,7 @@ export default function Orders() {
       <div className="background">
         <Header />
         <div className="mt-3.5" />
-        <div className="text-red-900 text-sm container mx-auto px-4 lg:max-w-screen-lg font-medium my-2 flex flex-col justify-center">
+        <div className="text-red-900 text-sm container mx-auto px-4 lg:max-w-screen-lg font-medium py-2 flex flex-col justify-center">
           {cartItems && cartItems.length > 0 ? (
             <>
               <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">

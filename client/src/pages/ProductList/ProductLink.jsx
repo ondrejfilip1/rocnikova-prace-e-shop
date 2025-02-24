@@ -7,7 +7,6 @@ import { X } from "lucide-react";
 import s from "./ProductList.module.css";
 import classNames from "classnames";
 import { ShoppingCart, Heart } from "lucide-react";
-import { addItem } from "@/models/Cart";
 import { useState, useEffect } from "react";
 import { colors, colorsTranslated } from "@/components/constants";
 import { addFavourite, deleteFavourite } from "@/models/Favourites";

@@ -1,12 +1,27 @@
-export const getAllProducts = async (searchQuery, categoryQuery, brandQuery, minPriceQuery, maxPriceQuery) => {
+export const getAllProducts = async (
+  searchQuery,
+  categoryQuery,
+  brandQuery,
+  minPriceQuery,
+  maxPriceQuery
+) => {
   // encodeURIComponent prevede searchQuery na string s + misto mezery a tak
-  const req = await fetch(`http://localhost:3000/products?search=${encodeURIComponent(searchQuery)}&category=${encodeURIComponent(categoryQuery)}&brand=${encodeURIComponent(brandQuery)}&minprice=${encodeURIComponent(minPriceQuery)}&maxprice=${encodeURIComponent(maxPriceQuery)}`, {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    method: "GET",
-  });
+  const req = await fetch(
+    `http://localhost:3000/products?search=${encodeURIComponent(
+      searchQuery
+    )}&category=${encodeURIComponent(categoryQuery)}&brand=${encodeURIComponent(
+      brandQuery
+    )}&minprice=${encodeURIComponent(
+      minPriceQuery
+    )}&maxprice=${encodeURIComponent(maxPriceQuery)}`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+    }
+  );
   const data = await req.json();
   return {
     status: req.status,
@@ -61,13 +76,14 @@ export const updateProduct = async (id, formData) => {
     message: data.message,
   };
 };
-export const deleteProduct = async (id) => {
+export const deleteProduct = async (id, password) => {
   const req = await fetch(`http://localhost:3000/products/${id}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     method: "DELETE",
+    body: JSON.stringify({ password: password }),
   });
   const data = await req.json();
   return {
