@@ -135,7 +135,7 @@ export default function ProductView() {
     setHeartFill(true);
     setCurrentId(productId);
     toast("Položka byla přidána do oblíbených", {
-      description: props.name,
+      description: product.name,
       action: {
         label: <X />,
       },
