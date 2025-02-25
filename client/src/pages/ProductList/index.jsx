@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getAllProducts } from "../../models/Product";
-import { getAllFavourites } from "@/models/Favourites";
 import ProductLink from "./ProductLink";
 import s from "./ProductList.module.css";
 import Header from "@/components/Header";
@@ -57,8 +56,8 @@ export default function ProductList(props) {
       queryMinPrice,
       queryMaxPrice
     );
-    const data2 = await getAllFavourites();
-    if (data2.status === 200) setFavouritesIDs(data2.payload);
+    const favourites = JSON.parse(localStorage.getItem("favourites"));
+    if (favourites && favourites.length > 0) setFavouritesIDs(favourites);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
       setTotalProducts(data.payload.length);

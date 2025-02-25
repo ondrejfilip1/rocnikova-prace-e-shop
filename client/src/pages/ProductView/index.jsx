@@ -8,7 +8,6 @@ import LoadingScreen from "@/components/LoadingScreen";
 import NotFound from "@/components/NotFound";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronsUpDown, Check, Heart } from "lucide-react";
-import { addFavourite, deleteFavourite } from "@/models/Favourites";
 import {
   Tooltip,
   TooltipContent,
@@ -42,7 +41,6 @@ import {
   shoeSizes,
   brands,
 } from "@/components/constants";
-import { getAllFavourites } from "@/models/Favourites";
 
 import {
   Command,
@@ -82,12 +80,10 @@ export default function ProductView() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  const [maxHeight, setMaxHeight] = useState(0);
-
   const load = async () => {
     const data = await getProductById(id);
-    const data2 = await getAllFavourites();
-    if (data2.status === 200) setFavouritesIDs(data2.payload);
+    const favourites = JSON.parse(localStorage.getItem("favourites"));
+    if (favourites && favourites.length > 0) setFavouritesIDs(favourites);
     if (data.status === 500 || data.status === 404) return setLoaded(null);
     if (data.status === 200) {
       setProduct(data.payload);
@@ -123,48 +119,49 @@ export default function ProductView() {
   };
 
   const handleFavourite = async (productId, color) => {
-    return heartFill ? removeFromFavourite() : addToFavourite(productId, color);
+    return heartFill
+      ? removeFromFavourite(productId)
+      : addToFavourite(productId, color);
   };
 
   const addToFavourite = async (productId, color) => {
-    const data = await addFavourite({ productId, color });
-    if (data.status === 201) {
-      setHeartFill(true);
-      setCurrentId(data.payload._id);
-      toast("Položka byla přidána do oblíbených", {
-        description: product.name,
-        action: {
-          label: <X />,
-        },
-      });
-    } else {
-      toast("Chyba při přidávání položky do oblíbených", {
-        description: data.message,
-        action: {
-          label: <X />,
-        },
-      });
-    }
+    const itemObject = {
+      productId: productId,
+      color: color,
+    };
+    const items = JSON.parse(localStorage.getItem("favourites")) || "";
+    const newItems = JSON.stringify([...items, itemObject]);
+    localStorage.setItem("favourites", newItems) || "[]";
+    setHeartFill(true);
+    setCurrentId(productId);
+    toast("Položka byla přidána do oblíbených", {
+      description: props.name,
+      action: {
+        label: <X />,
+      },
+    });
   };
 
-  const removeFromFavourite = async () => {
-    const data = await deleteFavourite(currentId);
-    if (data.status === 200) {
-      setHeartFill(false);
-      toast("Položka byla odebrána z oblíbených", {
-        description: product.name,
-        action: {
-          label: <X />,
-        },
-      });
-    } else {
-      toast("Chyba při odebírání položky z oblíbených", {
-        description: data.message,
-        action: {
-          label: <X />,
-        },
-      });
-    }
+  const removeFromFavourite = async (productId) => {
+    const favourite = JSON.parse(localStorage.getItem("favourites"));
+
+    let indexItem;
+    favourite.map((value, index) => {
+      if (value.productId === productId) {
+        indexItem = index;
+      }
+    });
+
+    favourite.splice(indexItem, 1);
+
+    localStorage.setItem("favourites", JSON.stringify(favourite));
+    setHeartFill(false);
+    toast("Položka byla odebrána z oblíbených", {
+      description: product.name,
+      action: {
+        label: <X />,
+      },
+    });
   };
 
   useEffect(() => {
@@ -196,9 +193,7 @@ export default function ProductView() {
         <Header />
         <div className="container mx-auto text-red-900 flex gap-5 md:gap-10 p-4 max-w-screen-xl">
           <div className="w-2/3">
-            <div
-              className="rounded-lg backdrop-background-color backdrop-blur-xl aspect-square shadow-2xl p-5 flex items-center justify-center object-cover overflow-hidden"
-            >
+            <div className="rounded-lg backdrop-background-color backdrop-blur-xl aspect-square shadow-2xl p-5 flex items-center justify-center object-cover overflow-hidden">
               <img
                 src={`${product.imagePath}${selectedImage}_${colors[engSelectedColor]}.avif`}
                 alt={product.name}

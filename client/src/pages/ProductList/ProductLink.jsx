@@ -9,7 +9,6 @@ import classNames from "classnames";
 import { ShoppingCart, Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { colors, colorsTranslated } from "@/components/constants";
-import { addFavourite, deleteFavourite } from "@/models/Favourites";
 import {
   Tooltip,
   TooltipContent,
@@ -42,48 +41,49 @@ export default function ProductLink(props) {
   };
 
   const handleFavourite = async (productId, color) => {
-    return heartFill ? removeFromFavourite() : addToFavourite(productId, color);
+    return heartFill
+      ? removeFromFavourite(productId)
+      : addToFavourite(productId, color);
   };
 
   const addToFavourite = async (productId, color) => {
-    const data = await addFavourite({ productId, color });
-    if (data.status === 201) {
-      setHeartFill(true);
-      setCurrentId(data.payload._id);
-      toast("Položka byla přidána do oblíbených", {
-        description: props.name,
-        action: {
-          label: <X />,
-        },
-      });
-    } else {
-      toast("Chyba při přidávání položky do oblíbených", {
-        description: data.message,
-        action: {
-          label: <X />,
-        },
-      });
-    }
+    const itemObject = {
+      productId: productId,
+      color: color,
+    };
+    const items = JSON.parse(localStorage.getItem("favourites")) || "";
+    const newItems = JSON.stringify([...items, itemObject]);
+    localStorage.setItem("favourites", newItems) || "[]";
+    setHeartFill(true);
+    setCurrentId(productId);
+    toast("Položka byla přidána do oblíbených", {
+      description: props.name,
+      action: {
+        label: <X />,
+      },
+    });
   };
 
-  const removeFromFavourite = async () => {
-    const data = await deleteFavourite(currentId);
-    if (data.status === 200) {
-      setHeartFill(false);
-      toast("Položka byla odebrána z oblíbených", {
-        description: props.name,
-        action: {
-          label: <X />,
-        },
-      });
-    } else {
-      toast("Chyba při odebírání položky z oblíbených", {
-        description: data.message,
-        action: {
-          label: <X />,
-        },
-      });
-    }
+  const removeFromFavourite = async (productId) => {
+    const favourite = JSON.parse(localStorage.getItem("favourites"));
+
+    let indexItem;
+    favourite.map((value, index) => {
+      if (value.productId === productId) {
+        indexItem = index;
+      }
+    });
+
+    favourite.splice(indexItem, 1);
+
+    localStorage.setItem("favourites", JSON.stringify(favourite));
+    setHeartFill(false);
+    toast("Položka byla odebrána z oblíbených", {
+      description: props.name,
+      action: {
+        label: <X />,
+      },
+    });
   };
 
   useEffect(() => {
