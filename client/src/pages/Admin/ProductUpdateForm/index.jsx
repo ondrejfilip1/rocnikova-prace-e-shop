@@ -123,7 +123,9 @@ export default function ProductUpdateForm() {
                   name="color"
                   value={color}
                   onChange={handleChange}
-                  checked={color === product.color[index] ? true : false}
+                  checked={
+                    Object.values(product.color).includes(color) ? true : false
+                  }
                 />
                 <label
                   htmlFor={`terms${index}`}
