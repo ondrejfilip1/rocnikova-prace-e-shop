@@ -39,7 +39,6 @@ import {
   categoriesTranslated,
   sizes,
   shoeSizes,
-  brands,
 } from "@/components/constants";
 
 import {
@@ -110,6 +109,7 @@ export default function ProductView() {
         label: <X />,
       },
     });
+    window.dispatchEvent(new Event("totalItemsUpdate"));
   };
 
   const handleColorChange = (value) => {
@@ -288,7 +288,7 @@ export default function ProductView() {
             </Breadcrumb>
             <div className="flex justify-between items-center mb-1">
               <img
-                src={`/src/assets/icons/${brands[product.brand]}`}
+                src={`/src/assets/icons/${product.brand}.svg`}
                 alt={product.brand}
                 className="w-24 max-h-12 object-left object-contain h-auto"
               />

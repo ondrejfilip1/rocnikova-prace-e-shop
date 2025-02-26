@@ -59,6 +59,7 @@ export default function CartItemBig({
 
     localStorage.setItem("cart", JSON.stringify(cart));
     reloadCart();
+    window.dispatchEvent(new Event("totalItemsUpdate"));
   };
 
   const handleQuantity = async (add) => {

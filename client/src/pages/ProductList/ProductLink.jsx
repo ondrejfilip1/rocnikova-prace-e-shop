@@ -38,6 +38,7 @@ export default function ProductLink(props) {
         label: <X />,
       },
     });
+    window.dispatchEvent(new Event("totalItemsUpdate"));
   };
 
   const handleFavourite = async (productId, color) => {

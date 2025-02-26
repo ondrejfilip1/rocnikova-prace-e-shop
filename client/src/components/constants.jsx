@@ -142,19 +142,6 @@ export const shoeSizes = [
   },
 ];
 
-export const brands = {
-  adidas: "adidas.svg",
-  nike: "nike.svg",
-  vans: "vans.svg",
-  jordan: "jordan.svg",
-  puma: "puma.svg",
-  reebok: "reebok.svg",
-  skechers: "skechers.svg",
-  tommy_hilfiger: "tommy_hilfiger.svg",
-  s_oliver: "s_oliver.svg",
-  boss: "boss.svg",
-};
-
 export const brandsList = [
   {
     id: "adidas",

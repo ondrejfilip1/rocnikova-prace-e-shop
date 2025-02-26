@@ -24,7 +24,7 @@ export default function ProductBox(props) {
   };
   return (
     <>
-      <p className="mb-0.5 font-medium">{props.name}</p>
+      <p className="mb-0.5 font-medium">{props.name}<span className="float-right text-sm text-gray-400 font-normal">{props.category}</span></p>
       <p className="text-sm text-gray-400">{props._id}</p>
       <div className="flex gap-1">
         <Dialog>

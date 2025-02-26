@@ -65,7 +65,7 @@ import Skechers from "../../assets/icons/skechers.svg";
 
 import classnames from "classnames";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
 
@@ -159,13 +159,17 @@ ListItem.displayName = "ListItem";
 export default function Header({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState();
+  const [totalItems, setTotalItems] = useState();
   const [isLoaded, setLoaded] = useState(false);
 
   const navigate = useNavigate();
+  let cart;
 
   // logika pro nacteni kosiku
   const loadCart = () => {
-    setCartItems(JSON.parse(localStorage.getItem("cart")));
+    cart = JSON.parse(localStorage.getItem("cart"));
+    setCartItems(cart);
+    setTotalItems(cart.length);
   };
 
   const handleSearch = (e) => {
@@ -178,6 +182,21 @@ export default function Header({ onSearch }) {
       replace: true,
     });
   };
+
+  const updateTotalItems = () => {
+    cart = JSON.parse(localStorage.getItem("cart"));
+    setTotalItems(cart.length);
+  };
+
+  useEffect(() => {
+    updateTotalItems();
+  }, []);
+
+  // pokazdy kdyz nekde odebereme, nebo pridame polozku do kosiku, tak vysleme event "totalItemsUpdate"
+  // credit: https://stackoverflow.com/questions/56660153/how-to-listen-to-localstorage-value-changes-in-react
+  window.addEventListener("totalItemsUpdate", () => {
+    updateTotalItems();
+  });
 
   return (
     <>
@@ -210,22 +229,33 @@ export default function Header({ onSearch }) {
             />
           </Link>
           <div className="flex items-center">
-            <DropdownMenu onOpenChange={(isOpen) => isOpen && loadCart()} modal={false}>
+            <DropdownMenu
+              onOpenChange={(isOpen) => isOpen && loadCart()}
+              modal={false}
+            >
               <DropdownMenuTrigger asChild>
                 <Button
                   className={classnames(
-                    "bg-transparent background-button-hover text-red-900",
+                    "bg-transparent background-button-hover text-red-900 relative",
                     s.icon_responsivity
                   )}
                 >
                   <ShoppingCartIcon />
                   <span className={s.dissapear_650px}>Nákupní košík</span>
+                  {totalItems ? (
+                    <span className="max-[650px]:text-[0.5rem] max-[650px]:leading-[0.7rem] text-[0.6rem] leading-[0.9rem] absolute top-1 right-1 max-[650px]:top-0.5 max-[650px]:right-0.5 background-primary rounded-full max-[650px]:min-w-3 min-w-3.5 max-[650px]:h-3 h-3.5 text-primary-light text-center px-1">
+                      {totalItems}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className={classnames(
                   "mr-2 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
-                  s.custom_shadow, (cartItems && cartItems.length > 0 ? "w-96" : "")
+                  s.custom_shadow,
+                  cartItems && cartItems.length > 0 ? "w-96" : ""
                 )}
               >
                 {cartItems && cartItems.length > 0 ? (
