@@ -21,9 +21,9 @@ export default function Admin() {
   const [updateId, setUpdateId] = useState();
   const [deleteId, setDeleteId] = useState();
   const [status, setStatus] = useState();
-  const [statusPassword, setStatusPassword] = useState();
   const [isSuccessful, setSuccessful] = useState(false);
   const [isServerAlive, setIsServerAlive] = useState(false);
+  const [statusPassword, setStatusPassword] = useState();
   const [password, setPassword] = useState();
   const [hasPassword, setHasPassword] = useState(
     localStorage.getItem("adminPassword")
@@ -82,6 +82,7 @@ export default function Admin() {
           </DialogHeader>
           <Input
             id="password"
+            type="password"
             placeholder="Zadejte heslo do admin panelu"
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -104,80 +105,90 @@ export default function Admin() {
           {isServerAlive ? "Server je zapnut" : "Server je vypnut"}
         </span>
       </div>
-      <div className="flex flex-col min-h-screen items-center justify-center gap-2">
-        <Link to="/admin/product-list">
-          <Button variant="outline">List produktů</Button>
-        </Link>
-        <Link to="/admin/add-product">
-          <Button variant="outline">Přidat produkt</Button>
-        </Link>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline">Upravit produkt</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Upravit produkt</DialogTitle>
-              <DialogDescription />
-            </DialogHeader>
-            <Input
-              id="updateId"
-              placeholder="Zadejte ID produktu"
-              onChange={(e) => setUpdateId(e.target.value)}
-            />
-            <DialogFooter>
-              <Link
-                to={`/admin/update-product/${updateId}`}
-                className={!updateId ? "pointer-events-none" : ""}
-              >
-                <Button
-                  type="submit"
-                  disabled={!updateId}
-                  className="transition-all"
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="border border-neutral-200 p-3 rounded-xl w-fit">
+          <h2 className="font-medium text-lg text-neutral-600">Produkty</h2>
+          <Link to="/admin/product-list">
+            <Button variant="outline" className="my-3">
+              List produktů
+            </Button>
+          </Link>
+          <h2 className="font-medium text-sm mb-3 text-neutral-600">
+            Možnosti
+          </h2>
+          <div className="flex gap-3">
+            <Link to="/admin/add-product">
+              <Button variant="outline">Přidat produkt</Button>
+            </Link>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline">Upravit produkt</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Upravit produkt</DialogTitle>
+                  <DialogDescription />
+                </DialogHeader>
+                <Input
+                  id="updateId"
+                  placeholder="Zadejte ID produktu"
+                  onChange={(e) => setUpdateId(e.target.value)}
+                />
+                <DialogFooter>
+                  <Link
+                    to={`/admin/update-product/${updateId}`}
+                    className={!updateId ? "pointer-events-none" : ""}
+                  >
+                    <Button
+                      type="submit"
+                      disabled={!updateId}
+                      className="transition-all"
+                    >
+                      Pokračovat
+                    </Button>
+                  </Link>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="destructive">Odebrat produkt</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Odebrat produkt</DialogTitle>
+                  <DialogDescription />
+                </DialogHeader>
+                <Input
+                  id="deleteId"
+                  placeholder="Zadejte ID produktu"
+                  onChange={(e) => setDeleteId(e.target.value)}
+                />
+                <p
+                  className={classNames(
+                    isSuccessful ? "text-green-500" : "text-red-500",
+                    "text-sm"
+                  )}
                 >
-                  Pokračovat
-                </Button>
-              </Link>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="destructive">Odebrat produkt</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Odebrat produkt</DialogTitle>
-              <DialogDescription />
-            </DialogHeader>
-            <Input
-              id="deleteId"
-              placeholder="Zadejte ID produktu"
-              onChange={(e) => setDeleteId(e.target.value)}
-            />
-            <p
-              className={classNames(
-                isSuccessful ? "text-green-500" : "text-red-500",
-                "text-sm"
-              )}
-            >
-              {status}
-            </p>
-            <DialogFooter>
-              <Button
-                className={classNames(
-                  !deleteId ? "pointer-events-none" : "",
-                  "transition-all"
-                )}
-                type="submit"
-                disabled={!deleteId}
-                onClick={handleDeleteProduct}
-              >
-                Pokračovat
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+                  {status}
+                </p>
+                <DialogFooter>
+                  <Button
+                    className={classNames(
+                      !deleteId ? "pointer-events-none" : "",
+                      "transition-all"
+                    )}
+                    type="submit"
+                    disabled={!deleteId}
+                    onClick={handleDeleteProduct}
+                  >
+                    Pokračovat
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
       </div>
     </>
   );
