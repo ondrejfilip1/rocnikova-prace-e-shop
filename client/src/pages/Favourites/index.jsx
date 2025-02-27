@@ -38,6 +38,7 @@ export default function Favourites() {
 
   useEffect(() => {
     loadFavourites();
+    document.title = "Pigress - Oblíbené položky";
   }, []);
   return (
     <>

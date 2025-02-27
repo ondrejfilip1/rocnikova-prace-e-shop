@@ -243,7 +243,7 @@ export default function Header({ onSearch }) {
                   <ShoppingCartIcon />
                   <span className={s.dissapear_650px}>Nákupní košík</span>
                   {totalItems ? (
-                    <span className="max-[650px]:text-[0.5rem] max-[650px]:leading-[0.7rem] text-[0.6rem] leading-[0.9rem] absolute top-1 right-1 max-[650px]:top-0.5 max-[650px]:right-0.5 background-primary rounded-full max-[650px]:min-w-3 min-w-3.5 max-[650px]:h-3 h-3.5 text-primary-light text-center px-1">
+                    <span className="max-[650px]:text-[0.5rem] max-[650px]:leading-[0.7rem] text-[0.6rem] leading-[0.9rem] absolute top-0.5 right-0.5 background-primary rounded-full max-[650px]:min-w-3 min-w-3.5 max-[650px]:h-3 h-3.5 text-primary-light text-center px-1">
                       {totalItems}
                     </span>
                   ) : (

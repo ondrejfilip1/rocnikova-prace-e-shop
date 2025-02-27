@@ -86,6 +86,7 @@ export default function ProductView() {
     if (data.status === 500 || data.status === 404) return setLoaded(null);
     if (data.status === 200) {
       setProduct(data.payload);
+      document.title = `Pigress - ${data.payload.name}`;
       //console.log(data.payload);
       handleColorChange(data.payload.color[0]);
       setLoaded(true);

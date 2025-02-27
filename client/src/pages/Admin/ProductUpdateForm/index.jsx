@@ -69,6 +69,7 @@ export default function ProductUpdateForm() {
 
   useEffect(() => {
     load();
+    document.title = "Pigress - Admin panel";
   }, []);
 
   if (isLoaded === null) {
@@ -123,7 +124,7 @@ export default function ProductUpdateForm() {
                   name="color"
                   value={color}
                   onChange={handleChange}
-                  checked={
+                  defaultChecked={
                     Object.values(product.color).includes(color) ? true : false
                   }
                 />

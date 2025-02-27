@@ -62,6 +62,7 @@ export default function Orders() {
 
   useEffect(() => {
     loadCart();
+    document.title = "Pigress - Nákupní košík";
   }, []);
 
   return (

@@ -183,4 +183,8 @@ export const brandsList = [
     id: "boss",
     label: "Boss",
   },
+  {
+    id: "bugatti",
+    label: "bugatti",
+  },
 ];

@@ -122,6 +122,7 @@ export default function ProductCreateForm() {
     setFormData({
       password: localStorage.getItem("adminPassword"),
     });
+    document.title = "Pigress - Admin panel";
   }, []);
 
   return (

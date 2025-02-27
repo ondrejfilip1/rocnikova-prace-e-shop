@@ -23,6 +23,7 @@ export default function AdminProductList() {
 
   useEffect(() => {
     load();
+    document.title = "Pigress - Admin panel";
   }, []);
 
   if (isLoaded === null) {

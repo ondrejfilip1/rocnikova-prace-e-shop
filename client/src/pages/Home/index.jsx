@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Truck, PackageCheck, CalendarClock } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import React from "react";
 import classNames from "classnames";
@@ -32,6 +32,10 @@ export default function Home() {
         break;
     }
   };
+
+  useEffect(() => {
+    document.title = "Pigress";
+  }, []);
 
   return (
     <>

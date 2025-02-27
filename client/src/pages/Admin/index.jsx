@@ -67,6 +67,7 @@ export default function Admin() {
 
   useEffect(() => {
     checkServer();
+    document.title = "Pigress - Admin panel";
   }, []);
 
   return (
@@ -107,13 +108,13 @@ export default function Admin() {
       </div>
       <div className="flex justify-center items-center min-h-screen">
         <div className="border border-neutral-200 p-3 rounded-xl w-fit">
-          <h2 className="font-medium text-lg text-neutral-600">Produkty</h2>
+          <h2 className="font-medium text-lg">Produkty</h2>
           <Link to="/admin/product-list">
             <Button variant="outline" className="my-3">
               List produktů
             </Button>
           </Link>
-          <h2 className="font-medium text-sm mb-3 text-neutral-600">
+          <h2 className="font-medium text-sm mb-3">
             Možnosti
           </h2>
           <div className="flex gap-3">
