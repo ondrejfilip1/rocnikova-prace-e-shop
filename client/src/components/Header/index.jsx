@@ -40,17 +40,6 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
@@ -161,6 +150,10 @@ export default function Header({ onSearch }) {
   const [cartItems, setCartItems] = useState();
   const [totalItems, setTotalItems] = useState();
   const [isLoaded, setLoaded] = useState(false);
+  const [hasSettings, setHasSettings] = useState(
+    localStorage.getItem("profileSettings")
+  );
+  const [settings, setSettings] = useState();
 
   const navigate = useNavigate();
   let cart;
@@ -188,8 +181,14 @@ export default function Header({ onSearch }) {
     setTotalItems(cart.length);
   };
 
+  const loadSettings = () => {
+    if (hasSettings)
+      setSettings(JSON.parse(localStorage.getItem("profileSettings")));
+  };
+
   useEffect(() => {
     updateTotalItems();
+    loadSettings();
   }, []);
 
   // pokazdy kdyz nekde odebereme, nebo pridame polozku do kosiku, tak vysleme event "totalItemsUpdate"
@@ -228,7 +227,7 @@ export default function Header({ onSearch }) {
               draggable="false"
             />
           </Link>
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             <DropdownMenu
               onOpenChange={(isOpen) => isOpen && loadCart()}
               modal={false}
@@ -300,11 +299,11 @@ export default function Header({ onSearch }) {
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
-            <DropdownMenu>
+            <DropdownMenu onOpenChange={() => loadSettings()}>
               <DropdownMenuTrigger asChild>
                 <Button
                   className={classnames(
-                    "bg-transparent background-button-hover text-red-900",
+                    "bg-transparent background-button-hover text-red-900 focus-visible:!ring-0 !ring-offset-0",
                     s.icon_responsivity
                   )}
                 >
@@ -314,41 +313,15 @@ export default function Header({ onSearch }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 className={classnames(
-                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color",
+                  "w-56 bg-transparent text-red-900 border-none backdrop-blur-2xl backdrop-background-color mr-2",
                   s.custom_shadow
                 )}
               >
                 <DropdownMenuLabel className="font-medium">
-                  Můj účet
+                  {hasSettings && settings
+                    ? `${settings.firstName} ${settings.lastName}`
+                    : "Můj účet"}
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
-                <DropdownMenuItem
-                  className={classnames(
-                    "background-button-hover font-medium",
-                    s.button_fix
-                  )}
-                >
-                  <User />
-                  <span>Profil</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className={classnames(
-                    "background-button-hover font-medium",
-                    s.button_fix
-                  )}
-                >
-                  <CreditCard />
-                  <span>Platby</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className={classnames(
-                    "background-button-hover font-medium",
-                    s.button_fix
-                  )}
-                >
-                  <Settings />
-                  <span>Nastavení</span>
-                </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
                 <Link to="/oblibene">
                   <DropdownMenuItem
@@ -370,39 +343,26 @@ export default function Header({ onSearch }) {
                   <Star />
                   <span>Trendy</span>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
-
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <span
-                      className={classnames(
-                        "font-medium relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-neutral-100 focus:text-neutral-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:focus:bg-neutral-800 dark:focus:text-neutral-50 background-button-hover",
-                        s.button_fix
-                      )}
-                    >
-                      <LogOut />
-                      Odhlásit se
-                    </span>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Opravdu se chcete odhlásit?
-                      </AlertDialogTitle>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Zrušit</AlertDialogCancel>
-                      <AlertDialogAction
-                        className={classnames(
-                          "bg-transparent background-button-hover text-red-900",
-                          s.button_fix
-                        )}
-                      >
-                        Odhlásit se
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+                <DropdownMenuItem
+                  className={classnames(
+                    "background-button-hover font-medium",
+                    s.button_fix
+                  )}
+                >
+                  <CreditCard />
+                  <span>Platby</span>
+                </DropdownMenuItem>
+                <Link to="/settings">
+                  <DropdownMenuItem
+                    className={classnames(
+                      "background-button-hover font-medium",
+                      s.button_fix
+                    )}
+                  >
+                    <Settings />
+                    <span>Nastavení</span>
+                  </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

@@ -62,7 +62,7 @@ export default function ProductList(props) {
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
       setTotalProducts(data.payload.length);
-      document.title = `Pigress - ${categoriesTranslated[props.category]}`;
+      document.title = props.category ? `Pigress - ${categoriesTranslated[props.category]}` : `Pigress - Všechny produkty`;
       // console.log(data.payload.length);
       setProducts(data.payload);
       setLoaded(true);

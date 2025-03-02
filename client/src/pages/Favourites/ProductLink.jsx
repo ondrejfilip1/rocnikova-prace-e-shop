@@ -21,17 +21,27 @@ export default function ProductLink(props) {
   }, []);
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-full w-full">
-        <Link to={`/product/${props.productId}`} className="h-full max-h-[90%] w-full">
-          <img
-            src={`${product.imagePath}front_${colors[props.color]}.avif`}
-            className="object-contain object-center h-full w-full p-4"
-            draggable="false"
-          />
-        </Link>
-        <div className="top-4 absolute text-center">{colorsTranslated[props.color]}</div>
-        <div className="absolute bottom-4 font-medium lg:text-lg text-base text-center">{product.name}</div>
-      </div>
+      {isLoaded && (
+        <div className="flex flex-col items-center justify-center h-full w-full">
+          <Link
+            to={`/product/${props.productId}`}
+            className="h-full max-h-[90%] w-full"
+          >
+            <img
+              src={`${product.imagePath}front_${colors[props.color]}.avif`}
+              alt={product.name}
+              className="object-contain object-center h-full w-full p-4"
+              draggable="false"
+            />
+          </Link>
+          <div className="top-4 absolute text-center">
+            {colorsTranslated[props.color]}
+          </div>
+          <div className="absolute bottom-4 font-medium lg:text-lg text-base text-center">
+            {product.name}
+          </div>
+        </div>
+      )}
     </>
   );
 }

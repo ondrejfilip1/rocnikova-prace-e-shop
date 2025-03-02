@@ -133,7 +133,7 @@ export default function ProductLink(props) {
           <img
             src={`${props.imagePath}front_${colors[selectedColor]}.avif`}
             alt={props.name}
-            className="rounded-md border border-transparent my-6 px-6 aspect-video object-contain object-center select-none"
+            className="rounded-md border border-transparent my-6 mx-auto px-6 aspect-video object-contain object-center select-none"
             draggable="false"
           />
         </Link>

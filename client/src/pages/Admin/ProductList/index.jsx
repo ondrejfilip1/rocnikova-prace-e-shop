@@ -48,7 +48,7 @@ export default function AdminProductList() {
   return (
     <>
       <DialogWarning pass={hasPassword} />
-      <div className="container mx-auto">
+      <div className="container mx-auto px-2">
         <div className="flex justify-between items-center my-3">
           <h1 className=" text-2xl">List produktů</h1>
           <Link to={"/admin"}>

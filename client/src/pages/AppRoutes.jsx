@@ -12,6 +12,7 @@ import Admin from "./Admin";
 import AdminProductList from "./Admin/ProductList";
 import ProductUpdateForm from "./Admin/ProductUpdateForm";
 import ProductCreateForm from "./Admin/ProductCreateForm";
+import ProfileSettings from "./ProfileSettings";
 
 export default function AppRoutes() {
   return (
@@ -22,7 +23,10 @@ export default function AppRoutes() {
 
           {/* Admin panel */}
           <Route path="/admin/add-product" element={<ProductCreateForm />} />
-          <Route path="/admin/update-product/:id" element={<ProductUpdateForm />} />
+          <Route
+            path="/admin/update-product/:id"
+            element={<ProductUpdateForm />}
+          />
           <Route path="/admin/" element={<Admin />} />
           <Route path="/admin/product-list" element={<AdminProductList />} />
 
@@ -88,6 +92,7 @@ export default function AppRoutes() {
           <Route path="/oblibene" element={<Favourites />} />
           <Route path="/objednavky" element={<Orders />} />
           <Route path="/about" element={<About />} />
+          <Route path="/settings" element={<ProfileSettings />} />
         </Routes>
       </BrowserRouter>
     </>
