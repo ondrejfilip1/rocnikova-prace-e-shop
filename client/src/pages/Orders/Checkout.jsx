@@ -1,42 +1,60 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  User,
-  Mail,
-  Phone,
-  House,
-  Building2,
-  Truck,
-  CreditCard,
-  QrCode,
-  Lock,
-} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { PaymentElement } from "@stripe/react-stripe-js";
+import { useStripe, useElements } from "@stripe/react-stripe-js";
 
-export default function Checkout() {
-  // TODO: platebni metody
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState();
+export default function Checkout(props) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [message, setMessage] = useState();
+  const [isProcessing, setProcessing] = useState();
+  const [isPaymentLoaded, setPaymentLoaded] = useState(false);
 
-  const selectPM = (number) => {
-    setSelectedPaymentMethod(number);
-    console.log(number);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!stripe || !elements) return;
 
-  const inputStyles = {
-    styles:
-      "pl-8 border-red-900/10 focus-visible:ring-transparent focus-visible:ring-offset-0 bg-transparent backdrop-background-color backdrop-background-color-hover transition-colors backdrop-blur-md",
-    icons: "absolute left-2 top-2 z-1 w-4 pointer-events-none",
-    boxes:
-      "cursor-pointer w-1/2 sm:w-full h-auto gap-1 select-none text-center px-8 py-4 flex flex-col justify-center items-center border border-red-900/10 bg-transparent backdrop-background-color backdrop-background-color-hover transition-colors backdrop-blur-md rounded-md",
+    setProcessing(true);
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}/completion`,
+      },
+    });
+
+    if (error.type === "card_error" || error.type === "validation_error")
+      setMessage(error.message);
+    else setMessage("An unexpected error occured.");
+
+    setProcessing(false);
   };
 
   return (
     <>
       <div className="text-red-900 text-sm container mx-auto lg:max-w-screen-lg font-medium my-2 flex flex-col justify-center">
-        <form>
-        <PaymentElement />
-        {/*
+        <form id="payment-form" onSubmit={handleSubmit}>
+          <PaymentElement className="font-manrope-important" onLoaderStart={() => setPaymentLoaded(true)} />
+          {(!isPaymentLoaded) ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={30}
+              height={30}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="animate-spin mx-auto my-24"
+            >
+              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+            </svg>
+          ) : null}
+
+          {/*
           <div className="flex w-full items-center gap-5 mb-3">
             <div className="w-full items-center gap-1.5">
               <Label htmlFor="email">Jméno</Label>
@@ -103,7 +121,64 @@ export default function Checkout() {
             </div>
           </div>
           */}
+
+          <div className="flex justify-between items-center mx-4 text-sm text-red-900/75 mt-5">
+            <div>Cena bez DPH</div>
+            {
+              // Vypocet ceny bez DPH
+              // https://www.matematika.cz/vypocet-dph/
+            }
+            <div>{Math.floor(props.totalPrice / 1.15)} Kč</div>
+          </div>
+          <div className="flex justify-between items-center mx-4 text-lg mb-5">
+            <div>Celkem</div>
+            <div>{props.totalPrice} Kč</div>
+          </div>
+          <div className="flex justify-between items-center mb-4">
+            <Link to="/objednavky" onClick={() => window.location.reload()}>
+              <Button
+                className="background-button-hover !text-red-900 gap-1 pl-3"
+                variant="ghost"
+              >
+                <ChevronLeft />
+                <div>Zpět do košíku</div>
+              </Button>
+            </Link>
+            {
+              // background-primary background-primary-hover
+            }
+            <Button
+              className="text-white bg-red-900 hover:bg-red-950 gap-1 pr-3"
+              disabled={isProcessing || !stripe || !elements}
+              id="submit"
+              type="submit"
+            >
+              <span id="button-text" className="w-[51.48px]">
+                {isProcessing ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={30}
+                    height={30}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="animate-spin mx-auto"
+                  >
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                ) : (
+                  "Zaplatit"
+                )}
+              </span>
+              <ChevronRight />
+            </Button>
+          </div>
         </form>
+
+        {/* 
         <div className="text-lg">Způsob platby</div>
         <div className="flex mt-3 justify-between gap-5">
           <div className={inputStyles.boxes} onClick={() => selectPM(0)}>
@@ -122,7 +197,7 @@ export default function Checkout() {
             <span>QR kódem</span>
             <QrCode />
           </div>
-        </div>
+        </div>*/}
       </div>
     </>
   );

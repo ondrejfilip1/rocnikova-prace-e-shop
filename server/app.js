@@ -8,26 +8,21 @@ const cors = require("cors");
 // dotenv
 const dotenv = require("dotenv");
 dotenv.config();
-const USER = process.env.DB_USER;
-const PASSWORD = process.env.DB_PASSWORD;
-const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY;
-
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2022-08-01",
-});
+const DB_KEY = process.env.DB_KEY;
 
 // pripojovani do databaze
 const mongoose = require("mongoose");
 mongoose
   .connect(
-    `mongodb+srv://${USER}:${PASSWORD}@cluster0.nrqdm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    DB_KEY
   )
-  .then(() => console.log("Database connected"))
-  .catch(() => console.log("Chyba"));
+  .then(() => console.log("\x1b[32m%s\x1b[0m", "[database] Connected"))
+  .catch((e) => console.log("\x1b[31m%s\x1b[0m", "[database] Error: " + e));
 
 const indexRouter = require("./routes/index");
 //const usersRouter = require('./routes/users');
 const productsRouter = require("./routes/products");
+const stripeRouter = require("./routes/stripe");
 
 const app = express();
 
@@ -45,33 +40,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 //app.use('/users', usersRouter);
 app.use("/products", productsRouter);
-
-app.get("/config", (req, res) => {
-  res.send({
-    publishableKey: STRIPE_PUBLISHABLE_KEY,
-  });
-});
-
-app.post("/create-payment-intent", async (req, res) => {
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      currency: "EUR",
-      amount: 1999,
-      automatic_payment_methods: { enabled: true },
-    });
-
-    // Send publishable key and PaymentIntent details to client
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
-  } catch (e) {
-    return res.status(400).send({
-      error: {
-        message: e.message,
-      },
-    });
-  }
-});
+app.use("/stripe", stripeRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

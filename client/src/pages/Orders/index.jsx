@@ -65,13 +65,15 @@ export default function Orders() {
 
   const loadStripeKey = async () => {
     const stripeKey = await getPublicKey();
-    if (stripeKey.status === 200) setStripePromise(loadStripe(stripeKey.publishableKey))
-  }
+    if (stripeKey.status === 200)
+      setStripePromise(loadStripe(stripeKey.publishableKey));
+  };
 
   const loadPaymentIntent = async () => {
-    const paymentIntent = await createPaymentIntent();
-    if (paymentIntent.status === 200) setClientSecret(paymentIntent.clientSecret)
-  }
+    const paymentIntent = await createPaymentIntent(totalPrice * 100);
+    if (paymentIntent.status === 200)
+      setClientSecret(paymentIntent.clientSecret);
+  };
 
   const showCheckout = () => {
     setHeading("Platba");
@@ -82,8 +84,16 @@ export default function Orders() {
     loadCart();
     document.title = "Pigress - Nákupní košík";
     loadStripeKey();
-    loadPaymentIntent();
   }, []);
+
+  useEffect(() => {
+    if (
+      cartItems.length !== 0 &&
+      Object.keys(itemPrices).length === cartItems.length
+    ) {
+      loadPaymentIntent();
+    }
+  }, [itemPrices, totalPrice, cartItems]);
 
   return (
     <>
@@ -99,10 +109,32 @@ export default function Orders() {
                   {totalProducts}
                 </span>
               </div>
-              {(showCheckoutBool && clientSecret) ? (
+              {showCheckoutBool && clientSecret ? (
                 <>
-                  <Elements stripe={stripePromise} options={{ clientSecret }}>
-                    <Checkout />
+                  <Elements
+                    stripe={stripePromise}
+                    options={{
+                      clientSecret: clientSecret,
+                      fonts: [
+                        {
+                          cssSrc:
+                            "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap",
+                        },
+                      ],
+                      appearance: {
+                        variables: {
+                          colorText: "#7f1d1d",
+                          colorPrimary: "#db7070",
+                          colorBackground: "#f9e2e266",
+                          colorDanger: "#df1b41",
+                          fontFamily: "Manrope",
+                          spacingUnit: "4px",
+                          borderRadius: "6px",
+                        },
+                      },
+                    }}
+                  >
+                    <Checkout totalPrice={totalPrice} />
                   </Elements>
                 </>
               ) : null}
@@ -128,57 +160,59 @@ export default function Orders() {
                 })}
               </div>
 
-              <div className="flex justify-between items-center mx-4 text-sm text-red-900/75 mt-5">
-                <div>Cena bez DPH</div>
-                {
-                  // Vypocet ceny bez DPH
-                  // https://www.matematika.cz/vypocet-dph/
-                }
-                <div>{Math.floor(totalPrice / 1.15)} Kč</div>
-              </div>
-              <div className="flex justify-between items-center mx-4 text-lg mb-5">
-                <div>Celkem</div>
-                <div>{totalPrice} Kč</div>
-              </div>
-              <div className="flex justify-between items-center mb-4">
-                <Link to="/view-products">
-                  <Button
-                    className="background-button-hover !text-red-900 gap-1 pl-3"
-                    variant="ghost"
-                  >
-                    <ChevronLeft />
-                    <div>Zpět k nákupu</div>
-                  </Button>
-                </Link>
-                {
-                  // background-primary background-primary-hover
-                }
-                <Button
-                  className="text-white bg-red-900 hover:bg-red-950 gap-1 pr-3"
-                  onClick={() => showCheckout()}
-                >
-                  {!isLoaded ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={30}
-                      height={30}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="animate-spin mx-8"
+              <div className={showCheckoutBool ? "hidden" : ""}>
+                <div className="flex justify-between items-center mx-4 text-sm text-red-900/75 mt-5">
+                  <div>Cena bez DPH</div>
+                  {
+                    // Vypocet ceny bez DPH
+                    // https://www.matematika.cz/vypocet-dph/
+                  }
+                  <div>{Math.floor(totalPrice / 1.15)} Kč</div>
+                </div>
+                <div className="flex justify-between items-center mx-4 text-lg mb-5">
+                  <div>Celkem</div>
+                  <div>{totalPrice} Kč</div>
+                </div>
+                <div className="flex justify-between items-center mb-4">
+                  <Link to="/view-products">
+                    <Button
+                      className="background-button-hover !text-red-900 gap-1 pl-3"
+                      variant="ghost"
                     >
-                      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                    </svg>
-                  ) : (
-                    <>
-                      <div>Pokračovat</div>
-                      <ChevronRight />
-                    </>
-                  )}
-                </Button>
+                      <ChevronLeft />
+                      <div>Zpět k nákupu</div>
+                    </Button>
+                  </Link>
+                  {
+                    // background-primary background-primary-hover
+                  }
+                  <Button
+                    className="text-white bg-red-900 hover:bg-red-950 gap-1 pr-3"
+                    onClick={() => showCheckout()}
+                  >
+                    {!isLoaded ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={30}
+                        height={30}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="animate-spin mx-8"
+                      >
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                      </svg>
+                    ) : (
+                      <>
+                        <div>Pokračovat</div>
+                        <ChevronRight />
+                      </>
+                    )}
+                  </Button>
+                </div>
               </div>
             </>
           ) : (
