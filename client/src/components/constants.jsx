@@ -56,7 +56,7 @@ export const categoriesTranslated = {
   tricka: "Trička",
   bundy: "Bundy",
   dziny: "Džíny",
-  teplaky: "Tepláky",
+  plavky: "Plavky",
   svetry: "Svetry",
   pradlo: "Prádlo",
   obleky: "Obleky",
@@ -186,5 +186,9 @@ export const brandsList = [
   {
     id: "bugatti",
     label: "bugatti",
+  },
+  {
+    id: "mango_man",
+    label: "Mango Man",
   },
 ];

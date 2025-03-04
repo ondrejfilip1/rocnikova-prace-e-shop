@@ -352,6 +352,7 @@ export default function Header({ onSearch }) {
                   <CreditCard />
                   <span>Platby</span>
                 </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
                 <Link to="/settings">
                   <DropdownMenuItem
                     className={classnames(
@@ -420,10 +421,10 @@ export default function Header({ onSearch }) {
                         Kalhoty
                       </Link>
                       <Link
-                        to="/view-products/teplaky"
-                        onClick={() => handleNavigate("teplaky")}
+                        to="/view-products/plavky"
+                        onClick={() => handleNavigate("plavky")}
                       >
-                        Tepláky
+                        Plavky
                       </Link>
                     </li>
                     <li

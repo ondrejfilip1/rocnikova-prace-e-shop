@@ -12,6 +12,7 @@ import {
   Lock,
 } from "lucide-react";
 import { useState } from "react";
+import { PaymentElement } from "@stripe/react-stripe-js";
 
 export default function Checkout() {
   // TODO: platebni metody
@@ -20,7 +21,7 @@ export default function Checkout() {
   const selectPM = (number) => {
     setSelectedPaymentMethod(number);
     console.log(number);
-  }
+  };
 
   const inputStyles = {
     styles:
@@ -34,6 +35,8 @@ export default function Checkout() {
     <>
       <div className="text-red-900 text-sm container mx-auto lg:max-w-screen-lg font-medium my-2 flex flex-col justify-center">
         <form>
+        <PaymentElement />
+        {/*
           <div className="flex w-full items-center gap-5 mb-3">
             <div className="w-full items-center gap-1.5">
               <Label htmlFor="email">Jméno</Label>
@@ -99,6 +102,7 @@ export default function Checkout() {
               </div>
             </div>
           </div>
+          */}
         </form>
         <div className="text-lg">Způsob platby</div>
         <div className="flex mt-3 justify-between gap-5">

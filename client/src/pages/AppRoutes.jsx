@@ -60,8 +60,8 @@ export default function AppRoutes() {
             element={<ProductList name="Kalhoty" category="kalhoty" />}
           />
           <Route
-            path="/view-products/teplaky"
-            element={<ProductList name="Tepláky" category="teplaky" />}
+            path="/view-products/plavky"
+            element={<ProductList name="Plavky" category="plavky" />}
           />
           <Route
             path="/view-products/svetry"

@@ -55,7 +55,7 @@ export default function ProfileSettings() {
         <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6">
           <span>Nastavení</span>
         </div>
-        <div className="container mx-auto px-2 text-red-900">
+        <div className="container mx-auto px-2 text-red-900 placeholder-min-h-screen">
           <div className="flex w-full items-center gap-5 mb-3">
             <div className="w-full items-center gap-1.5">
               <Label htmlFor="email">Jméno</Label>

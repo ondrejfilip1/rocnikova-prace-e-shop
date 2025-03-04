@@ -3,8 +3,15 @@ import s from "./Home.module.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Truck, PackageCheck, CalendarClock } from "lucide-react";
+import {
+  ArrowUpRight,
+  Truck,
+  PackageCheck,
+  CalendarClock,
+  Mouse,
+} from "lucide-react";
 import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 
 import React from "react";
 import classNames from "classnames";
@@ -41,7 +48,7 @@ export default function Home() {
     <>
       <div className="background pb-[1px]">
         <Header />
-        <div className={s.heading_container}>
+        <div className={classNames(s.heading_container, "relative")}>
           <div className={s.heading}>
             <div>PIGRESS</div>
             <h1>PIGRESS</h1>
@@ -55,6 +62,22 @@ export default function Home() {
               Styl a kvalita na jednom místě.
             </p>
           </div>
+
+          <motion.div
+            className="absolute p-6 bottom-0 flex justify-center items-center flex-col text-primary cursor-pointer gap-1"
+            onClick={() =>
+              window.scrollTo({
+                top: window.innerHeight,
+                behavior: "smooth",
+              })
+            }
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: .5, delay: 2 }}
+          >
+            <Mouse />
+            <div>Přejít dolů</div>
+          </motion.div>
         </div>
 
         <div className="min-h-screen" />

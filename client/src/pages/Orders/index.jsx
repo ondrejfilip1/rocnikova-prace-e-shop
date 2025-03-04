@@ -7,6 +7,10 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Checkout from "./Checkout";
 
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { getPublicKey, createPaymentIntent } from "@/models/Stripe";
+
 export default function Orders() {
   const [cartItems, setCartItems] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
@@ -15,6 +19,10 @@ export default function Orders() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [heading, setHeading] = useState("Nákupní košík");
   const [showCheckoutBool, setShowCheckoutBool] = useState(false);
+
+  // Stripe
+  const [stripePromise, setStripePromise] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
 
   const loadCart = () => {
     const cart = JSON.parse(localStorage.getItem("cart"));
@@ -55,6 +63,16 @@ export default function Orders() {
     });
   };
 
+  const loadStripeKey = async () => {
+    const stripeKey = await getPublicKey();
+    if (stripeKey.status === 200) setStripePromise(loadStripe(stripeKey.publishableKey))
+  }
+
+  const loadPaymentIntent = async () => {
+    const paymentIntent = await createPaymentIntent();
+    if (paymentIntent.status === 200) setClientSecret(paymentIntent.clientSecret)
+  }
+
   const showCheckout = () => {
     setHeading("Platba");
     setShowCheckoutBool(true);
@@ -63,6 +81,8 @@ export default function Orders() {
   useEffect(() => {
     loadCart();
     document.title = "Pigress - Nákupní košík";
+    loadStripeKey();
+    loadPaymentIntent();
   }, []);
 
   return (
@@ -79,7 +99,13 @@ export default function Orders() {
                   {totalProducts}
                 </span>
               </div>
-              {showCheckoutBool ? <Checkout /> : null}
+              {(showCheckoutBool && clientSecret) ? (
+                <>
+                  <Elements stripe={stripePromise} options={{ clientSecret }}>
+                    <Checkout />
+                  </Elements>
+                </>
+              ) : null}
               <div className={showCheckoutBool ? "hidden" : ""}>
                 {cartItems.map((item, index) => {
                   return (
