@@ -26,9 +26,11 @@ export default function Orders() {
 
   const loadCart = () => {
     const cart = JSON.parse(localStorage.getItem("cart"));
-    setTotalProducts(cart.length);
-    setCartItems(cart);
-    setLoaded(true);
+    if (cart) {
+      setTotalProducts(cart.length);
+      setCartItems(cart);
+      setLoaded(true);
+    }
   };
 
   // podle ID itemu pocita celkovou castku
@@ -76,6 +78,11 @@ export default function Orders() {
   };
 
   const showCheckout = () => {
+    if (
+      cartItems.length !== 0 &&
+      Object.keys(itemPrices).length === cartItems.length
+    )
+      loadPaymentIntent();
     setHeading("Platba");
     setShowCheckoutBool(true);
   };
@@ -85,15 +92,6 @@ export default function Orders() {
     document.title = "Pigress - Nákupní košík";
     loadStripeKey();
   }, []);
-
-  useEffect(() => {
-    if (
-      cartItems.length !== 0 &&
-      Object.keys(itemPrices).length === cartItems.length
-    ) {
-      loadPaymentIntent();
-    }
-  }, [itemPrices, totalPrice, cartItems]);
 
   return (
     <>

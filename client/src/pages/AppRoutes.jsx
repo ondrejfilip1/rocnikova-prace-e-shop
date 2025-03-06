@@ -13,6 +13,7 @@ import AdminProductList from "./Admin/ProductList";
 import ProductUpdateForm from "./Admin/ProductUpdateForm";
 import ProductCreateForm from "./Admin/ProductCreateForm";
 import ProfileSettings from "./ProfileSettings";
+import Completion from "./Orders/Completion";
 
 export default function AppRoutes() {
   return (
@@ -93,6 +94,7 @@ export default function AppRoutes() {
           <Route path="/objednavky" element={<Orders />} />
           <Route path="/about" element={<About />} />
           <Route path="/settings" element={<ProfileSettings />} />
+          <Route path="/completion" element={<Completion />} />
         </Routes>
       </BrowserRouter>
     </>

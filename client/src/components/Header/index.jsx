@@ -161,8 +161,8 @@ export default function Header({ onSearch }) {
   // logika pro nacteni kosiku
   const loadCart = () => {
     cart = JSON.parse(localStorage.getItem("cart"));
-    setCartItems(cart);
-    setTotalItems(cart.length);
+    if (cart) setCartItems(cart);
+    if (cart) setTotalItems(cart.length);
   };
 
   const handleSearch = (e) => {
@@ -178,7 +178,8 @@ export default function Header({ onSearch }) {
 
   const updateTotalItems = () => {
     cart = JSON.parse(localStorage.getItem("cart"));
-    setTotalItems(cart.length);
+    if (cart) setTotalItems(cart.length);
+    else setTotalItems(0);
   };
 
   const loadSettings = () => {

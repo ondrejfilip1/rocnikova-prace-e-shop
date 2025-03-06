@@ -24,6 +24,7 @@ export default function Checkout(props) {
         return_url: `${window.location.origin}/completion`,
       },
     });
+    
 
     if (error.type === "card_error" || error.type === "validation_error")
       setMessage(error.message);

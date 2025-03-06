@@ -3,7 +3,7 @@ const router = express.Router();
 
 const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2022-08-01",
+  apiVersion: "2025-02-24.acacia",
 });
 
 router.get("/config", (req, res) => {

@@ -163,6 +163,7 @@ export default function ProductList(props) {
                 <NotFound
                   link={`/view-products/${props.category}?category=${props.category}`}
                   content="Zobrazit produkty"
+                  description="Produkty nebyly nalezeny"
                 />
               )}
               {isLoaded !== null &&

@@ -181,7 +181,7 @@ export default function ProductView() {
   }, [favouritesIDs]);
 
   if (isLoaded === null) {
-    return <NotFound />;
+    return <NotFound description="Produkt nebyl nalezen" />;
   }
 
   if (!isLoaded) {
