@@ -13,7 +13,7 @@ import s from "./ProductList.module.css";
 import classNames from "classnames";
 import { ShoppingCart, Heart, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { colors, colorsTranslated, shoeSizes } from "@/components/constants";
+import { colors, colorsTranslated, shoeSizes, sizes } from "@/components/constants";
 import {
   Tooltip,
   TooltipContent,
@@ -45,7 +45,7 @@ export default function ProductLink(props) {
       productId: productId,
       quantity: quantity,
       color: color,
-      selectedSize: size
+      selectedSize: size,
     };
     const items = JSON.parse(localStorage.getItem("cart")) || "";
     const newItems = JSON.stringify([...items, itemObject]);
@@ -208,12 +208,7 @@ export default function ProductLink(props) {
           <CardFooter className="flex justify-center text-center">
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
-                <Button
-                  className={classNames(
-                    "text-red-900 bg-transparent background-button-hover font-semibold",
-                    s.cart_button_hover
-                  )}
-                >
+                <Button className="text-red-900 bg-transparent background-button-hover font-semibold hover:scale-105 transition-all">
                   <ShoppingCart />
                   Přidat do košíku
                 </Button>

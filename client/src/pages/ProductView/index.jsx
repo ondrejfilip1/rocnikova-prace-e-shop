@@ -96,7 +96,7 @@ export default function ProductView() {
   const handleAddItemsToCart = async (productId, color) => {
     // TODO: kvantita
     const quantity = 1;
-    console.log(selectedSize);
+    //console.log(selectedSize);
     if (selectedSize === "") {
       return toast("Zvolte prosím velikost", {
         action: {

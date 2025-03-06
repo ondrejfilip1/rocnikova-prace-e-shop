@@ -114,9 +114,7 @@ export default function Admin() {
               List produktů
             </Button>
           </Link>
-          <h2 className="font-medium text-sm mb-3">
-            Možnosti
-          </h2>
+          <h2 className="font-medium text-sm mb-3">Možnosti</h2>
           <div className="flex gap-3">
             <Link to="/admin/add-product">
               <Button variant="outline">Přidat produkt</Button>
