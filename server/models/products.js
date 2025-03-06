@@ -7,6 +7,7 @@ const schema = mongoose.Schema({
   price: { type: Number, required: true },
   category: { type: String, required: true },
   imagePath: { type: String, required: true },
+  amount: { type: String, required: false, default: 1 },
   // availableSizes: { type: [String], required: true },
 });
 

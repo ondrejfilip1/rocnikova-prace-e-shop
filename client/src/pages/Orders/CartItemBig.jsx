@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/tooltip";
 import classNames from "classnames";
 import s from "./Orders.module.css";
-import { colors } from "@/components/constants";
+import { colors, colorsTranslated } from "@/components/constants";
 import { Link } from "react-router-dom";
 
 export default function CartItemBig({
@@ -27,6 +27,7 @@ export default function CartItemBig({
   const [product, setProducts] = useState();
   const [isLoaded, setLoaded] = useState();
   const [quantity, setQuantity] = useState(origQuantity);
+  const cart = JSON.parse(localStorage.getItem("cart"));
 
   const loadItem = async () => {
     const data = await getProductById(productId);
@@ -44,7 +45,7 @@ export default function CartItemBig({
       itemPrice(index, product.price * quantity, productId);
     }
 
-    return () => removeItemPrice(productId, index)
+    return () => removeItemPrice(productId, index);
   }, [product]);
 
   useEffect(() => {
@@ -52,7 +53,6 @@ export default function CartItemBig({
   }, []);
 
   const handleDelete = () => {
-    const cart = JSON.parse(localStorage.getItem("cart"));
     if (product) removeItemPrice(productId, index);
     // vymaze item ve vybranem indexu
     cart.splice(index, 1);
@@ -73,6 +73,7 @@ export default function CartItemBig({
               productId: item.productId,
               quantity: newQuantity,
               color: item.color,
+              selectedSize: item.selectedSize,
             };
           }
           return item;
@@ -123,8 +124,10 @@ export default function CartItemBig({
           </div>
           <div className="ml-4">
             <div className="font-semibold">{product.name}</div>
-            <div className="text-sm">{product.price} Kč</div>
-            <div className="text-sm">{quantity}x</div>
+            <div className="text-sm">{cart[index].selectedSize}</div>
+            <div className="text-sm">{colorsTranslated[cart[index].color]}</div>
+            {/*<div className="text-sm">{quantity}x</div>*/}
+            {/*<div className="text-sm">{product.price} Kč</div>*/}
           </div>
         </div>
         <div className="flex flex-col items-end">

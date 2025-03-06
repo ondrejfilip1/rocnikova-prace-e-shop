@@ -1,0 +1,19 @@
+:root {
+  --icon-dash: 55;
+}
+
+.icon_anim {
+  stroke-dasharray: var(--icon-dash);
+  stroke-dashoffset: var(--icon-dash);
+  animation: dash 1s cubic-bezier(0.75, 0, 0.25, 0.97) forwards;
+}
+
+@keyframes dash {
+  from {
+    scale: 0.8;
+  }
+  to {
+    stroke-dashoffset: 0;
+    scale: 1;
+  }
+}

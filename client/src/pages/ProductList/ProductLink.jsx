@@ -1,33 +1,51 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 import { X } from "lucide-react";
 import s from "./ProductList.module.css";
 import classNames from "classnames";
-import { ShoppingCart, Heart } from "lucide-react";
+import { ShoppingCart, Heart, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { colors, colorsTranslated } from "@/components/constants";
+import { colors, colorsTranslated, shoeSizes } from "@/components/constants";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 
 export default function ProductLink(props) {
   const [selectedColor, setSelectedColor] = useState(props.color[0]);
   const [heartFill, setHeartFill] = useState(false);
   const [currentId, setCurrentId] = useState();
 
-  const addToCart = async (productId, color) => {
+  // dropdown pro velikosti
+  const [open, setOpen] = useState(false);
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const addToCart = async (productId, color, size) => {
     // TODO: kvantita
     const quantity = 1;
     const itemObject = {
       productId: productId,
       quantity: quantity,
       color: color,
+      selectedSize: size
     };
     const items = JSON.parse(localStorage.getItem("cart")) || "";
     const newItems = JSON.stringify([...items, itemObject]);
@@ -188,16 +206,60 @@ export default function ProductLink(props) {
             </RadioGroup>
           </CardContent>
           <CardFooter className="flex justify-center text-center">
-            <Button
-              className={classNames(
-                "text-red-900 bg-transparent background-button-hover font-semibold",
-                s.cart_button_hover
-              )}
-              onClick={() => addToCart(props._id, selectedColor)}
-            >
-              <ShoppingCart />
-              Přidat do košíku
-            </Button>
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  className={classNames(
+                    "text-red-900 bg-transparent background-button-hover font-semibold",
+                    s.cart_button_hover
+                  )}
+                >
+                  <ShoppingCart />
+                  Přidat do košíku
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[200px] p-0">
+                <Command className="!backdrop-background-color">
+                  <CommandInput
+                    placeholder="Vybrat velikost..."
+                    className="h-9 placeholder:text-red-900"
+                  />
+                  <CommandList>
+                    <CommandEmpty>Velikost není k dispozici</CommandEmpty>
+                    <CommandGroup>
+                      {(props.category == "boty" ? shoeSizes : sizes).map(
+                        (size) => (
+                          <CommandItem
+                            key={size.value}
+                            value={size.value}
+                            onSelect={(currentValue) => {
+                              setSelectedSize(
+                                currentValue === selectedSize
+                                  ? ""
+                                  : currentValue
+                              );
+                              setOpen(false);
+                              addToCart(props._id, selectedColor, currentValue);
+                            }}
+                            className="backdrop-background-color-hover text-red-900 hover:!text-red-900"
+                          >
+                            {size.label}
+                            <Check
+                              className={classNames(
+                                "ml-auto",
+                                selectedSize === size.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                          </CommandItem>
+                        )
+                      )}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </CardFooter>
         </div>
       </Card>

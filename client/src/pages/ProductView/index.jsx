@@ -77,7 +77,7 @@ export default function ProductView() {
 
   // dropdown pro velikosti
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   const load = async () => {
     const data = await getProductById(id);
@@ -96,10 +96,20 @@ export default function ProductView() {
   const handleAddItemsToCart = async (productId, color) => {
     // TODO: kvantita
     const quantity = 1;
+    console.log(selectedSize);
+    if (selectedSize === "") {
+      return toast("Zvolte prosím velikost", {
+        action: {
+          label: <X />,
+        },
+      });
+    }
+
     const itemObject = {
       productId: productId,
       quantity: quantity,
       color: color,
+      selectedSize: selectedSize,
     };
     const items = JSON.parse(localStorage.getItem("cart")) || "";
     const newItems = JSON.stringify([...items, itemObject]);
@@ -381,9 +391,9 @@ export default function ProductView() {
                     aria-expanded={open}
                     className="w-full justify-between hover:text-red-900 backdrop-background-color border-red-900/10 backdrop-background-color-hover mb-2"
                   >
-                    {value
+                    {selectedSize
                       ? (product.category == "boty" ? shoeSizes : sizes).find(
-                          (size) => size.value === value
+                          (size) => size.value === selectedSize
                         )?.label
                       : "Vybrat velikost..."}
                     <ChevronsUpDown className="opacity-50" />
@@ -404,8 +414,10 @@ export default function ProductView() {
                               key={size.value}
                               value={size.value}
                               onSelect={(currentValue) => {
-                                setValue(
-                                  currentValue === value ? "" : currentValue
+                                setSelectedSize(
+                                  currentValue === selectedSize
+                                    ? ""
+                                    : currentValue
                                 );
                                 setOpen(false);
                               }}
@@ -415,7 +427,7 @@ export default function ProductView() {
                               <Check
                                 className={classNames(
                                   "ml-auto",
-                                  value === size.value
+                                  selectedSize === size.value
                                     ? "opacity-100"
                                     : "opacity-0"
                                 )}
