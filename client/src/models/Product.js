@@ -3,7 +3,8 @@ export const getAllProducts = async (
   categoryQuery = "",
   brandQuery = "",
   minPriceQuery = "",
-  maxPriceQuery = ""
+  maxPriceQuery = "",
+  pageQuery = ""
 ) => {
   // encodeURIComponent prevede searchQuery na string s + misto mezery a tak
   const req = await fetch(
@@ -13,7 +14,11 @@ export const getAllProducts = async (
       brandQuery
     )}&minprice=${encodeURIComponent(
       minPriceQuery
-    )}&maxprice=${encodeURIComponent(maxPriceQuery)}`,
+    )}&maxprice=${encodeURIComponent(
+      maxPriceQuery
+    )}&pagenumber=${encodeURIComponent(
+      pageQuery
+    )}`,
     {
       headers: {
         Accept: "application/json",

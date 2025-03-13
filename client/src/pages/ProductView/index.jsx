@@ -440,6 +440,14 @@ export default function ProductView() {
                   </Command>
                 </PopoverContent>
               </Popover>
+              <p className="text-sm font-medium mb-2">
+                Skladem: {product.amount}{" "}
+                {product.amount == 1
+                  ? "kus"
+                  : product.amount >= 2 && product.amount <= 4
+                  ? "kusy"
+                  : "kusů"}
+              </p>
               <Button
                 className="bg-red-900 hover:bg-red-950 text-white font-semibold w-full mb-2"
                 onClick={() =>

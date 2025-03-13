@@ -20,7 +20,10 @@ exports.hasCorrectPassword = async (req, res, next) => {
 
 exports.getAllProducts = async (req, res, next) => {
   try {
-    const { search, category, brand, minprice, maxprice } = req.query;
+    // max pocet produktu ktery se budou zobrazovat na jedny strance
+    const pageSize = 32;
+    const { search, category, brand, minprice, maxprice, pagenumber } =
+      req.query;
     let query = {};
     if (search) {
       // $regex - vyhledani podle vzoru
@@ -38,15 +41,25 @@ exports.getAllProducts = async (req, res, next) => {
     const price =
       minprice && maxprice ? { $gt: minprice, $lt: maxprice } : { $type: 16 };
 
-    const data = await Product.find({ ...query, price: price }).sort({
-      name: 1,
-    });
-    if (data && data.length !== 0) {
+    const data = pagenumber
+      ? // hledani s pagination
+        await Product.find({ ...query, price: price })
+          .skip((pagenumber - 1) * pageSize)
+          .limit(pageSize)
+          .sort({
+            name: 1,
+          })
+      : // hledani bez pagination
+        await Product.find({ ...query, price: price }).sort({
+          name: 1,
+        });
+
+    if (data && data.length !== 0)
       return res.status(200).send({
         message: "Products found",
         payload: data,
       });
-    }
+
     res.status(404).send({
       message: "Products not found",
     });
