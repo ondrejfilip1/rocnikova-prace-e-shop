@@ -135,14 +135,14 @@ export default function ProductCreateForm() {
             type="text"
             name="name"
             required
-            placeholder="Zadejte name"
+            placeholder="Zadejte jméno"
             onChange={handleChange}
           />
           <Input
             type="text"
             name="brand"
             required
-            placeholder="Zadejte brand"
+            placeholder="Zadejte značku"
             onChange={handleChange}
           />
           {colorList.map((color, index) => (
@@ -169,14 +169,14 @@ export default function ProductCreateForm() {
             type="number"
             name="price"
             required
-            placeholder="Zadejte price"
+            placeholder="Zadejte cenu"
             onChange={handleChange}
           />
           <Input
             type="text"
             name="category"
             required
-            placeholder="Zadejte category"
+            placeholder="Zadejte kategorii"
             onChange={handleChange}
           />
           <div className="flex gap-2">
@@ -184,7 +184,7 @@ export default function ProductCreateForm() {
               type="text"
               name="imagePath"
               required
-              placeholder="Zadejte imagePath"
+              placeholder="Zadejte cestu k obrázku"
               onChange={handleChange}
               defaultValue={fillImagePath}
             />
@@ -200,6 +200,13 @@ export default function ProductCreateForm() {
               Doplnit
             </Button>
           </div>
+          <Input
+            type="number"
+            name="amount"
+            required
+            placeholder="Zadejte počet kusů na skladě"
+            onChange={handleChange}
+          />
           <Button
             variant="secondary"
             onClick={handlePost}

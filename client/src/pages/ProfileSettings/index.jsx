@@ -88,7 +88,7 @@ export default function ProfileSettings() {
               </div>
             </div>
           </div>
-          {/* TODO */}
+          {/* TODO 
           <div className="flex items-center space-x-2">
             <Checkbox
               id="terms"
@@ -100,7 +100,7 @@ export default function ProfileSettings() {
             >
               Automaticky vyplnit údaje u platby
             </label>
-          </div>
+          </div>*/}
           <div className="flex justify-end">
             <Button
               className="background-button-hover !text-white !bg-red-900 hover:!bg-red-950 gap-1 pl-3"

@@ -61,56 +61,56 @@ import CartItem from "./CartItem";
 const components = [
   {
     title: "Nike",
-    href: "/view-products/boty?search=Nike",
+    href: "/produkty/boty?search=Nike",
     description:
       "Světově proslulá značka sportovního oblečení a obuvi, která kombinuje inovaci, styl a výkonnost.",
     iconPath: Nike,
   },
   {
     title: "Adidas",
-    href: "/view-products/boty?search=Adidas",
+    href: "/produkty/boty?search=Adidas",
     description:
       "Přední značka sportovní módy známá svými ikonickými třemi pruhy a prvotřídní kvalitou.",
     iconPath: Adidas,
   },
   {
     title: "Tommy Hilfiger",
-    href: "/view-products/boty?search=Tommy+Hilfiger",
+    href: "/produkty/boty?search=Tommy+Hilfiger",
     description:
       "Luxusní značka známá svým nadčasovým designem a americkým stylem.",
     iconPath: TommyHilfiger,
   },
   {
     title: "Vans",
-    href: "/view-products/boty?search=Vans",
+    href: "/produkty/boty?search=Vans",
     description:
       "Legendární značka pro milovníky streetwearu a skateboardingu, která přináší stylové a pohodlné kousky.",
     iconPath: Vans,
   },
   {
     title: "Jordan",
-    href: "/view-products/boty?search=Jordan",
+    href: "/produkty/boty?search=Jordan",
     description:
       "Prémiová sportovní značka inspirovaná legendárním Michaelem Jordanem, zaměřená na basketbalovou obuv a módu.",
     iconPath: Jordan,
   },
   {
     title: "Puma",
-    href: "/view-products/boty?search=Puma",
+    href: "/produkty/boty?search=Puma",
     description:
       "Dynamická značka spojující sportovní výkon a trendy design, ideální pro aktivní životní styl.",
     iconPath: Puma,
   },
   {
     title: "Reebok",
-    href: "/view-products/boty?search=Reebok",
+    href: "/produkty/boty?search=Reebok",
     description:
       "Ikonická značka s důrazem na fitness, sportovní oblečení a inovativní technologie.",
     iconPath: Reebok,
   },
   {
     title: "Skechers",
-    href: "/view-products/boty?search=Skechers",
+    href: "/produkty/boty?search=Skechers",
     description:
       "Populární značka obuvi zaměřená na pohodlí, funkčnost a moderní design.",
     iconPath: Skechers,
@@ -171,7 +171,7 @@ export default function Header({ onSearch }) {
   };
 
   const handleNavigate = (link) => {
-    useNavigate(`/view-products/${link}`, {
+    useNavigate(`/produkty/${link}`, {
       replace: true,
     });
   };
@@ -392,37 +392,37 @@ export default function Header({ onSearch }) {
                     >
                       {/* ZJEDNODUSIT!!!!!!!! */}
                       <Link
-                        to="/view-products/mikiny"
+                        to="/produkty/mikiny"
                         onClick={() => handleNavigate("mikiny")}
                       >
                         Mikiny
                       </Link>
                       <Link
-                        to="/view-products/tricka"
+                        to="/produkty/tricka"
                         onClick={() => handleNavigate("tricka")}
                       >
                         Trička
                       </Link>
                       <Link
-                        to="/view-products/bundy"
+                        to="/produkty/bundy"
                         onClick={() => handleNavigate("bundy")}
                       >
                         Bundy
                       </Link>
                       <Link
-                        to="/view-products/dziny"
+                        to="/produkty/dziny"
                         onClick={() => handleNavigate("dziny")}
                       >
                         Džíny
                       </Link>
                       <Link
-                        to="/view-products/kalhoty"
+                        to="/produkty/kalhoty"
                         onClick={() => handleNavigate("kalhoty")}
                       >
                         Kalhoty
                       </Link>
                       <Link
-                        to="/view-products/plavky"
+                        to="/produkty/plavky"
                         onClick={() => handleNavigate("plavky")}
                       >
                         Plavky
@@ -435,37 +435,37 @@ export default function Header({ onSearch }) {
                       )}
                     >
                       <Link
-                        to="/view-products/svetry"
+                        to="/produkty/svetry"
                         onClick={() => handleNavigate("svetry")}
                       >
                         Svetry
                       </Link>
                       <Link
-                        to="/view-products/pradlo"
+                        to="/produkty/pradlo"
                         onClick={() => handleNavigate("pradlo")}
                       >
                         Prádlo
                       </Link>
                       <Link
-                        to="/view-products/obleky"
+                        to="/produkty/obleky"
                         onClick={() => handleNavigate("obleky")}
                       >
                         Obleky
                       </Link>
                       <Link
-                        to="/view-products/smokingy"
+                        to="/produkty/smokingy"
                         onClick={() => handleNavigate("smokingy")}
                       >
                         Smokingy
                       </Link>
                       <Link
-                        to="/view-products/kosile"
+                        to="/produkty/kosile"
                         onClick={() => handleNavigate("kosile")}
                       >
                         Košile
                       </Link>
                       <Link
-                        to="/view-products/kabaty"
+                        to="/produkty/kabaty"
                         onClick={() => handleNavigate("kabaty")}
                       >
                         Kabáty
@@ -499,11 +499,11 @@ export default function Header({ onSearch }) {
                     ))}
                     <Link
                       onClick={() =>
-                        useNavigate("/view-products/boty?category=boty", {
+                        useNavigate("/produkty/boty", {
                           replace: true,
                         })
                       }
-                      to="/view-products/boty?category=boty"
+                      to="/produkty/boty"
                       className="text-sm font-medium ml-3 flex items-center gap-0.5"
                     >
                       Zobrazit vše
@@ -530,7 +530,7 @@ export default function Header({ onSearch }) {
           </NavigationMenu>
           <div className="flex items-center text-sm relative">
             <Link
-              to={`/view-products?search=${searchQuery}`}
+              to={`/produkty?search=${searchQuery}`}
               className={classnames(
                 "text-red-900 absolute left-3 top-5 transform -translate-y-1/2",
                 s.search_icon
@@ -548,7 +548,7 @@ export default function Header({ onSearch }) {
               // kdyz zmacknu enter tak to vyhleda produkty podle jmena
               onKeyPress={(e) =>
                 e.charCode == 13 && !onSearch
-                  ? navigate(`/view-products?search=${searchQuery}`, {
+                  ? navigate(`/produkty?search=${searchQuery}`, {
                       replace: true,
                     })
                   : false

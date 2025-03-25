@@ -140,7 +140,6 @@ export default function ProductList(props) {
   return (
     <>
       <div className="background pb-[1px]">
-        {/* tak tohle vubec nechapu */}
         <Header onSearch={(query) => setSearchQuery(query)} />
         <div className="mt-3.5" />
         <SidebarProvider
@@ -185,7 +184,7 @@ export default function ProductList(props) {
             <div className="flex flex-wrap justify-center gap-6">
               {isLoaded === null && (
                 <NotFound
-                  link={`/view-products/${props.category}?category=${props.category}`}
+                  link={`/produkty/${props.category}`}
                   content="Zobrazit produkty"
                   description="Produkty nebyly nalezeny"
                 />

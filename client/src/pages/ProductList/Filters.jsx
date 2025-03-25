@@ -37,7 +37,7 @@ export default function Filters(props) {
       });
       let priceQuery =
         "&minprice=" + sliderValue[0] + "&maxprice=" + sliderValue[1];
-      navigate(`/view-products${categoryQuery}${brandQuery}${priceQuery}`, {
+      navigate(`/produkty${categoryQuery}${brandQuery}${priceQuery}`, {
         replace: true,
       });
     }

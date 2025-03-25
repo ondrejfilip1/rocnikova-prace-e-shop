@@ -67,6 +67,16 @@ export default function ProductUpdateForm() {
     updateForm();
   };
 
+  /*
+  // nastavi nahodne cislo poctu kusu na sklade
+  const randomNumber = (e) => {
+    const min = 1;
+    const max = 100;
+    const rand = min + Math.random() * (max - min);
+    e.target.value = Math.floor(rand);
+    handleChange(e);
+  }*/
+
   useEffect(() => {
     load();
     document.title = "Pigress - Admin panel";
@@ -103,7 +113,7 @@ export default function ProductUpdateForm() {
             name="name"
             defaultValue={product.name}
             required
-            placeholder="Zadejte name"
+            placeholder="Zadejte jméno"
             onChange={handleChange}
           />
           <Input
@@ -111,7 +121,7 @@ export default function ProductUpdateForm() {
             name="brand"
             defaultValue={product.brand}
             required
-            placeholder="Zadejte brand"
+            placeholder="Zadejte značku"
             onChange={handleChange}
           />
           {colorList.map((color, index) => (
@@ -142,7 +152,7 @@ export default function ProductUpdateForm() {
             name="price"
             defaultValue={product.price}
             required
-            placeholder="Zadejte price"
+            placeholder="Zadejte cenu"
             onChange={handleChange}
           />
           <Input
@@ -150,7 +160,7 @@ export default function ProductUpdateForm() {
             name="category"
             defaultValue={product.category}
             required
-            placeholder="Zadejte category"
+            placeholder="Zadejte kategorii"
             onChange={handleChange}
           />
           <Input
@@ -158,8 +168,17 @@ export default function ProductUpdateForm() {
             name="imagePath"
             defaultValue={product.imagePath}
             required
-            placeholder="Zadejte imagePath"
+            placeholder="Zadejte cestu k obrázku"
             onChange={handleChange}
+          />
+          <Input
+            type="number"
+            name="amount"
+            required
+            placeholder="Zadejte počet kusů na skladě"
+            defaultValue={product.amount}
+            onChange={handleChange}
+            //onClick={randomNumber}
           />
           <Button
             variant="secondary"

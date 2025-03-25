@@ -137,6 +137,7 @@ exports.createProduct = async (req, res, next) => {
         price: req.body.price,
         category: req.body.category,
         imagePath: req.body.imagePath,
+        amount: req.body.amount,
       });
       const result = await data.save();
       if (result) {
@@ -169,6 +170,7 @@ exports.updateProduct = async (req, res, next) => {
         price: req.body.price,
         category: req.body.category,
         imagePath: req.body.imagePath,
+        amount: req.body.amount,
       };
       const result = await Product.findByIdAndUpdate(req.params.id, data);
       if (result) {

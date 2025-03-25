@@ -172,7 +172,7 @@ export default function Orders() {
                   <div>{totalPrice} Kč</div>
                 </div>
                 <div className="flex justify-between items-center mb-4">
-                  <Link to="/view-products">
+                  <Link to="/produkty">
                     <Button
                       className="background-button-hover !text-red-900 gap-1 pl-3"
                       variant="ghost"

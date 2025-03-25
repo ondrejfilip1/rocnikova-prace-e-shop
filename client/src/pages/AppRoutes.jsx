@@ -32,60 +32,60 @@ export default function AppRoutes() {
           <Route path="/admin/product-list" element={<AdminProductList />} />
 
           <Route
-            path="/view-products"
+            path="/produkty"
             element={<ProductList name="Všechny produkty" category="" />}
           />
 
           <Route
-            path="/view-products/boty"
+            path="/produkty/boty"
             element={<ProductList name="Boty" category="boty" />}
           />
           <Route
-            path="/view-products/mikiny"
+            path="/produkty/mikiny"
             element={<ProductList name="Mikiny" category="mikiny" />}
           />
           <Route
-            path="/view-products/tricka"
+            path="/produkty/tricka"
             element={<ProductList name="Trička" category="tricka" />}
           />
           <Route
-            path="/view-products/bundy"
+            path="/produkty/bundy"
             element={<ProductList name="Bundy" category="bundy" />}
           />
           <Route
-            path="/view-products/dziny"
+            path="/produkty/dziny"
             element={<ProductList name="Džíny" category="dziny" />}
           />
           <Route
-            path="/view-products/kalhoty"
+            path="/produkty/kalhoty"
             element={<ProductList name="Kalhoty" category="kalhoty" />}
           />
           <Route
-            path="/view-products/plavky"
+            path="/produkty/plavky"
             element={<ProductList name="Plavky" category="plavky" />}
           />
           <Route
-            path="/view-products/svetry"
+            path="/produkty/svetry"
             element={<ProductList name="Svetry" category="svetry" />}
           />
           <Route
-            path="/view-products/pradlo"
+            path="/produkty/pradlo"
             element={<ProductList name="Prádlo" category="pradlo" />}
           />
           <Route
-            path="/view-products/obleky"
+            path="/produkty/obleky"
             element={<ProductList name="Obleky" category="obleky" />}
           />
           <Route
-            path="/view-products/smokingy"
+            path="/produkty/smokingy"
             element={<ProductList name="Smokingy" category="smokingy" />}
           />
           <Route
-            path="/view-products/kosile"
+            path="/produkty/kosile"
             element={<ProductList name="Košile" category="kosile" />}
           />
           <Route
-            path="/view-products/kabaty"
+            path="/produkty/kabaty"
             element={<ProductList name="Kabáty" category="kabaty" />}
           />
 

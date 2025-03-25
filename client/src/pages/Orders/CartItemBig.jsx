@@ -63,7 +63,8 @@ export default function CartItemBig({
   };
 
   const handleQuantity = async (add) => {
-    if ((quantity < 30 && add) || (quantity > 1 && !add)) {
+    // maximalni kvantita je podle poctu kusu na sklade
+    if ((quantity < product.amount && add) || (quantity > 1 && !add)) {
       const newQuantity = add ? quantity + 1 : quantity - 1;
       setQuantity(newQuantity);
       const updatedCartItem = JSON.parse(localStorage.getItem("cart")).map(

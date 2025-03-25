@@ -280,7 +280,7 @@ export default function ProductView() {
               <BreadcrumbList className="text-red-900 hover:!text-red-950 opacity-50 font-medium">
                 <BreadcrumbItem>
                   <BreadcrumbLink
-                    href={`/view-products/${product.category}?category=${product.category}`}
+                    href={`/produkty/${product.category}`}
                     className="hover:text-red-950"
                   >
                     {categoriesTranslated[product.category]}
@@ -289,7 +289,7 @@ export default function ProductView() {
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink
-                    href={`/view-products/${product.category}?category=${product.category}&search=${product.name}`}
+                    href={`/produkty/${product.category}?category=${product.category}&search=${product.name}`}
                     className="hover:text-red-950"
                   >
                     {product.name}
@@ -457,7 +457,7 @@ export default function ProductView() {
                 Přidat do košíku
               </Button>
               <Link
-                to={`/view-products/${product.category}?category=${product.category}`}
+                to={`/produkty/${product.category}`}
               >
                 <Button
                   className="background-button-hover !text-red-900 gap-1 pl-3"
