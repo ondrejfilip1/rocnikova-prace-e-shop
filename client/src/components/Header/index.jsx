@@ -344,6 +344,7 @@ export default function Header({ onSearch }) {
                   <Star />
                   <span>Trendy</span>
                 </DropdownMenuItem>
+                <Link to="/platby">
                 <DropdownMenuItem
                   className={classnames(
                     "background-button-hover font-medium",
@@ -352,7 +353,7 @@ export default function Header({ onSearch }) {
                 >
                   <CreditCard />
                   <span>Platby</span>
-                </DropdownMenuItem>
+                </DropdownMenuItem></Link>
                 <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
                 <Link to="/settings">
                   <DropdownMenuItem

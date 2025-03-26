@@ -15,6 +15,12 @@ export default function Completion() {
     if (query && redirectStatus === "succeeded" && paymentIntent) {
       localStorage.removeItem("cart");
       window.dispatchEvent(new Event("totalItemsUpdate"));
+      const items = JSON.parse(localStorage.getItem("payments")) || "";
+      if (!items.includes(paymentIntent)) {
+              const newItems = JSON.stringify([...items, paymentIntent]);
+      localStorage.setItem("payments", newItems) || "[]";
+      }
+
     }
   }, []);
   return (

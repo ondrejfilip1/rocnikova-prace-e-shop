@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function NotFound(props) {
   return (
     <>
-      <div className="flex flex-col justify-center items-center text-center absolute top-1/2 transform -translate-y-1/2">
+      <div className="container mx-auto flex-col px-2 text-red-900 placeholder-min-h-screen text-center flex items-center justify-center">
         <h1 className="text-red-900 text-2xl mb-1.5 font-bold">404</h1>
         <h1 className="text-red-900">{props.description}</h1>
         <Link

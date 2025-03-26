@@ -14,6 +14,7 @@ export default function ProductUpdateForm() {
   const [isLoaded, setLoaded] = useState();
   const [info, setInfo] = useState();
   const [formData, setFormData] = useState();
+  const [status, setStatus] = useState("");
   const [hasPassword, setHasPassword] = useState(
     localStorage.getItem("adminPassword")
   );
@@ -51,6 +52,7 @@ export default function ProductUpdateForm() {
   const updateForm = async () => {
     const data = await updateProduct(id, formData);
     if (data.status === 200) return navigate(`/product/${id}`);
+    else setStatus("error");
     setInfo(data.message);
   };
 

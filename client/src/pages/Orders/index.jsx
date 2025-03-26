@@ -72,7 +72,8 @@ export default function Orders() {
   };
 
   const loadPaymentIntent = async () => {
-    const paymentIntent = await createPaymentIntent(totalPrice * 100);
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const paymentIntent = await createPaymentIntent(cart);
     if (paymentIntent.status === 200)
       setClientSecret(paymentIntent.clientSecret);
   };

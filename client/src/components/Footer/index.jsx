@@ -35,7 +35,7 @@ export default function Footer() {
             <Link to="/about" className={styles.link}>
               O nás
             </Link>
-            <Link to="/view-products" className={styles.link}>
+            <Link to="/produkty" className={styles.link}>
               Produkty
             </Link>
             <Link to="/" className={styles.link}>

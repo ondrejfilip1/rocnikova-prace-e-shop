@@ -1,6 +1,10 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Obrazek1 from "../../assets/images/about/nature.jpg";
+import Obrazek2 from "../../assets/images/about/customers.jpg";
+import Obrazek3 from "../../assets/images/about/sustainability.jpg";
+import Obrazek4 from "../../assets/images/about/clothes.jpg";
+import Obrazek5 from "../../assets/images/about/logo.png";
 import * as motion from "motion/react-client";
 import s from "./About.module.css";
 import classNames from "classnames";
@@ -30,7 +34,7 @@ export default function About() {
             <div className="w-1/2 flex justify-center flex-col items-center">
               <div className={classNames("w-1/2 relative", s.animation_shadow)}>
                 <img
-                  src={Obrazek1}
+                  src={Obrazek5}
                   alt=""
                   className="rounded-xl aspect-[2/3] object-cover border-[3px] border-red-300 relative z-[1]"
                 />
@@ -88,7 +92,7 @@ export default function About() {
             <div className="w-1/2 flex justify-center flex-col items-center">
               <div className={classNames("w-1/2 relative", s.animation_shadow)}>
                 <img
-                  src={Obrazek1}
+                  src={Obrazek4}
                   alt=""
                   className="rounded-xl aspect-[2/3] object-cover border-[3px] border-red-300 relative z-[1]"
                 />
@@ -105,7 +109,7 @@ export default function About() {
             <div className="w-1/2 flex justify-center flex-col items-center">
               <div className={classNames("w-1/2 relative", s.animation_shadow)}>
                 <img
-                  src={Obrazek1}
+                  src={Obrazek2}
                   alt=""
                   className="rounded-xl aspect-[2/3] object-cover border-[3px] border-red-300 relative z-[1]"
                 />
@@ -147,7 +151,7 @@ export default function About() {
             <div className="w-1/2 flex justify-center flex-col items-center">
               <div className={classNames("w-1/2 relative", s.animation_shadow)}>
                 <img
-                  src={Obrazek1}
+                  src={Obrazek3}
                   alt=""
                   className="rounded-xl aspect-[2/3] object-cover border-[3px] border-red-300 relative z-[1]"
                 />
