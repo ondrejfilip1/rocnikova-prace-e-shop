@@ -24,7 +24,6 @@ export default function Checkout(props) {
         return_url: `${window.location.origin}/completion`,
       },
     });
-    
 
     if (error.type === "card_error" || error.type === "validation_error")
       setMessage(error.message);
@@ -37,8 +36,11 @@ export default function Checkout(props) {
     <>
       <div className="text-red-900 text-sm container mx-auto lg:max-w-screen-lg font-medium my-2 flex flex-col justify-center">
         <form id="payment-form" onSubmit={handleSubmit}>
-          <PaymentElement className="font-manrope-important" onLoaderStart={() => setPaymentLoaded(true)} />
-          {(!isPaymentLoaded) ? (
+          <PaymentElement
+            className="font-manrope-important"
+            onLoaderStart={() => setPaymentLoaded(true)}
+          />
+          {!isPaymentLoaded ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={30}
@@ -54,74 +56,6 @@ export default function Checkout(props) {
               <path d="M21 12a9 9 0 1 1-6.219-8.56" />
             </svg>
           ) : null}
-
-          {/*
-          <div className="flex w-full items-center gap-5 mb-3">
-            <div className="w-full items-center gap-1.5">
-              <Label htmlFor="email">Jméno</Label>
-              <div className="relative">
-                <User className={inputStyles.icons} />
-                <Input
-                  type="text"
-                  id="firstName"
-                  className={inputStyles.styles}
-                />
-              </div>
-            </div>
-            <div className="w-full items-center gap-1.5">
-              <Label htmlFor="email">Příjmení</Label>
-              <div className="relative">
-                <User className={inputStyles.icons} />
-                <Input
-                  type="text"
-                  id="lastName"
-                  className={inputStyles.styles}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex w-full items-center gap-5 mb-3">
-            <div className="w-full items-center gap-1.5">
-              <Label htmlFor="email">
-                Email
-                <span className="float-right opacity-50">(nepovinné)</span>
-              </Label>
-              <div className="relative">
-                <Mail className={inputStyles.icons} />
-                <Input type="email" id="email" className={inputStyles.styles} />
-              </div>
-            </div>
-            <div className="w-full items-center gap-1.5">
-              <Label htmlFor="email">Telefonní číslo</Label>
-              <div className="relative">
-                <Phone className={inputStyles.icons} />
-                <Input
-                  type="number"
-                  id="email"
-                  className={inputStyles.styles}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex w-full items-center gap-5 mb-3">
-            <div className="w-full items-center gap-1.5">
-              <Label htmlFor="email">Adresa</Label>
-              <div className="relative">
-                <House className={inputStyles.icons} />
-                <Input type="email" id="email" className={inputStyles.styles} />
-              </div>
-            </div>
-          </div>
-          <div className="flex w-full items-center gap-5 mb-3">
-            <div className="w-full items-center gap-1.5">
-              <Label htmlFor="email">Město</Label>
-              <div className="relative">
-                <Building2 className={inputStyles.icons} />
-                <Input type="email" id="email" className={inputStyles.styles} />
-              </div>
-            </div>
-          </div>
-          */}
 
           <div className="flex justify-between items-center mx-4 text-sm text-red-900/75 mt-5">
             <div>Cena bez DPH</div>

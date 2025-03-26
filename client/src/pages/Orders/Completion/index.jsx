@@ -15,12 +15,13 @@ export default function Completion() {
     if (query && redirectStatus === "succeeded" && paymentIntent) {
       localStorage.removeItem("cart");
       window.dispatchEvent(new Event("totalItemsUpdate"));
-      const items = JSON.parse(localStorage.getItem("payments")) || "";
-      if (!items.includes(paymentIntent)) {
-              const newItems = JSON.stringify([...items, paymentIntent]);
-      localStorage.setItem("payments", newItems) || "[]";
-      }
 
+      const payments = JSON.parse(localStorage.getItem("payments")) || "";
+      // jestli "payments" uz v sobe nemaji stejny paymentIntent
+      if (!payments.includes(paymentIntent)) {
+        const paymentsNew = JSON.stringify([...payments, paymentIntent]);
+        localStorage.setItem("payments", paymentsNew) || "[]";
+      }
     }
   }, []);
   return (
