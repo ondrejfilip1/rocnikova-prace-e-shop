@@ -191,4 +191,8 @@ export const brandsList = [
     id: "mango_man",
     label: "Mango Man",
   },
+  {
+    id: "hugo",
+    label: "Hugo",
+  },
 ];

@@ -13,7 +13,12 @@ import s from "./ProductList.module.css";
 import classNames from "classnames";
 import { ShoppingCart, Heart, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { colors, colorsTranslated, shoeSizes, sizes } from "@/components/constants";
+import {
+  colors,
+  colorsTranslated,
+  shoeSizes,
+  sizes,
+} from "@/components/constants";
 import {
   Tooltip,
   TooltipContent,
@@ -148,12 +153,14 @@ export default function ProductLink(props) {
           </Tooltip>
         </TooltipProvider>
         <Link to={`/product/${props._id}`} className={s.image_fix}>
-          <img
-            src={`${props.imagePath}front_${colors[selectedColor]}.avif`}
-            alt={props.name}
-            className="rounded-md border border-transparent my-6 mx-auto px-6 aspect-video object-contain object-center select-none"
-            draggable="false"
-          />
+          <div className="relative w-full aspect-video my-6">
+            <img
+              src={`${props.imagePath}front_${colors[selectedColor]}.avif`}
+              alt={props.name}
+              className="absolute inset-0 w-full px-6 h-full object-contain object-center select-none"
+              draggable="false"
+            />
+          </div>
         </Link>
         <div>
           <CardContent className="text-red-900 text-center flex justify-center flex-col px-6 py-0">

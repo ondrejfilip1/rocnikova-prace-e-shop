@@ -22,7 +22,7 @@ exports.getAllProducts = async (req, res, next) => {
   try {
     // max pocet produktu ktery se budou zobrazovat na jedny strance
     const pageSize = 32;
-    const { search, category, brand, minprice, maxprice, pagenumber } =
+    const { search, category, brand, minprice, maxprice, page } =
       req.query;
     let query = {};
     if (search) {
@@ -41,10 +41,10 @@ exports.getAllProducts = async (req, res, next) => {
     const price =
       minprice && maxprice ? { $gt: minprice, $lt: maxprice } : { $type: 16 };
 
-    const data = pagenumber
+    const data = page
       ? // hledani s pagination
         await Product.find({ ...query, price: price })
-          .skip((pagenumber - 1) * pageSize)
+          .skip((page - 1) * pageSize)
           .limit(pageSize)
           .sort({
             name: 1,

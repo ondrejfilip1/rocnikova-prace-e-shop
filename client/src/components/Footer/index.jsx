@@ -23,7 +23,7 @@ export default function Footer() {
       </div>
 
       <div className="text-red-900 font-medium flex container lg:max-w-[1024px] sm:px-0 px-4 mx-auto mb-8">
-        <div className="w-1/2">
+        <div className="w-1/2 ml-2">
           <div className="mb-2 mt-6 flex gap-1">
             <span>Odkazy</span>
             <LinkIcon className="p-1" />

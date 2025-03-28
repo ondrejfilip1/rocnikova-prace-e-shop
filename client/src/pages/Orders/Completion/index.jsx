@@ -5,6 +5,7 @@ import NotFound from "@/components/NotFound";
 import { useEffect } from "react";
 import s from "./Completion.module.css";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 export default function Completion() {
   const query = new URLSearchParams(location.search);
@@ -24,6 +25,10 @@ export default function Completion() {
       }
     }
   }, []);
+
+  const styles = {
+    link: "text-sm relative inline-block w-fit after:block after:h-[1px] after:content-[''] after:absolute after:bg-red-900/50 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-bottom-right hover:after:origin-bottom-left",
+  };
   return (
     <>
       <div className="background">
@@ -42,10 +47,9 @@ export default function Completion() {
                 Děkujeme, že jste u nás nakupovali
               </p>
               <div className="absolute bottom-0">
-                <p className="text-center text-sm mb-1 font-medium">
-                  ID platby
+                <p className="text-center text-sm mb-1 font-normal">
+                  Vaše platby naleznete <Link to="/platby" className={classNames(styles.link, "font-bold")}>zde</Link>.
                 </p>
-                <p className="text-center text-xs">{paymentIntent}</p>
               </div>
             </div>
           </>

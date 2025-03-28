@@ -85,7 +85,7 @@ export default function ProductList(props) {
     const queryParam3 = query.get("brand") || "";
     const queryParam4 = query.get("minprice") || "";
     const queryParam5 = query.get("maxprice") || "";
-    const queryParam6 = query.get("pagenumber") || "";
+    const queryParam6 = query.get("page") || "";
     setPageNumber(queryParam6);
     if (
       searchQuery ||
@@ -205,8 +205,8 @@ export default function ProductList(props) {
                   to={
                     location.pathname +
                     location.search.replace(
-                      `pagenumber=${parseInt(pageNumber)}`,
-                      `pagenumber=${parseInt(pageNumber) - 1}`
+                      `page=${parseInt(pageNumber)}`,
+                      `page=${parseInt(pageNumber) - 1}`
                     )
                   }
                   className={
@@ -229,8 +229,8 @@ export default function ProductList(props) {
                   to={
                     location.pathname +
                     location.search.replace(
-                      `pagenumber=${parseInt(pageNumber)}`,
-                      `pagenumber=${parseInt(pageNumber) + 1}`
+                      `page=${parseInt(pageNumber)}`,
+                      `page=${parseInt(pageNumber) + 1}`
                     )
                   }
                   className={totalProducts < 32 ? "pointer-events-none" : ""}

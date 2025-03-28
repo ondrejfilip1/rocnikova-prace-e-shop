@@ -234,3 +234,10 @@ div#root {
   backdrop-filter: blur(16px);
   border-color: transparent;
 }
+
+/* Cinsky fix pro firefox */
+@supports (-moz-appearance: none) {
+  .firefox-fix {
+    @apply pb-0 md:pb-10;
+  }
+}

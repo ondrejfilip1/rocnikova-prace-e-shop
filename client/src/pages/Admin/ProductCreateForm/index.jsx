@@ -129,7 +129,15 @@ export default function ProductCreateForm() {
     <>
       <DialogWarning pass={hasPassword} />
       <div className="container px-2 mx-auto">
-        <h1 className="my-3 text-2xl">Vytvořit produkt</h1>
+        <div className="flex justify-between items-center my-3">
+          <h1 className="text-2xl">Vytvořit produkt</h1>
+          <Link to={"/admin"}>
+            <Button variant="outline" className="gap-1 pl-3">
+              <ChevronLeft />
+              <span>Jít zpět</span>
+            </Button>
+          </Link>
+        </div>
         <form className="flex flex-col gap-2">
           <Input
             type="text"
@@ -215,12 +223,6 @@ export default function ProductCreateForm() {
             <span>Přidat produkt</span>
           </Button>
         </form>
-        <Link to={"/admin"}>
-          <Button variant="secondary" className="gap-1 pl-3">
-            <ChevronLeft />
-            <span>Jít zpět</span>
-          </Button>
-        </Link>
       </div>
       <Toaster
         position="bottom-right"

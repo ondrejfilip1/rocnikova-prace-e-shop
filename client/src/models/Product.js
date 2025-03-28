@@ -16,7 +16,7 @@ export const getAllProducts = async (
       minPriceQuery
     )}&maxprice=${encodeURIComponent(
       maxPriceQuery
-    )}&pagenumber=${encodeURIComponent(
+    )}&page=${encodeURIComponent(
       pageQuery
     )}`,
     {
