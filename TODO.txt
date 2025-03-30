@@ -1,9 +1,7 @@
 ✅TODO:
 
- - Hledání pomocí filtru (cena, značka atd.)
- - Přejmenovat URL cesty v AppRoutes na české názvy
  - Přidat další produkty
- - Změnit prokliky na značky bot (nyní je vyhledávání pomocí jména)
+ - Stripe metadata limit (asi budu muset odebrat zobrazení košíku v platbách)
 
 Hotovo:
  - Fixnout, když vymažu item v košíku, aby se změnila celková cena
@@ -11,3 +9,6 @@ Hotovo:
  - Podrobná stránka pro jednotlivé produkty (když je rozkliknu)
  - Get by category (pro produkty)
  - Fixnout errory ve filtru při mobilní šířce stránky
+ - Změnit prokliky na značky bot (nyní je vyhledávání pomocí jména)
+ - Přejmenovat URL cesty v AppRoutes na české názvy
+ - Hledání pomocí filtru (cena, značka atd.)

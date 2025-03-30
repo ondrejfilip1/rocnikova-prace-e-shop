@@ -61,56 +61,56 @@ import CartItem from "./CartItem";
 const components = [
   {
     title: "Nike",
-    href: "/produkty/boty?search=Nike",
+    href: "/produkty/boty?brand=nike",
     description:
       "Světově proslulá značka sportovního oblečení a obuvi, která kombinuje inovaci, styl a výkonnost.",
     iconPath: Nike,
   },
   {
     title: "Adidas",
-    href: "/produkty/boty?search=Adidas",
+    href: "/produkty/boty?brand=adidas",
     description:
       "Přední značka sportovní módy známá svými ikonickými třemi pruhy a prvotřídní kvalitou.",
     iconPath: Adidas,
   },
   {
     title: "Tommy Hilfiger",
-    href: "/produkty/boty?search=Tommy+Hilfiger",
+    href: "/produkty/boty?brand=tommy_hilfiger",
     description:
       "Luxusní značka známá svým nadčasovým designem a americkým stylem.",
     iconPath: TommyHilfiger,
   },
   {
     title: "Vans",
-    href: "/produkty/boty?search=Vans",
+    href: "/produkty/boty?brand=vans",
     description:
       "Legendární značka pro milovníky streetwearu a skateboardingu, která přináší stylové a pohodlné kousky.",
     iconPath: Vans,
   },
   {
     title: "Jordan",
-    href: "/produkty/boty?search=Jordan",
+    href: "/produkty/boty?brand=jordan",
     description:
       "Prémiová sportovní značka inspirovaná legendárním Michaelem Jordanem, zaměřená na basketbalovou obuv a módu.",
     iconPath: Jordan,
   },
   {
     title: "Puma",
-    href: "/produkty/boty?search=Puma",
+    href: "/produkty/boty?brand=puma",
     description:
       "Dynamická značka spojující sportovní výkon a trendy design, ideální pro aktivní životní styl.",
     iconPath: Puma,
   },
   {
     title: "Reebok",
-    href: "/produkty/boty?search=Reebok",
+    href: "/produkty/boty?brand=reebok",
     description:
       "Ikonická značka s důrazem na fitness, sportovní oblečení a inovativní technologie.",
     iconPath: Reebok,
   },
   {
     title: "Skechers",
-    href: "/produkty/boty?search=Skechers",
+    href: "/produkty/boty?brand=skechers",
     description:
       "Populární značka obuvi zaměřená na pohodlí, funkčnost a moderní design.",
     iconPath: Skechers,

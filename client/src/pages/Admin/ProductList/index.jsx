@@ -22,7 +22,8 @@ export default function AdminProductList() {
   };
 
   useEffect(() => {
-    load();
+    if (hasPassword) load();
+    else setLoaded(true);
     document.title = "Pigress - Admin panel";
   }, []);
 
@@ -48,23 +49,25 @@ export default function AdminProductList() {
   return (
     <>
       <DialogWarning pass={hasPassword} />
-      <div className="container mx-auto px-2">
-        <div className="flex justify-between items-center my-3">
-          <h1 className=" text-2xl">List produktů</h1>
-          <Link to={"/admin"}>
-            <Button variant="outline" className="gap-1 pl-3">
-              <ChevronLeft />
-              <span>Jít zpět</span>
-            </Button>
-          </Link>
+      {hasPassword && (
+        <div className="container mx-auto px-2">
+          <div className="flex justify-between items-center my-3">
+            <h1 className=" text-2xl">List produktů</h1>
+            <Link to={"/admin"}>
+              <Button variant="outline" className="gap-1 pl-3">
+                <ChevronLeft />
+                <span>Jít zpět</span>
+              </Button>
+            </Link>
+          </div>
+          <div className="my-2 h-[1px] bg-black/10" />
+          {products.map((product, index) => (
+            <Fragment key={index}>
+              <ProductBox {...product} />
+            </Fragment>
+          ))}
         </div>
-        <div className="my-2 h-[1px] bg-black/10" />
-        {products.map((product, index) => (
-          <Fragment key={index}>
-            <ProductBox {...product} />
-          </Fragment>
-        ))}
-      </div>
+      )}
     </>
   );
 }

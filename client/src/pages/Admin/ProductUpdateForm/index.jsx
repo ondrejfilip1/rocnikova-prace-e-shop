@@ -208,15 +208,8 @@ export default function ProductUpdateForm() {
             <span>Upravit produkt</span>
           </Button>
         </form>
-        <div className="flex flex-col gap-2">
-          <Link to={"/admin"}>
-            <Button variant="secondary" className="gap-1 pl-3">
-              <ChevronLeft />
-              <span>Jít zpět</span>
-            </Button>
-          </Link>
-          <p>{info}</p>
-        </div>
+
+        <p>{info}</p>
       </div>
       <Toaster
         position="bottom-right"
