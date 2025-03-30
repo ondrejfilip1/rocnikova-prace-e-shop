@@ -2,6 +2,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, Fragment } from "react";
 import { updateProduct, getProductById } from "../../../models/Product";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { colorList, colorsTranslated } from "@/components/constants";
 import { ChevronLeft, KeyRound } from "lucide-react";
@@ -118,6 +119,7 @@ export default function ProductUpdateForm() {
           </Link>
         </div>
         <form className="flex flex-col gap-2">
+          <Label className="text-xs text-neutral-500">Jméno</Label>
           <Input
             type="text"
             name="name"
@@ -126,6 +128,7 @@ export default function ProductUpdateForm() {
             placeholder="Zadejte jméno"
             onChange={handleChange}
           />
+          <Label className="text-xs text-neutral-500">Značka</Label>
           <Input
             type="text"
             name="brand"
@@ -134,6 +137,7 @@ export default function ProductUpdateForm() {
             placeholder="Zadejte značku"
             onChange={handleChange}
           />
+          <Label className="text-xs text-neutral-500">Barvy</Label>
           {colorList.map((color, index) => (
             <Fragment key={index}>
               <div className="flex gap-2 items-center">
@@ -157,6 +161,7 @@ export default function ProductUpdateForm() {
               </div>
             </Fragment>
           ))}
+          <Label className="text-xs text-neutral-500">Cena</Label>
           <Input
             type="number"
             name="price"
@@ -165,6 +170,7 @@ export default function ProductUpdateForm() {
             placeholder="Zadejte cenu"
             onChange={handleChange}
           />
+          <Label className="text-xs text-neutral-500">Kategorie</Label>
           <Input
             type="text"
             name="category"
@@ -173,6 +179,7 @@ export default function ProductUpdateForm() {
             placeholder="Zadejte kategorii"
             onChange={handleChange}
           />
+          <Label className="text-xs text-neutral-500">Cesta k obrázku</Label>
           <Input
             type="text"
             name="imagePath"
@@ -181,6 +188,9 @@ export default function ProductUpdateForm() {
             placeholder="Zadejte cestu k obrázku"
             onChange={handleChange}
           />
+          <Label className="text-xs text-neutral-500">
+            Počet kusů na skladě
+          </Label>
           <Input
             type="number"
             name="amount"

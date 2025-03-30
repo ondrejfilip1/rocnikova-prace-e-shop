@@ -192,6 +192,12 @@ div#root {
   color: #ecee95;
 }
 
+.color_pink_svg {
+  fill: #edb6c3;
+  background-color: #edb6c3;
+  color: #edb6c3;
+}
+
 .z-1 {
   z-index: 1;
 }

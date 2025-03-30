@@ -14,6 +14,7 @@ export const colors = {
   blue: "bl",
   green: "gr",
   pastel_yellow: "py",
+  pink: "p",
 };
 
 export const colorsTranslated = {
@@ -30,6 +31,7 @@ export const colorsTranslated = {
   blue: "Modrá",
   green: "Zelená",
   pastel_yellow: "Pastelově žlutá",
+  pink: "Růžová",
 };
 
 export const colorList = [
@@ -46,6 +48,7 @@ export const colorList = [
   "blue",
   "green",
   "pastel_yellow",
+  "pink",
 ];
 
 export const categoriesTranslated = {
@@ -194,5 +197,9 @@ export const brandsList = [
   {
     id: "hugo",
     label: "Hugo",
+  },
+  {
+    id: "rieker",
+    label: "Rieker",
   },
 ];

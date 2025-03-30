@@ -363,6 +363,7 @@ export default function ProductView() {
                               color === "green" && "color_green_svg",
                               color === "pastel_yellow" &&
                                 "color_pastel_yellow_svg",
+                              color === "pink" && "color_pink_svg",
                               "radio_svg_fix",
                               s.radio_ring,
                               "rounded-full border-none ring-1 ring-red-900/25"
@@ -456,9 +457,7 @@ export default function ProductView() {
               >
                 Přidat do košíku
               </Button>
-              <Link
-                to={`/produkty/${product.category}`}
-              >
+              <Link to={`/produkty/${product.category}`}>
                 <Button
                   className="background-button-hover !text-red-900 gap-1 pl-3"
                   variant="ghost"
