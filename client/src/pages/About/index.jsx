@@ -8,8 +8,13 @@ import Obrazek5 from "../../assets/images/about/logo.png";
 import * as motion from "motion/react-client";
 import s from "./About.module.css";
 import classNames from "classnames";
+import { useEffect } from "react";
 
 export default function About() {
+  useEffect(() => {
+    document.title = "Pigress - O nás";
+  }, []);
+
   return (
     <>
       <div className="background pb-[1px]">

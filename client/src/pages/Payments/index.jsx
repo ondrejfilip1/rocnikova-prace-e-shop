@@ -20,18 +20,21 @@ import {
 export default function Payments() {
   const [payments, setPayments] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
+  const [paymentsLocal, setPaymentsLocal] = useState(
+    JSON.parse(localStorage.getItem("payments"))
+  );
 
   useEffect(() => {
     loadPayments();
+    document.title = "Pigress - Platby";
   }, []);
 
   const loadPayments = async () => {
-    const paymentsVar = JSON.parse(localStorage.getItem("payments"));
-    if (paymentsVar) {
+    if (paymentsLocal) {
       const paymentsArray = [];
       // vsechny platby se nactou naraz
-      for (const item of paymentsVar) {
-        const data = await getPayment(item);
+      for (const item of paymentsLocal) {
+        const data = await getPayment(item.paymentIntent);
         paymentsArray.push(data);
       }
       setPayments(paymentsArray);
@@ -40,15 +43,16 @@ export default function Payments() {
   };
 
   const getPayment = async (paymentId) => {
+    console.log(
+      JSON.parse(JSON.parse(localStorage.getItem("payments"))[0].cart)
+    );
     const data = await getPaymentIntent(paymentId);
     console.log(data.paymentIntent);
     if (data.status === 200) return data;
     else return null;
   };
 
-  if (isLoaded === null || !isLoaded) {
-    return <LoadingScreen />;
-  }
+  if (isLoaded === null || !isLoaded) return <LoadingScreen />;
 
   const styles = {
     link: "text-sm relative inline-block w-fit after:block after:h-[1px] after:content-[''] after:absolute after:bg-red-900/50 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-bottom-right hover:after:origin-bottom-left",
@@ -67,10 +71,10 @@ export default function Payments() {
             {payments
               // sortuju podle data vytvoreni (nejnovejsi platby nahore)
               .sort((a, b) => b.paymentIntent.created - a.paymentIntent.created)
-              .map((item) => {
+              .map((item, index) => {
                 return (
                   <Fragment key={item.paymentIntent.id}>
-                    <div className="background-light-hover transition-colors rounded-md py-3 px-4 flex sm:flex-row flex-col relative">
+                    <div className="background-light-hover transition-colors rounded-md p-4 flex sm:flex-row flex-col relative">
                       <Dialog>
                         <DialogTrigger asChild>
                           <Button
@@ -86,55 +90,61 @@ export default function Payments() {
                             <DialogTitle>Nakoupené položky</DialogTitle>
                           </DialogHeader>
                           <div>
-                            {JSON.parse(item.paymentIntent.metadata.cart).map(
-                              (item, index) => {
-                                return (
-                                  <>
-                                    <div key={index} className="text-sm mb-2">
-                                      <Link target={"_blank"} to={`/product/${item.productId}`} className={styles.link}>
-                                        Odkaz na produkt
-                                      </Link>
-                                      <div className="float-right flex gap-1 items-center">
-                                        <span>{item.quantity}x</span>
-                                        <div
-                                          className={classNames(
-                                            item.color === "white" &&
-                                              "color_white_svg",
-                                            item.color === "black" &&
-                                              "color_black_svg",
-                                            item.color === "gray" &&
-                                              "color_gray_svg",
-                                            item.color === "brown" &&
-                                              "color_brown_svg",
-                                            item.color === "beige" &&
-                                              "color_beige_svg",
-                                            item.color === "olive" &&
-                                              "color_olive_svg",
-                                            item.color === "sea_blue" &&
-                                              "color_sea_blue_svg",
-                                            item.color === "red" &&
-                                              "color_red_svg",
-                                            item.color === "purple" &&
-                                              "color_purple_svg",
-                                            item.color === "light_blue" &&
-                                              "color_light_blue_svg",
-                                            item.color === "blue" &&
-                                              "color_blue_svg",
-                                            item.color === "green" &&
-                                              "color_green_svg",
-                                            item.color === "pastel_yellow" &&
-                                              "color_pastel_yellow_svg",
-                                            "radio_svg_fix",
+                            {JSON.parse(
+                              // ziskam nejnovejsi kosik z platby
+                              paymentsLocal[paymentsLocal.length - index - 1]
+                                ?.cart || "[]"
+                            ).map((item, index) => {
+                              return (
+                                <>
+                                  <div key={index} className="text-sm mb-2">
+                                    <Link
+                                      target={"_blank"}
+                                      to={`/product/${item.productId}`}
+                                      className={styles.link}
+                                    >
+                                      Odkaz na produkt
+                                    </Link>
+                                    <div className="float-right flex gap-1 items-center">
+                                      <span>{item.quantity}x</span>
+                                      <div
+                                        className={classNames(
+                                          item.color === "white" &&
+                                            "color_white_svg",
+                                          item.color === "black" &&
+                                            "color_black_svg",
+                                          item.color === "gray" &&
+                                            "color_gray_svg",
+                                          item.color === "brown" &&
+                                            "color_brown_svg",
+                                          item.color === "beige" &&
+                                            "color_beige_svg",
+                                          item.color === "olive" &&
+                                            "color_olive_svg",
+                                          item.color === "sea_blue" &&
+                                            "color_sea_blue_svg",
+                                          item.color === "red" &&
+                                            "color_red_svg",
+                                          item.color === "purple" &&
+                                            "color_purple_svg",
+                                          item.color === "light_blue" &&
+                                            "color_light_blue_svg",
+                                          item.color === "blue" &&
+                                            "color_blue_svg",
+                                          item.color === "green" &&
+                                            "color_green_svg",
+                                          item.color === "pastel_yellow" &&
+                                            "color_pastel_yellow_svg",
+                                          "radio_svg_fix",
 
-                                            "rounded-full border border-red-900/25 h-4 w-4"
-                                          )}
-                                        ></div>
-                                      </div>
+                                          "rounded-full border border-red-900/25 h-4 w-4"
+                                        )}
+                                      ></div>
                                     </div>
-                                  </>
-                                );
-                              }
-                            )}
+                                  </div>
+                                </>
+                              );
+                            })}
                           </div>
                         </DialogContent>
                       </Dialog>

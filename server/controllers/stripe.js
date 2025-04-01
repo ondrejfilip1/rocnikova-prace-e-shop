@@ -29,9 +29,6 @@ exports.createPaymentIntent = async (req, res) => {
       currency: "CZK",
       amount: amount * 100,
       automatic_payment_methods: { enabled: true },
-      metadata: {
-        cart: JSON.stringify(cart),
-      },
     });
 
     // poslu publishable key a PaymentIntent detaily clientovi

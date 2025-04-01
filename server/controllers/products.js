@@ -21,7 +21,7 @@ exports.hasCorrectPassword = async (req, res, next) => {
 exports.getAllProducts = async (req, res, next) => {
   try {
     // max pocet produktu ktery se budou zobrazovat na jedny strance
-    const pageSize = 32;
+    const pageSize = 24;
     const { search, category, brand, minprice, maxprice, page } =
       req.query;
     let query = {};

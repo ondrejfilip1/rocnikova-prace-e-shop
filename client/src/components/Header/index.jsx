@@ -149,7 +149,7 @@ export default function Header({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState();
   const [totalItems, setTotalItems] = useState();
-  const [isLoaded, setLoaded] = useState(false);
+  //const [isLoaded, setLoaded] = useState(false);
   const [hasSettings, setHasSettings] = useState(
     localStorage.getItem("profileSettings")
   );

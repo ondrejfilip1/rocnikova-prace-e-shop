@@ -13,15 +13,25 @@ export default function Completion() {
   const paymentIntent = query.get("payment_intent") || "";
 
   useEffect(() => {
+    document.title = "Děkujeme za nákup";
     if (query && redirectStatus === "succeeded" && paymentIntent) {
-      localStorage.removeItem("cart");
       window.dispatchEvent(new Event("totalItemsUpdate"));
 
       const payments = JSON.parse(localStorage.getItem("payments")) || "";
       // jestli "payments" uz v sobe nemaji stejny paymentIntent
-      if (!payments.includes(paymentIntent)) {
-        const paymentsNew = JSON.stringify([...payments, paymentIntent]);
+      let doesIncludePayInt = false;
+      if (payments)
+        payments.map((item) => {
+          doesIncludePayInt = item.paymentIntent.includes(paymentIntent);
+          //console.log(item);
+        });
+      if (!doesIncludePayInt) {
+        const paymentsNew = JSON.stringify([
+          ...payments,
+          { paymentIntent: paymentIntent, cart: localStorage.getItem("cart") },
+        ]);
         localStorage.setItem("payments", paymentsNew) || "[]";
+        localStorage.removeItem("cart");
       }
     }
   }, []);
@@ -48,7 +58,14 @@ export default function Completion() {
               </p>
               <div className="absolute bottom-0">
                 <p className="text-center text-sm mb-1 font-normal">
-                  Vaše platby naleznete <Link to="/platby" className={classNames(styles.link, "font-bold")}>zde</Link>.
+                  Vaše platby naleznete{" "}
+                  <Link
+                    to="/platby"
+                    className={classNames(styles.link, "font-bold")}
+                  >
+                    zde
+                  </Link>
+                  .
                 </p>
               </div>
             </div>
