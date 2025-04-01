@@ -18,25 +18,55 @@ exports.hasCorrectPassword = async (req, res, next) => {
   }
 };
 
+exports.getProductCount = async (req, res, next) => {
+  try {
+    const { search, category, brand, minprice, maxprice, page } = req.query;
+    let query = {};
+    if (search)
+      query.name = { $regex: search, $options: "i" };
+
+    if (category)
+      query.category = category;
+
+    if (brand)
+      query.brand = brand.split(",");
+
+    const price =
+      minprice && maxprice ? { $gt: minprice, $lt: maxprice } : { $type: 16 };
+
+    const data = await Product.countDocuments({ ...query, price: price });
+
+    if (data && data.length !== 0)
+      return res.status(200).send({
+        message: "Products counted",
+        payload: data,
+      });
+
+    res.status(404).send({
+      message: "Products not found",
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 exports.getAllProducts = async (req, res, next) => {
   try {
     // max pocet produktu ktery se budou zobrazovat na jedny strance
     const pageSize = 24;
-    const { search, category, brand, minprice, maxprice, page } =
-      req.query;
+    const { search, category, brand, minprice, maxprice, page } = req.query;
     let query = {};
-    if (search) {
+    if (search)
       // $regex - vyhledani podle vzoru
       query.name = { $regex: search, $options: "i" };
-    }
-    if (category) {
+
+    if (category)
       // tady nemusime davat velky nebo maly pismena, protoze kategorie se nebude zadavat uzivatelem
       query.category = category;
-    }
-    if (brand) {
+
+    if (brand)
       // oddeli carku (kdyby bylo vic znacek v query)
       query.brand = brand.split(",");
-    }
 
     const price =
       minprice && maxprice ? { $gt: minprice, $lt: maxprice } : { $type: 16 };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllProducts } from "../../models/Product";
+import { getAllProducts, getProductCount } from "../../models/Product";
 import ProductLink from "./ProductLink";
 import s from "./ProductList.module.css";
 import Header from "@/components/Header";
@@ -33,9 +33,9 @@ export default function ProductList(props) {
   const [isLoaded, setLoaded] = useState(false);
   const [isSidebarOpened, setSidebarOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [totalProducts, setTotalProducts] = useState(0);
   const [favouritesIDs, setFavouritesIDs] = useState();
   const [pageNumber, setPageNumber] = useState();
+  const [productCount, setProductCount] = useState(0);
 
   const location = useLocation();
 
@@ -66,13 +66,21 @@ export default function ProductList(props) {
     if (favourites && favourites.length > 0) setFavouritesIDs(favourites);
     if (data.status === 404 || data.status === 500) return setLoaded(null);
     if (data.status === 200) {
-      setTotalProducts(data.payload.length);
       document.title = props.category
         ? `Pigress - ${categoriesTranslated[props.category]}`
         : `Pigress - Všechny produkty`;
       // console.log(data.payload.length);
       setProducts(data.payload);
       setLoaded(true);
+      const productCountData = await getProductCount(
+        query,
+        queryCategory,
+        queryBrand,
+        queryMinPrice,
+        queryMaxPrice,
+        queryPage
+      );
+      setProductCount(productCountData.payload);
     }
   };
 
@@ -127,7 +135,6 @@ export default function ProductList(props) {
       setSearchQuery("");
       load();
     }
-    console.log(location);
   }, [location.search, searchQuery]);
 
   if (!isLoaded && isLoaded !== null) {
@@ -178,7 +185,7 @@ export default function ProductList(props) {
               <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6 mt-2">
                 <span>{props.name}</span>
                 <span className="rounded-full background-primary min-w-5 px-1.5 text-center text-sm text-primary-light">
-                  {totalProducts}
+                  {productCount}
                 </span>
               </div>
             )}
@@ -242,12 +249,12 @@ export default function ProductList(props) {
                           location.search ? `${location.search}&` : "?"
                         }page=${parseInt(pageNumber) + 1}`
                   }
-                  className={totalProducts < 24 ? "pointer-events-none" : ""}
+                  className={products.length < 24 ? "pointer-events-none" : ""}
                 >
                   <Button
                     variant="ghost"
                     className="background-button-hover !text-red-900 gap-1 pr-3"
-                    disabled={totalProducts < 24 ? true : false}
+                    disabled={products.length < 24 ? true : false}
                   >
                     Další
                     <ChevronRight />
