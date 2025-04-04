@@ -15,13 +15,22 @@ import ProductCreateForm from "./Admin/ProductCreateForm";
 import ProfileSettings from "./ProfileSettings";
 import Completion from "./Orders/Completion";
 import Payments from "./Payments";
+import NotFound from "./NotFound";
+import Preparing from "./Preparing";
 
 export default function AppRoutes() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          {/* Domovska stranka */}
           <Route path="/" element={<Home />} />
+
+          {/* Pro nenalezene stranky */}
+          <Route path="*" element={<NotFound />} />
+
+          <Route path="/vyprodej" element={<Preparing content="Zpět na hlavní stránku" link="/" />} />
+          <Route path="/trendy" element={<Preparing content="Zpět na hlavní stránku" link="/" />} />
 
           {/* Admin panel */}
           <Route path="/admin/add-product" element={<ProductCreateForm />} />
@@ -32,6 +41,7 @@ export default function AppRoutes() {
           <Route path="/admin/" element={<Admin />} />
           <Route path="/admin/product-list" element={<AdminProductList />} />
 
+          {/* Stranky pro produkty */}
           <Route
             path="/produkty"
             element={<ProductList name="Všechny produkty" category="" />}
@@ -91,6 +101,8 @@ export default function AppRoutes() {
           />
 
           <Route path="/product/:id" element={<ProductView />} />
+
+          {/* Ostatni */}
           <Route path="/oblibene" element={<Favourites />} />
           <Route path="/objednavky" element={<Orders />} />
           <Route path="/about" element={<About />} />

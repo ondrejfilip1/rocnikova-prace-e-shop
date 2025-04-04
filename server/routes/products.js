@@ -1,10 +1,16 @@
 const express = require("express");
 const router = express.Router();
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+  windowMs: 1000, // 1 sekunda
+  max: 1, // maximalne 1 pozadavek za sekundu
+});
 
 const productsRouter = require("../controllers/products");
 
-// vraci, jestli mame spravne heslo
-router.post("/password", productsRouter.hasCorrectPassword);
+// vraci, jestli mame spravne heslo (limitovano na 1 pozadavek za sekundu z bezpecnostnich duvodu)
+router.post("/password", limiter, productsRouter.hasCorrectPassword);
 
 // vraci, kolik mame produktu
 router.get("/count", productsRouter.getProductCount);

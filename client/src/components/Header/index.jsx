@@ -335,25 +335,28 @@ export default function Header({ onSearch }) {
                     <span>Oblíbené</span>
                   </DropdownMenuItem>
                 </Link>
-                <DropdownMenuItem
-                  className={classnames(
-                    "background-button-hover font-medium",
-                    s.button_fix
-                  )}
-                >
-                  <Star />
-                  <span>Trendy</span>
-                </DropdownMenuItem>
+                <Link to="/trendy">
+                  <DropdownMenuItem
+                    className={classnames(
+                      "background-button-hover font-medium",
+                      s.button_fix
+                    )}
+                  >
+                    <Star />
+                    <span>Trendy</span>
+                  </DropdownMenuItem>
+                </Link>
                 <Link to="/platby">
-                <DropdownMenuItem
-                  className={classnames(
-                    "background-button-hover font-medium",
-                    s.button_fix
-                  )}
-                >
-                  <CreditCard />
-                  <span>Platby</span>
-                </DropdownMenuItem></Link>
+                  <DropdownMenuItem
+                    className={classnames(
+                      "background-button-hover font-medium",
+                      s.button_fix
+                    )}
+                  >
+                    <CreditCard />
+                    <span>Platby</span>
+                  </DropdownMenuItem>
+                </Link>
                 <DropdownMenuSeparator className="bg-red-900/25 mx-2" />
                 <Link to="/settings">
                   <DropdownMenuItem
@@ -521,7 +524,7 @@ export default function Header({ onSearch }) {
                   )}
                   asChild
                 >
-                  <Link href="/">
+                  <Link to="/vyprodej">
                     <BadgePercent />
                     Výprodej
                   </Link>

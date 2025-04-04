@@ -191,7 +191,19 @@ export default function ProductView() {
   }, [favouritesIDs]);
 
   if (isLoaded === null) {
-    return <NotFound description="Produkt nebyl nalezen" />;
+    return (
+      <>
+        <div className="background pb-[1px]">
+          <Header />
+          <NotFound
+            description="Produkt nebyl nalezen"
+            link="/produkty"
+            content="Zpět na produkty"
+          />
+          <Footer />
+        </div>
+      </>
+    );
   }
 
   if (!isLoaded) {
