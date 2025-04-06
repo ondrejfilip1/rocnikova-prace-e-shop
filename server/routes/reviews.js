@@ -11,7 +11,7 @@ const limiter = rateLimit({
 const reviewsRouter = require("../controllers/reviews");
 
 // vytvari recenzi (limitovano na 1 pozadavek za hodinu z duvodu spamovani)
-router.post("/", /*limiter,*/ reviewsRouter.createReview);
+router.post("/", limiter, reviewsRouter.createReview);
 
 // vraci vsechny recenze
 router.get("/", reviewsRouter.getAllReviews);

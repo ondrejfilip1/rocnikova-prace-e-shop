@@ -59,7 +59,7 @@ export default function Reviews() {
 
   const handlePost = (e) => {
     e.preventDefault();
-    if (formData.content && formData.rating) postForm();
+    if (formData && formData.content && formData.rating) postForm();
     else
       toast("Vyplňte prosím všechny údaje", {
         action: {
@@ -71,7 +71,7 @@ export default function Reviews() {
   const postForm = async () => {
     const review = await createReview(formData);
     if (review.status === 201) {
-      toast("Recenze byla odeslána", {
+      toast("Recenze byla odeslána, děkujeme vám.", {
         action: {
           label: <X />,
         },
