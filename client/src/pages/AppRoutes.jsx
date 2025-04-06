@@ -17,6 +17,7 @@ import Completion from "./Orders/Completion";
 import Payments from "./Payments";
 import NotFound from "./NotFound";
 import Preparing from "./Preparing";
+import HelpCentre from "./HelpCentre";
 
 export default function AppRoutes() {
   return (
@@ -31,6 +32,7 @@ export default function AppRoutes() {
 
           <Route path="/vyprodej" element={<Preparing content="Zpět na hlavní stránku" link="/" />} />
           <Route path="/trendy" element={<Preparing content="Zpět na hlavní stránku" link="/" />} />
+          <Route path="/centrum-pomoci" element={<HelpCentre />} />
 
           {/* Admin panel */}
           <Route path="/admin/add-product" element={<ProductCreateForm />} />

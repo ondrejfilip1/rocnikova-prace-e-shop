@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import {
   CreditCard,
-  LogOut,
   Settings,
   User,
   ShoppingCartIcon,
@@ -20,6 +19,7 @@ import {
   Footprints,
   PackageOpen,
   ArrowRight,
+  CircleHelp
 } from "lucide-react";
 
 import {
@@ -367,6 +367,17 @@ export default function Header({ onSearch }) {
                   >
                     <Settings />
                     <span>Nastavení</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/centrum-pomoci">
+                  <DropdownMenuItem
+                    className={classnames(
+                      "background-button-hover font-medium",
+                      s.button_fix
+                    )}
+                  >
+                    <CircleHelp />
+                    <span>Centrum pomoci</span>
                   </DropdownMenuItem>
                 </Link>
               </DropdownMenuContent>

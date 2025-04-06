@@ -66,7 +66,6 @@ export default function Payments() {
 
         {payments.length > 0 ? (
           <>
-            {" "}
             <div className="text-red-900 text-2xl flex items-center gap-2 justify-center mb-6">
               <span>Platby</span>
             </div>

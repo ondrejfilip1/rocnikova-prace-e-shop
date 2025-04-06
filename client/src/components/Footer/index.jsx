@@ -44,6 +44,9 @@ export default function Footer() {
             <Link to="/objednavky" className={styles.link}>
               Nákupní košík
             </Link>
+            <Link to="/centrum-pomoci" className={styles.link}>
+              Centrum pomoci
+            </Link>
           </div>
         </div>
 
