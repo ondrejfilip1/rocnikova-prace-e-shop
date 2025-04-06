@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import reklamacni_formular from "../../assets/documents/reklamacni_formular.pdf"
+import reklamacni_formular from "../../assets/documents/reklamacni_formular.pdf";
 
 export default function HelpCentre() {
   useEffect(() => {
@@ -25,29 +25,27 @@ export default function HelpCentre() {
           <span>Centrum pomoci</span>
         </div>
         <div className="container mx-auto pb-24 font-medium px-2 text-red-900 placeholder-min-h-screen flex flex-col lg:max-w-screen-lg">
-          <div className="flex items-center gap-2">
-            <CircleHelp className="w-7 h-7" />
-            <h1 className="text-3xl my-4">Máte problém?</h1>
-          </div>
+          <h1 className="text-3xl my-4">Máte problém?</h1>
 
           <p className="my-3 leading-7">
             Zavolejte nám na naši bezplatnout linku{" "}
-            <a href="tel:+702 002 320" className="underline">
+            <a href="tel:+420702002320" className="underline">
               702 002 320
             </a>{" "}
             (Po-Pá, 7:00-20:00), nebo nás kontaktujte přes e-mail{" "}
             <a href="mailto:centrumpomoci@pigress.cz" className="underline">
               centrumpomoci@pigress.cz
-            </a> – ozveme se co nejdříve, obvykle do 24 hodin.
+            </a>{" "}
+            – ozveme se co nejdříve, obvykle do 24 hodin.
           </p>
 
-          <div className="flex items-center gap-2">
-            <CircleHelp className="w-7 h-7" />
-            <h1 className="text-3xl my-4">Často kladené otázky (FAQ)</h1>
-          </div>
+          <h1 className="text-3xl my-4">Často kladené otázky (FAQ)</h1>
 
           <Accordion type="single" collapsible className="w-full">
-            <h1 className="text-xl my-6">Objednávky</h1>
+            <div className="flex justify-between gap-2 items-center">
+              <h1 className="text-xl my-6">Objednávky</h1>
+              <CircleHelp className="w-6 h-6" />
+            </div>
             <AccordionItem value="item-1" className="border-red-900/10">
               <AccordionTrigger>
                 Mohu změnit nebo zrušit objednávku po odeslání?
@@ -72,17 +70,37 @@ export default function HelpCentre() {
                 kontaktuj nás a ověříme, zda objednávka opravdu prošla.
               </AccordionContent>
             </AccordionItem>
-            <h1 className="text-xl my-6">Vrácení zboží</h1>
+            <div className="flex justify-between gap-2 items-center">
+              <h1 className="text-xl my-6">Vrácení zboží</h1>
+              <CircleHelp className="w-6 h-6" />
+            </div>
             <AccordionItem value="item-3" className="border-red-900/10">
               <AccordionTrigger>
                 Jak mohu zboží vrátit nebo vyměnit?
               </AccordionTrigger>
               <AccordionContent>
-                <p>Pokud ti zboží nesedí nebo nesplnilo očekávání, můžeš ho vrátit
-                nebo vyměnit do 3 měsíců od převzetí. Stačí nás kontaktovat a
-                vyplnit jednoduchý formulář. Zboží musí být nenošené a v
-                původním obalu.</p>
-                <a href={reklamacni_formular} download={true}><Button variant="ghost" className="mt-4 background-button-hover !text-red-900"><FileText />Stáhnout reklamační formulář</Button></a>
+                <p>
+                  Pokud ti zboží nesedí nebo nesplnilo očekávání, můžeš ho
+                  vrátit nebo vyměnit do 3 měsíců od převzetí. Stačí nás
+                  kontaktovat a vyplnit jednoduchý reklamační formulář, který poté stačí
+                  poslat na náš email{" "}
+                  <a
+                    href="mailto:centrumpomoci@pigress.cz"
+                    className="underline"
+                  >
+                    centrumpomoci@pigress.cz
+                  </a>
+                  . Zboží musí být nenošené a v původním obalu.
+                </p>
+                <a href={reklamacni_formular} download={true}>
+                  <Button
+                    variant="ghost"
+                    className="mt-4 background-button-hover !text-red-900"
+                  >
+                    <FileText />
+                    Stáhnout reklamační formulář
+                  </Button>
+                </a>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4" className="border-red-900/10">

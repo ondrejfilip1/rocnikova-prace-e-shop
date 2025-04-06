@@ -247,3 +247,10 @@ div#root {
     @apply pb-0 md:pb-10;
   }
 }
+
+.cut_text {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

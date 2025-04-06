@@ -13,9 +13,7 @@ const DB_KEY = process.env.DB_KEY;
 // pripojovani do databaze
 const mongoose = require("mongoose");
 mongoose
-  .connect(
-    DB_KEY
-  )
+  .connect(DB_KEY)
   .then(() => console.log("\x1b[32m%s\x1b[0m", "[database] Connected"))
   .catch((e) => console.log("\x1b[31m%s\x1b[0m", "[database] Error: " + e));
 
@@ -23,6 +21,7 @@ const indexRouter = require("./routes/index");
 //const usersRouter = require('./routes/users');
 const productsRouter = require("./routes/products");
 const stripeRouter = require("./routes/stripe");
+const reviewsRouter = require("./routes/reviews");
 
 const app = express();
 
@@ -38,9 +37,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-//app.use('/users', usersRouter);
 app.use("/products", productsRouter);
-app.use("/stripe", stripeRouter)
+app.use("/stripe", stripeRouter);
+app.use("/reviews", reviewsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

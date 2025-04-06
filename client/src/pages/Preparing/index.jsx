@@ -5,8 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Search, Construction } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Preparing(props) {
+  useEffect(() => {
+    document.title = "Pigress - Tuto stránku připravujeme";
+  }, []);
+
   return (
     <>
       <div className="background pb-[1px]">

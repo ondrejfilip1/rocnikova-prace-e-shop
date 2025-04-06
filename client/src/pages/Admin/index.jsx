@@ -16,10 +16,12 @@ import { deleteProduct } from "@/models/Product";
 import { isAlive } from "@/models/Server";
 import { hasCorrectPassword } from "@/models/Server";
 import { KeyRound } from "lucide-react";
+import { deleteReview } from "@/models/Reviews";
 
 export default function Admin() {
   const [updateId, setUpdateId] = useState();
   const [deleteId, setDeleteId] = useState();
+  const [deleteReviewId, setDeleteReviewId] = useState();
   const [status, setStatus] = useState();
   const [isSuccessful, setSuccessful] = useState(false);
   const [isServerAlive, setIsServerAlive] = useState(false);
@@ -40,6 +42,20 @@ export default function Admin() {
       setSuccessful(true);
     } else {
       setStatus("Při odebírání produktu nastala chyba");
+      setSuccessful(false);
+    }
+  };
+
+  const handleDeleteReview = async () => {
+    const review = await deleteReview(
+      deleteReviewId,
+      localStorage.getItem("adminPassword")
+    );
+    if (review.status === 201) {
+      setStatus("Recenze byla úspěšně odebrána");
+      setSuccessful(true);
+    } else {
+      setStatus("Při odebírání recenze nastala chyba");
       setSuccessful(false);
     }
   };
@@ -187,6 +203,52 @@ export default function Admin() {
               </DialogContent>
             </Dialog>
           </div>
+          <div className="h-[1px] bg-neutral-200 mt-3 p-0 m-0" />
+          <h2 className="font-medium text-lg mt-3">Recenze</h2>
+          <Link to="/admin/review-list">
+            <Button variant="outline" className="my-3">
+              List recenzí
+            </Button>
+          </Link>
+          <h2 className="font-medium text-sm mb-3">Možnosti</h2>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="destructive">Odebrat recenzi</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Odebrat recenzi</DialogTitle>
+                <DialogDescription />
+              </DialogHeader>
+              <Input
+                id="deleteId"
+                placeholder="Zadejte ID recenze"
+                onChange={(e) => setDeleteReviewId(e.target.value)}
+              />
+              <p
+                className={classNames(
+                  isSuccessful ? "text-green-500" : "text-red-500",
+                  "text-sm"
+                )}
+              >
+                {status}
+              </p>
+              <DialogFooter>
+                <Button
+                  className={classNames(
+                    !deleteReviewId ? "pointer-events-none" : "",
+                    "transition-all"
+                  )}
+                  type="submit"
+                  disabled={!deleteReviewId}
+                  onClick={handleDeleteReview}
+                >
+                  Pokračovat
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </>

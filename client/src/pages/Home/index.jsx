@@ -9,6 +9,7 @@ import {
   PackageCheck,
   CalendarClock,
   Mouse,
+  HandHeart,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
@@ -215,6 +216,17 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <Link to="/recenze">
+            <div
+              className={classNames(
+                cardStyles.cards,
+                "!w-full text-red-900 !my-4 font-medium"
+              )}
+            >
+              <HandHeart className="w-10 h-10 stroke-[1.5]" />
+              Podívejte se na recenze našeho e-shopu
+            </div>
+          </Link>
         </div>
         <Footer />
 

@@ -18,6 +18,8 @@ import Payments from "./Payments";
 import NotFound from "./NotFound";
 import Preparing from "./Preparing";
 import HelpCentre from "./HelpCentre";
+import Reviews from "./Reviews";
+import AdminReviewList from "./Admin/ReviewList";
 
 export default function AppRoutes() {
   return (
@@ -33,6 +35,7 @@ export default function AppRoutes() {
           <Route path="/vyprodej" element={<Preparing content="Zpět na hlavní stránku" link="/" />} />
           <Route path="/trendy" element={<Preparing content="Zpět na hlavní stránku" link="/" />} />
           <Route path="/centrum-pomoci" element={<HelpCentre />} />
+          <Route path="/recenze" element={<Reviews />} />
 
           {/* Admin panel */}
           <Route path="/admin/add-product" element={<ProductCreateForm />} />
@@ -42,6 +45,7 @@ export default function AppRoutes() {
           />
           <Route path="/admin/" element={<Admin />} />
           <Route path="/admin/product-list" element={<AdminProductList />} />
+          <Route path="/admin/review-list" element={<AdminReviewList />} />
 
           {/* Stranky pro produkty */}
           <Route

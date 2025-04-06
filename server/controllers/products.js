@@ -98,47 +98,6 @@ exports.getAllProducts = async (req, res, next) => {
   }
 };
 
-/* exports.getProductByBrand = async (req, res, next) => {
-  const { brand } = req.query;
-  if (!brand) {
-    return res.status(200).send({
-      message: "Wrong query"
-    })
-  }
-  try {
-    const data = await Product.find({ brand: brand });
-    if (data && data.length !== 0) {
-      return res.status(200).send({
-        message: "Products found",
-        payload: data,
-      });
-    }
-    res.status(404).send({
-      message: "Products not found",
-    });
-  } catch (err) {
-    res.status(500).send(err);
-  }
-}; */
-
-/*
-exports.getProductsByCategory = async (req, res, next) => {
-  try {
-    const data = await Product.find({ category: req.params.category });
-    if (data && data.length !== 0) {
-      return res.status(200).send({
-        message: "Product found",
-        payload: data,
-      });
-    }
-    res.status(404).send({
-      message: "Product not found",
-    });
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};*/
-
 exports.getProductById = async (req, res, next) => {
   try {
     const data = await Product.findById(req.params.id);
@@ -177,7 +136,7 @@ exports.createProduct = async (req, res, next) => {
         });
       }
       return res.status(500).send({
-        message: "Product not found",
+        message: "Product not created",
       });
     } else {
       return res.status(500).send({

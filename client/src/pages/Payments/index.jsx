@@ -170,7 +170,7 @@ export default function Payments() {
                           <div className="font-normal text-sm mb-2">
                             {moment(item.paymentIntent.created * 1000)
                               .locale("cz")
-                              .format("MM/DD/YYYY HH:mm")}
+                              .format("DD.MM.YYYY HH:mm")}
                           </div>
                           <div>Stav</div>
                           <div className="font-normal text-sm">

@@ -1,10 +1,15 @@
 import NotFound from "@/components/NotFound";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { useEffect } from "react";
 
 export default function NotFoundPage() {
   // jmeno stranky
   const webPageName = location.pathname.split("/");
+
+  useEffect(() => {
+    document.title = "Pigress - 404";
+  }, []);
 
   return (
     <>
