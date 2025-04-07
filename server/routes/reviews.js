@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
   windowMs: 3600000, // 1 hodina
   max: 1, // maximalne 1 pozadavek za 1 hodinu
+  message: {message: "Too Many Requests"}
 });
 
 const reviewsRouter = require("../controllers/reviews");

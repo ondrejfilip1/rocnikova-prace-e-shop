@@ -77,6 +77,13 @@ export default function Reviews() {
         },
       });
       loadReviews();
+    } else if (review.status === 429) {
+      toast("Chyba při vytváření recenze", {
+        description: "Je povolena jen jedna recenze za hodinu.",
+        action: {
+          label: <X />,
+        },
+      });
     } else {
       toast("Chyba " + review.status + " při vytváření recenze", {
         description: review.message,
