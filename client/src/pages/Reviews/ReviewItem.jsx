@@ -18,7 +18,7 @@ export default function ReviewItem(props) {
             {props.username}
           </div>
         </div>
-        <div className="mt-1 text-sm">{props.content}</div>
+        <div className="mt-2 text-sm">{props.content}</div>
       </div>
     </>
   );

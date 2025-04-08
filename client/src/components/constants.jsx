@@ -202,4 +202,8 @@ export const brandsList = [
     id: "rieker",
     label: "Rieker",
   },
+  {
+    id: "gant",
+    label: "GANT",
+  },
 ];
