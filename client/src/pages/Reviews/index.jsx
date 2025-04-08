@@ -20,25 +20,18 @@ export default function Reviews() {
   const [newestReviews, setNewestReviews] = useState();
   const [reviewCount, setReviewCount] = useState();
   const [isLoaded, setLoaded] = useState(false);
-  const [starRating, setStarRating] = useState();
+  const [textLength, setTextLength] = useState(0);
   const [formData, setFormData] = useState();
   const [maxReview, setMaxReview] = useState();
 
   const loadReviews = async () => {
     const data = await getNewestReviews();
-    //console.log(data.status);
-    if (data.status === 200) {
-      setNewestReviews(data.payload);
-    } else {
-      setLoaded(null);
-    }
+    if (data.status === 200) setNewestReviews(data.payload);
+    else setLoaded(null);
 
     const data2 = await getReviewCount();
-    if (data2.status === 200) {
-      setReviewCount(data2.payload);
-    } else {
-      setLoaded(null);
-    }
+    if (data2.status === 200) setReviewCount(data2.payload);
+    else setLoaded(null);
 
     let maxReviewVar = 0;
     Object.values(data2.payload).forEach((value) => {
@@ -54,6 +47,7 @@ export default function Reviews() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    setTextLength(e.target.value.length);
     //console.log(formData);
   };
 
@@ -95,7 +89,6 @@ export default function Reviews() {
   };
 
   const handleStarChange = (value) => {
-    setStarRating(value);
     handleChange({ target: { value: value, name: "rating" } });
   };
 
@@ -195,13 +188,18 @@ export default function Reviews() {
               maxLength={50}
             />
             <Label className="text-xs">Zpráva (povinné)</Label>
-            <Textarea
-              placeholder="Napište zprávu"
-              className={inputStyles.styles}
-              onChange={handleChange}
-              maxLength={255}
-              name="content"
-            />
+            <div className="relative">
+              <Textarea
+                placeholder="Napište zprávu"
+                className={inputStyles.styles}
+                onChange={handleChange}
+                maxLength={255}
+                name="content"
+              />
+              <span className="absolute right-1.5 bottom-1.5 text-xs opacity-75">
+                {textLength}/255
+              </span>
+            </div>
             <Label className="text-xs">Hodnocení (povinné)</Label>
             <CommentRatings
               rating={0}
