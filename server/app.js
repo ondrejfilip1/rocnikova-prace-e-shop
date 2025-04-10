@@ -22,6 +22,7 @@ const indexRouter = require("./routes/index");
 const productsRouter = require("./routes/products");
 const stripeRouter = require("./routes/stripe");
 const reviewsRouter = require("./routes/reviews");
+const emailRouter = require("./routes/mail");
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use("/", indexRouter);
 app.use("/products", productsRouter);
 app.use("/stripe", stripeRouter);
 app.use("/reviews", reviewsRouter);
+app.use("/email", emailRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

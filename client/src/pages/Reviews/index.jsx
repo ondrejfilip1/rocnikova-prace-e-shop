@@ -15,12 +15,14 @@ import ReviewItem from "./ReviewItem";
 import React from "react";
 import { X } from "lucide-react";
 import { getReviewCount } from "@/models/Reviews";
+import classNames from "classnames";
 
 export default function Reviews() {
   const [newestReviews, setNewestReviews] = useState();
   const [reviewCount, setReviewCount] = useState();
   const [isLoaded, setLoaded] = useState(false);
   const [textLength, setTextLength] = useState(0);
+  const [nameLength, setNameLength] = useState(0);
   const [formData, setFormData] = useState();
   const [maxReview, setMaxReview] = useState();
 
@@ -47,7 +49,6 @@ export default function Reviews() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setTextLength(e.target.value.length);
     //console.log(formData);
   };
 
@@ -178,21 +179,32 @@ export default function Reviews() {
           <h1 className="text-3xl my-4">Chcete napsat recenzi?</h1>
           <form className="flex flex-col gap-2">
             <Label className="text-xs">Jméno (nepovinné)</Label>
-            <Input
-              className={inputStyles.styles}
-              type="text"
-              name="username"
-              required
-              placeholder="Zadejte jméno"
-              onChange={handleChange}
-              maxLength={50}
-            />
+            <div className="relative">
+              <Input
+                className={inputStyles.styles}
+                type="text"
+                name="username"
+                required
+                placeholder="Zadejte jméno"
+                onChange={(e) => {
+                  handleChange(e);
+                  setNameLength(e.target.value.length);
+                }}
+                maxLength={50}
+              />
+              <span className="absolute right-1.5 bottom-1.5 text-xs opacity-75">
+                {nameLength}/50
+              </span>
+            </div>
             <Label className="text-xs">Zpráva (povinné)</Label>
             <div className="relative">
               <Textarea
                 placeholder="Napište zprávu"
-                className={inputStyles.styles}
-                onChange={handleChange}
+                className={classNames(inputStyles.styles, "max-h-48")}
+                onChange={(e) => {
+                  handleChange(e);
+                  setTextLength(e.target.value.length);
+                }}
                 maxLength={255}
                 name="content"
               />
