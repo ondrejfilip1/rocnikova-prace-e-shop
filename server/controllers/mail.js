@@ -49,12 +49,20 @@ exports.getAllEmails = async (req, res, next) => {
 };
 
 exports.sendGroupNewsletter = async (req, res, next) => {
-  if (AP_PASSWORD !== req.body.password) {
-    return res.status(500).send({
-      message: "Incorrect password",
-    });
-  }
-  if (req.body.emailList && req.body.emailHTML) {
+  try {
+    const passwordReq = req.body.password;
+    if (AP_PASSWORD !== passwordReq)
+      return res.status(500).send({
+        message: "Incorrect password",
+      });
+
+    const emailList = req.body.emailList;
+    const emailHTML = req.body.emailHTML;
+    if (!emailList || !emailHTML)
+      return res.status(500).send({
+        message: "Email list and Email HTML is required",
+      });
+
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       host: "smtp.gmail.com",
@@ -69,11 +77,12 @@ exports.sendGroupNewsletter = async (req, res, next) => {
     const mailOptions = {
       from: "pigressnewsletter@gmail.com",
       to: req.body.emailList,
-      subject: "Pigress - Newsletter",
+      subject: req.body.subject || "Pigress - Newsletter",
       text: "Toto je newsletter od e-shopu Pigress.",
       html: `
     ${req.body.emailHTML}
 
+    <br>
     Tým Pigress
     `,
     };
@@ -92,9 +101,30 @@ exports.sendGroupNewsletter = async (req, res, next) => {
         });
       }
     });
-  } else {
-    return res.status(500).send({
-      message: "Enter both emailList and emailHTML",
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.removeEmail = async (req, res, next) => {
+  try {
+    const passwordReq = req.body.password;
+    if (AP_PASSWORD !== passwordReq)
+      return res.status(500).send({
+        message: "Incorrect password",
+      });
+
+    const result = await Email.findByIdAndDelete(req.params.id);
+    if (result) {
+      return res.status(200).send({
+        message: "Email deleted",
+        payload: result,
+      });
+    }
+    res.status(500).send({
+      message: "Email not deleted",
     });
+  } catch (err) {
+    res.status(500).send(err);
   }
 };

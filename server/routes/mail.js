@@ -13,4 +13,7 @@ router.post("/add", emailRouter.addEmail);
 // vraci vsechny emaily, vyzaduje heslo
 router.post("/", emailRouter.getAllEmails);
 
+// smaze dany email, vyzaduje heslo
+router.delete("/:id", emailRouter.removeEmail);
+
 module.exports = router;

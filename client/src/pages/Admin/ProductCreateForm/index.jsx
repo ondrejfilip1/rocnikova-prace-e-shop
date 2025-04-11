@@ -7,21 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { colorList, colorsTranslated } from "@/components/constants";
-import { ChevronLeft, X, KeyRound } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { ChevronLeft, X } from "lucide-react";
 import DialogWarning from "../dialogwarning";
 
 export default function ProductCreateForm() {
   const [selectedColors, setSelectedColors] = useState([]);
   const [formData, setFormData] = useState();
-  const [info, setInfo] = useState();
   const [status, setStatus] = useState("");
   const [hasPassword, setHasPassword] = useState(
     localStorage.getItem("adminPassword")

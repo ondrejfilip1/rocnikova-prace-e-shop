@@ -249,6 +249,17 @@ export default function Admin() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          <div className="h-[1px] bg-neutral-200 mt-3 p-0 m-0" />
+          <h2 className="font-medium text-lg mt-3">Emaily</h2>
+          <Link to="/admin/email-list">
+            <Button variant="outline" className="my-3">
+              List emailů
+            </Button>
+          </Link>
+          <h2 className="font-medium text-sm mb-3">Možnosti</h2>
+          <Link to="/admin/create-newsletter">
+            <Button variant="outline">Rozeslat newsletter</Button>
+          </Link>
         </div>
       </div>
     </>

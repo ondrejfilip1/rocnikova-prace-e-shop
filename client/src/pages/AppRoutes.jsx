@@ -20,6 +20,8 @@ import Preparing from "./Preparing";
 import HelpCentre from "./HelpCentre";
 import Reviews from "./Reviews";
 import AdminReviewList from "./Admin/ReviewList";
+import EmailNewsletterCreateForm from "./Admin/EmailNewsletterCreateForm";
+import AdminEmailList from "./Admin/EmailList";
 
 export default function AppRoutes() {
   return (
@@ -32,8 +34,14 @@ export default function AppRoutes() {
           {/* Pro nenalezene stranky */}
           <Route path="*" element={<NotFound />} />
 
-          <Route path="/vyprodej" element={<Preparing content="Zpět na hlavní stránku" link="/" />} />
-          <Route path="/trendy" element={<Preparing content="Zpět na hlavní stránku" link="/" />} />
+          <Route
+            path="/vyprodej"
+            element={<Preparing content="Zpět na hlavní stránku" link="/" />}
+          />
+          <Route
+            path="/trendy"
+            element={<Preparing content="Zpět na hlavní stránku" link="/" />}
+          />
           <Route path="/centrum-pomoci" element={<HelpCentre />} />
           <Route path="/recenze" element={<Reviews />} />
 
@@ -46,7 +54,11 @@ export default function AppRoutes() {
           <Route path="/admin/" element={<Admin />} />
           <Route path="/admin/product-list" element={<AdminProductList />} />
           <Route path="/admin/review-list" element={<AdminReviewList />} />
-
+          <Route path="/admin/email-list" element={<AdminEmailList />} />
+          <Route
+            path="/admin/create-newsletter"
+            element={<EmailNewsletterCreateForm />}
+          />
           {/* Stranky pro produkty */}
           <Route
             path="/produkty"
