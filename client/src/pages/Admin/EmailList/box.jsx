@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { removeEmail } from "@/models/Mail";
+import moment from "moment";
 
 export default function EmailBox(props) {
   const handleDeleteEmail = async () => {
@@ -19,12 +20,14 @@ export default function EmailBox(props) {
     );
     if (email.status === 200) window.location.reload();
   };
+  
   return (
     <>
       <p className="mb-0.5 font-medium">
         {props.email}
         <span className="float-right text-sm text-gray-400 font-normal">
-          {props.createdAt}
+          Odběratel od{" "}
+          {moment(props.createdAt).locale("cz").format("DD/MM/YYYY HH:mm")}
         </span>
       </p>
 

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,7 @@ export default function EmailNewsletterCreateForm() {
   );
 
   const navigate = useNavigate();
+  const iframeRef = useRef();
 
   const toastStyle = {
     error: "background-primary-light border-red-900/20",
@@ -70,8 +71,14 @@ export default function EmailNewsletterCreateForm() {
       [e.target.name]: e.target.value,
       password: localStorage.getItem("adminPassword"),
     });
+    //console.log(formData);
+  };
 
-    console.log(formData);
+  const handlePreview = (e) => {
+    const iframeBody = iframeRef.current.contentWindow.document;
+    iframeBody.open("text/html", "replace");
+    iframeBody.write(e.target.value);
+    iframeBody.close();
   };
 
   const handlePost = (e) => {
@@ -159,9 +166,12 @@ export default function EmailNewsletterCreateForm() {
             onChange={(e) => {
               setCode(e.target.value);
               handleChange(e);
+              handlePreview(e);
             }}
             className="flex min-h-[80px] w-full rounded-md border border-neutral-200 !bg-white px-3 py-2 !text-base ring-offset-white placeholder:!text-neutral-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:!text-sm dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:placeholder:text-neutral-400 dark:focus-visible:ring-neutral-300 !font-mono"
           />
+          <Label className="text-xs text-neutral-500">HTML náhled</Label>
+          <iframe ref={iframeRef} src="about:blank" title="preview" className="w-full rounded-md border border-neutral-200 !bg-white px-3 py-2" />
           <Button
             variant="secondary"
             onClick={handlePost}
