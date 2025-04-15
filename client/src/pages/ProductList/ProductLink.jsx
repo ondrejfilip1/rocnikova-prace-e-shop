@@ -53,8 +53,30 @@ export default function ProductLink(props) {
       selectedSize: size,
     };
     const items = JSON.parse(localStorage.getItem("cart")) || "";
-    const newItems = JSON.stringify([...items, itemObject]);
-    localStorage.setItem("cart", newItems) || "[]";
+    
+    // loop, kouka se jestli nemame duplikaty, jestli jo tak se jen pricte mnozstvi u toho danyho produktu
+    let duplicate = false;
+    for (let i = 0; i < items.length; i++) {
+      if (
+        productId === items[i].productId &&
+        color === items[i].color &&
+        selectedSize === items[i].selectedSize
+      ) {
+        // kdyz duplikat
+        items[i].quantity++;
+        const newItems = JSON.stringify(items);
+        localStorage.setItem("cart", newItems) || "[]";
+        duplicate = true;
+      } else if (i === items.length - 1) {
+        // neni duplikat
+        break;
+      }
+    }
+    // jestli neni duplikat tak muzu normalne pridat dalsi polozku
+    if (!duplicate) {
+      const newItems = JSON.stringify([...items, itemObject]);
+      localStorage.setItem("cart", newItems) || "[]";
+    }
     toast("Položka byla přidána do košíku", {
       description: props.name,
       action: {
