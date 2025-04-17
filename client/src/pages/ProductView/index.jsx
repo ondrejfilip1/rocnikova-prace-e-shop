@@ -122,6 +122,13 @@ export default function ProductView() {
         selectedSize === items[i].selectedSize
       ) {
         // kdyz duplikat
+        if (items[i].quantity + 1 > product.amount)
+          return toast("Více položek přidat nemůžete", {
+            action: {
+              label: <X />,
+            },
+          });
+
         items[i].quantity++;
         const newItems = JSON.stringify(items);
         localStorage.setItem("cart", newItems) || "[]";

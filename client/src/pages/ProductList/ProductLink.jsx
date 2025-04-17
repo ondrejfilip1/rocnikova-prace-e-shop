@@ -60,9 +60,16 @@ export default function ProductLink(props) {
       if (
         productId === items[i].productId &&
         color === items[i].color &&
-        selectedSize === items[i].selectedSize
+        size === items[i].selectedSize
       ) {
         // kdyz duplikat
+        if (items[i].quantity + 1 > props.amount)
+          return toast("Více položek přidat nemůžete", {
+            action: {
+              label: <X />,
+            },
+          });
+
         items[i].quantity++;
         const newItems = JSON.stringify(items);
         localStorage.setItem("cart", newItems) || "[]";
