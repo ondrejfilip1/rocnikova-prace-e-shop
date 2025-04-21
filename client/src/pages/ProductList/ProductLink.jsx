@@ -186,7 +186,7 @@ export default function ProductLink(props) {
             <img
               src={`${props.imagePath}front_${colors[selectedColor]}.avif`}
               alt={props.name}
-              className="absolute inset-0 w-full px-6 h-full object-contain object-center select-none"
+              className="absolute inset-0 w-full px-6 h-full object-contain object-center select-none img_highlight"
               draggable="false"
             />
           </div>
