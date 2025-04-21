@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { PaymentElement } from "@stripe/react-stripe-js";
+import { PaymentElement, AddressElement } from "@stripe/react-stripe-js";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 
 export default function Checkout(props) {
@@ -36,6 +36,7 @@ export default function Checkout(props) {
     <>
       <div className="text-red-900 text-sm container mx-auto lg:max-w-screen-lg font-medium my-2 flex flex-col justify-center">
         <form id="payment-form" onSubmit={handleSubmit}>
+          <AddressElement options={{ mode: "shipping" }} className="mb-1.5" />
           <PaymentElement
             className="font-manrope-important"
             onLoaderStart={() => setPaymentLoaded(true)}
