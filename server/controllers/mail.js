@@ -74,33 +74,35 @@ exports.sendGroupNewsletter = async (req, res, next) => {
       },
     });
 
-    const mailOptions = {
-      from: "pigressnewsletter@gmail.com",
-      to: req.body.emailList,
-      subject: req.body.subject || "Pigress - Newsletter",
-      text: "Toto je newsletter od e-shopu Pigress.",
-      html: `
-    ${req.body.emailHTML}
+    for (let i = 0; i < emailList.length; i++) {
+      const mailOptions = {
+        from: "pigressnewsletter@gmail.com",
+        to: emailList[i],
+        subject: req.body.subject || "Pigress - Newsletter",
+        text: "Toto je newsletter od e-shopu Pigress.",
+        html: `
+      ${emailHTML}
+  
+      <br>
+      Tým Pigress
+      `,
+      };
 
-    <br>
-    Tým Pigress
-    `,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error("Error sending email: ", error);
-        return res.status(500).send({
-          message: "Error sending email",
-        });
-      } else {
-        console.log("Email sent: ", info.response);
-        return res.status(200).send({
-          message: "Email sent succesfully",
-          info: info.response,
-        });
-      }
-    });
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Error sending email: ", error);
+          return res.status(500).send({
+            message: "Error sending email",
+          });
+        } else {
+          console.log("Email sent: ", info.response);
+          return res.status(200).send({
+            message: "Email sent succesfully",
+            info: info.response,
+          });
+        }
+      });
+    }
   } catch (err) {
     res.status(500).send(err);
   }
