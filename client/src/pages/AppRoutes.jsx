@@ -22,6 +22,7 @@ import Reviews from "./Reviews";
 import AdminReviewList from "./Admin/ReviewList";
 import EmailNewsletterCreateForm from "./Admin/EmailNewsletterCreateForm";
 import AdminEmailList from "./Admin/EmailList";
+import DataProtection from "./DataProtection";
 
 export default function AppRoutes() {
   return (
@@ -44,6 +45,7 @@ export default function AppRoutes() {
           />
           <Route path="/centrum-pomoci" element={<HelpCentre />} />
           <Route path="/recenze" element={<Reviews />} />
+          <Route path="/ochrana-osobnich-udaju" element={<DataProtection />} />
 
           {/* Admin panel */}
           <Route path="/admin/add-product" element={<ProductCreateForm />} />

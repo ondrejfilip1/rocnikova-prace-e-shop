@@ -30,7 +30,7 @@ export default function Footer() {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (emailRegex.test(emailInput)) {
       const email = await addEmail({ email: emailInput });
-      console.log(email);
+      //console.log(email);
       if (email.status === 201)
         toast("Váš email byl přidán do newsletteru", {
           description: emailInput,
@@ -81,6 +81,9 @@ export default function Footer() {
             </Link>
             <Link to="/centrum-pomoci" className={styles.link}>
               Centrum pomoci
+            </Link>
+            <Link to="/ochrana-osobnich-udaju" className={styles.link}>
+              Ochrana osobních údajů
             </Link>
           </div>
         </div>
