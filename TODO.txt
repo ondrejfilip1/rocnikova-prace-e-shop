@@ -1,8 +1,5 @@
 ✅TODO:
 
- - Přidat další produkty
- - Stripe metadata limit (asi budu muset odebrat zobrazení košíku v platbách)
-
 Hotovo:
  - Fixnout, když vymažu item v košíku, aby se změnila celková cena
  - Stránka pro objednávky (basically košík ale lepší)
@@ -12,3 +9,5 @@ Hotovo:
  - Změnit prokliky na značky bot (nyní je vyhledávání pomocí jména)
  - Přejmenovat URL cesty v AppRoutes na české názvy
  - Hledání pomocí filtru (cena, značka atd.)
+ - Přidat další produkty
+ - Stripe metadata limit (asi budu muset odebrat zobrazení košíku v platbách)
