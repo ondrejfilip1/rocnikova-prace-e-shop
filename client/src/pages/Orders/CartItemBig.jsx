@@ -41,9 +41,8 @@ export default function CartItemBig({
 
   // timhle ziskam ceny produktu, ktery pak jdou do Orders
   useEffect(() => {
-    if (product) {
+    if (product) 
       itemPrice(index, product.price * quantity, productId);
-    }
 
     return () => removeItemPrice(productId, index);
   }, [product]);

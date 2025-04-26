@@ -2,6 +2,7 @@ import { getProductById } from "@/models/Product";
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { motion } from "motion/react";
+import { colors } from "../constants";
 
 export default function CartItem({ cartItems, index, reloadCart }) {
   const [product, setProducts] = useState();
@@ -56,20 +57,28 @@ export default function CartItem({ cartItems, index, reloadCart }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: .9 }}
+      initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.2 }}
       className="flex justify-between items-center"
     >
-      <div className="mx-1">
-        <div className="font-semibold">{product.name}</div>
-        <div>
-          {cartItems.quantity}{" "}
-          {cartItems.quantity == 1
-            ? "kus"
-            : cartItems.quantity >= 2 && cartItems.quantity <= 4
-            ? "kusy"
-            : "kusů"}
+      <div className="flex items-center gap-2">
+        <img
+          draggable={false}
+          className="w-10 aspect-square object-contain ml-1"
+          src={`${product.imagePath}front_${colors[cartItems.color]}.avif`}
+          alt={product.name}
+        />
+        <div className="mx-1">
+          <div className="font-semibold">{product.name}</div>
+          <div>
+            {cartItems.quantity}{" "}
+            {cartItems.quantity == 1
+              ? "kus"
+              : cartItems.quantity >= 2 && cartItems.quantity <= 4
+              ? "kusy"
+              : "kusů"}
+          </div>
         </div>
       </div>
       <Trash2
